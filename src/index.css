@@ -1,0 +1,225 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+:root {
+	/* Primary Clinical Brand (Calm Emerald / Teal) */
+	--ig-primary: #0d7a5f;
+	--ig-primary-hover: #0a634d;
+	--ig-primary-active: #084e3c;
+	--ig-primary-soft: #ecf7f3;
+	--ig-primary-border: #b8e2d4;
+
+	/* Neutral Foundation */
+	--ig-ink: #0f172a;
+	--ig-ink-secondary: #334155;
+	--ig-muted: #64748b;
+	--ig-subtle: #94a3b8;
+	--ig-paper: #f8faf9;
+	--ig-surface: #ffffff;
+	--ig-surface-raised: #f1f5f3;
+	--ig-line: #e2e8e5;
+	--ig-line-subtle: #f0f3f1;
+
+	/* Semantic Urgency: Level 1 Emergency (Red reserved strictly for critical) */
+	--ig-emergency: #dc2626;
+	--ig-emergency-hover: #b91c1c;
+	--ig-emergency-soft: #fef2f2;
+	--ig-emergency-border: #fecaca;
+	--ig-emergency-text: #991b1b;
+
+	/* Semantic Urgency: Level 2 Urgent (Amber/Orange) */
+	--ig-urgent: #ea580c;
+	--ig-urgent-soft: #fff7ed;
+	--ig-urgent-border: #fed7aa;
+	--ig-urgent-text: #9a3412;
+
+	/* Semantic Urgency: Level 3 Medical Review (Yellow/Amber) */
+	--ig-review: #d97706;
+	--ig-review-soft: #fefce8;
+	--ig-review-border: #fef08a;
+	--ig-review-text: #854d0e;
+
+	/* Semantic Urgency: Level 4 Basic First Aid (Teal/Emerald) */
+	--ig-first-aid: #0d7a5f;
+	--ig-first-aid-soft: #f0fdf4;
+	--ig-first-aid-border: #bbf7d0;
+	--ig-first-aid-text: #166534;
+
+	/* Info & Reference (Blue) */
+	--ig-info: #0284c7;
+	--ig-info-soft: #f0f9ff;
+	--ig-info-border: #bae6fd;
+	--ig-info-text: #075985;
+
+	/* Tokens */
+	--ig-radius-sm: 8px;
+	--ig-radius-md: 12px;
+	--ig-radius-lg: 16px;
+	--ig-radius-xl: 20px;
+	--ig-radius-2xl: 24px;
+	--ig-radius-full: 9999px;
+
+	--ig-shadow-xs: 0 1px 2px 0 rgba(15, 23, 42, 0.03);
+	--ig-shadow-sm: 0 2px 6px -1px rgba(15, 23, 42, 0.05), 0 1px 3px -1px rgba(15, 23, 42, 0.03);
+	--ig-shadow-md: 0 8px 20px -3px rgba(15, 23, 42, 0.06), 0 3px 6px -2px rgba(15, 23, 42, 0.04);
+	--ig-shadow-lg: 0 16px 36px -4px rgba(15, 23, 42, 0.08), 0 6px 12px -3px rgba(15, 23, 42, 0.04);
+	--ig-shadow-xl: 0 24px 48px -6px rgba(15, 23, 42, 0.12), 0 10px 16px -4px rgba(15, 23, 42, 0.06);
+}
+
+.dark {
+	--ig-primary: #10b981;
+	--ig-primary-hover: #059669;
+	--ig-primary-active: #047857;
+	--ig-primary-soft: rgba(16, 185, 129, 0.12);
+	--ig-primary-border: rgba(16, 185, 129, 0.25);
+
+	--ig-ink: #f8fafc;
+	--ig-ink-secondary: #cbd5e1;
+	--ig-muted: #94a3b8;
+	--ig-subtle: #64748b;
+	--ig-paper: #0b100d;
+	--ig-surface: #121915;
+	--ig-surface-raised: #17211c;
+	--ig-line: #1e2c25;
+	--ig-line-subtle: #17221c;
+
+	--ig-emergency: #ef4444;
+	--ig-emergency-hover: #dc2626;
+	--ig-emergency-soft: rgba(239, 68, 68, 0.15);
+	--ig-emergency-border: rgba(239, 68, 68, 0.3);
+	--ig-emergency-text: #fca5a5;
+
+	--ig-urgent: #f97316;
+	--ig-urgent-soft: rgba(249, 115, 22, 0.15);
+	--ig-urgent-border: rgba(249, 115, 22, 0.3);
+	--ig-urgent-text: #fdba74;
+
+	--ig-review: #f59e0b;
+	--ig-review-soft: rgba(245, 158, 11, 0.15);
+	--ig-review-border: rgba(245, 158, 11, 0.3);
+	--ig-review-text: #fcd34d;
+
+	--ig-first-aid: #10b981;
+	--ig-first-aid-soft: rgba(16, 185, 129, 0.15);
+	--ig-first-aid-border: rgba(16, 185, 129, 0.3);
+	--ig-first-aid-text: #86efac;
+
+	--ig-info: #38bdf8;
+	--ig-info-soft: rgba(56, 189, 248, 0.15);
+	--ig-info-border: rgba(56, 189, 248, 0.3);
+	--ig-info-text: #7dd3fc;
+}
+
+html {
+	background: var(--ig-paper);
+	scroll-behavior: smooth;
+	color-scheme: light dark;
+}
+
+body {
+	margin: 0;
+	color: var(--ig-ink);
+	background: var(--ig-paper);
+	font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+	font-size: 15px;
+	line-height: 1.55;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+	font-weight: 700;
+	letter-spacing: -0.02em;
+	color: var(--ig-ink);
+}
+
+button, a, input, textarea, select {
+	-webkit-tap-highlight-color: transparent;
+	font-family: inherit;
+}
+
+button, a {
+	transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, box-shadow 150ms ease, transform 120ms ease;
+}
+
+button:active:not(:disabled), a:active:not([aria-disabled="true"]) {
+	transform: scale(0.985);
+}
+
+:where(button, a, input, textarea, select):focus-visible {
+	outline: 2px solid var(--ig-primary);
+	outline-offset: 2px;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background: rgba(100, 116, 139, 0.25);
+	border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: rgba(100, 116, 139, 0.4);
+}
+
+/* Keyframes & Animations */
+@keyframes ig-fade-in {
+	from {
+		opacity: 0;
+		transform: translateY(6px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes ig-pulse-subtle {
+	0%, 100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.75;
+	}
+}
+
+.animate-fadeIn {
+	animation: ig-fade-in 300ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-pulse-subtle {
+	animation: ig-pulse-subtle 2s ease-in-out infinite;
+}
+
+/* Accessibility & Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+	*, *::before, *::after {
+		animation-duration: 0.001ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.001ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+/* Print Stylesheet for SBAR Medical Report */
+@media print {
+	body {
+		background: #ffffff !important;
+		color: #000000 !important;
+	}
+	header, footer, nav, button, .no-print {
+		display: none !important;
+	}
+	.print-only {
+		display: block !important;
+	}
+}

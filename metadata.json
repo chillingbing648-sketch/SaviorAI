@@ -1,0 +1,12 @@
+{
+  "name": "InjuryGuard AI",
+  "description": "AI-assisted injury triage, first-response safety, and medical escalation platform.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
