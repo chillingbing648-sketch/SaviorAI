@@ -1,5 +1,4 @@
 <div align="center">
-  <img src="frontend-full-page.png" alt="SaviorAI interface preview" width="70%" />
 
   <h1>SaviorAI</h1>
   <p><strong>AI-assisted injury assessment, safety triage, monitoring, and emergency guidance.</strong></p>
