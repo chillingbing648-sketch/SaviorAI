@@ -17,7 +17,7 @@ export const SUPPORTED_LANGUAGES: LanguageOption[] = [
 
 export const UI_TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
   en: {
-    appName: 'InjuryGuard AI',
+    appName: 'Mendly',
     appTagline: 'First-Response Injury Safety & Medical Triage Platform',
     emergencyButton: 'Emergency Help (1-Tap)',
     assessInjury: 'Assess an Injury',
@@ -51,7 +51,7 @@ export const UI_TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> 
     ,headConcussion: 'Head & Concussion'
   },
   es: {
-    appName: 'InjuryGuard AI',
+    appName: 'Mendly',
     appTagline: 'Plataforma de Seguridad y Triaje de Lesiones de Primeros Auxilios',
     emergencyButton: 'Emergencia (1-Toque)',
     assessInjury: 'Evaluar una Lesión',
@@ -85,7 +85,7 @@ export const UI_TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> 
     ,headConcussion: 'Cabeza y conmoción'
   },
   hi: {
-    appName: 'InjuryGuard AI',
+    appName: 'Mendly',
     appTagline: 'प्राथमिक चिकित्सा चोट सुरक्षा एवं मेडिकल ट्राइएज प्लेटफॉर्म',
     emergencyButton: 'आपातकालीन सहायता (1-टैप)',
     assessInjury: 'चोट का आकलन करें',
@@ -119,7 +119,7 @@ export const UI_TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> 
     ,headConcussion: 'सिर और चोट'
   },
   fr: {
-    appName: 'InjuryGuard AI',
+    appName: 'Mendly',
     appTagline: 'Plateforme de Sécurité des Blessures et Triage Médical',
     emergencyButton: 'Urgence (1-Clic)',
     assessInjury: 'Évaluer une Blessure',
@@ -153,7 +153,7 @@ export const UI_TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> 
     ,headConcussion: 'Tête et commotion'
   },
   de: {
-    appName: 'InjuryGuard AI',
+    appName: 'Mendly',
     appTagline: 'Erste-Hilfe-Verletzungssicherheit & Medizinisches Triage-System',
     emergencyButton: 'Notfallhilfe (1-Klick)',
     assessInjury: 'Verletzung Bewerten',
@@ -187,7 +187,7 @@ export const UI_TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> 
     ,headConcussion: 'Kopf und Gehirnerschütterung'
   },
   zh: {
-    appName: 'InjuryGuard AI',
+    appName: 'Mendly',
     appTagline: '急救伤害安全与医疗分诊平台',
     emergencyButton: '紧急求助 (一键直达)',
     assessInjury: '评估伤情',

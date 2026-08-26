@@ -1,5 +1,5 @@
 {
-  "name": "InjuryGuard AI",
+  "name": "Mendly",
   "description": "AI-assisted injury triage, first-response safety, and medical escalation platform.",
   "requestFramePermissions": [
     "camera",

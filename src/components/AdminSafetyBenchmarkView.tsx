@@ -69,7 +69,7 @@ export const AdminSafetyBenchmarkView: React.FC<AdminSafetyBenchmarkViewProps> =
     const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(auditLogs, null, 2));
     const downloadAnchor = document.createElement('a');
     downloadAnchor.setAttribute('href', dataStr);
-    downloadAnchor.setAttribute('download', `injuryguard_safety_audit_${Date.now()}.json`);
+    downloadAnchor.setAttribute('download', `mendly_safety_audit_${Date.now()}.json`);
     document.body.appendChild(downloadAnchor);
     downloadAnchor.click();
     downloadAnchor.remove();

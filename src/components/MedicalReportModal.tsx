@@ -44,7 +44,7 @@ export const MedicalReportModal: React.FC<MedicalReportModalProps> = ({
   const handleCopySummary = () => {
     if (!assessment) return;
     const text = `
-INJURYGUARD AI — EMERGENCY / CLINICAL HAND-OFF REPORT
+MENDLY — EMERGENCY / CLINICAL HAND-OFF REPORT
 =====================================================
 Date/Time: ${new Date().toLocaleString()}
 Triage Level: ${assessment.urgencyLevel} (${assessment.urgencyTitle})
@@ -125,7 +125,7 @@ CLINICAL RECOVERY LOG ENTRIES: ${monitoredInjury?.entries.length || 1} checkpoin
           <div className="border-b-2 border-neutral-900 dark:border-neutral-700 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
               <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500">
-                INJURYGUARD AI MEDICAL SYSTEMS • CLINICAL SUMMARY
+                MENDLY MEDICAL SYSTEMS • CLINICAL SUMMARY
               </span>
               <h1 className="text-xl sm:text-2xl font-black mt-0.5">
                 First-Response Injury & Triage Handoff Note
@@ -251,7 +251,7 @@ CLINICAL RECOVERY LOG ENTRIES: ${monitoredInjury?.entries.length || 1} checkpoin
           <div className="p-4 bg-neutral-100 dark:bg-neutral-800 rounded-xl text-[10px] text-neutral-500 dark:text-neutral-400 space-y-1">
             <p className="font-bold uppercase">Medical Triage & Governance Notice:</p>
             <p>
-              This report was compiled by InjuryGuard AI's safety orchestration pipeline to assist in patient communication and clinical hand-off. It does not constitute a diagnostic laboratory report, radiology interpretation, or physician diagnosis. All medical decisions must be made by qualified healthcare professionals.
+              This report was compiled by Mendly's safety orchestration pipeline to assist in patient communication and clinical hand-off. It does not constitute a diagnostic laboratory report, radiology interpretation, or physician diagnosis. All medical decisions must be made by qualified healthcare professionals.
             </p>
           </div>
 

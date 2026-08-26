@@ -77,7 +77,7 @@ export const Header: React.FC<HeaderProps> = ({
             <div>
               <div className="flex items-center space-x-2">
                 <span className="font-bold text-lg sm:text-xl tracking-tight text-slate-900 dark:text-white">
-                  InjuryGuard
+                  Mendly
                 </span>
                 <span className="hidden md:inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wider bg-[#ecf7f3] dark:bg-emerald-950/60 text-[#0d7a5f] dark:text-emerald-300 border border-[#b8e2d4] dark:border-emerald-900/60 uppercase">
                   TRIAGE & SAFETY

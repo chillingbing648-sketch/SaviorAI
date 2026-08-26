@@ -323,7 +323,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
         </div>
 
         <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
-          InjuryGuard is designed with zero persistent server-side health profiling.
+          Mendly is designed with zero persistent server-side health profiling.
           All your logged check-ins, photographs, and personal notes remain stored in your local browser sandbox and can be exported or purged at any time.
         </p>
 

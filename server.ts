@@ -46,7 +46,7 @@ async function startServer() {
   app.get('/api/health', (req, res) => {
     res.json({
       status: 'ok',
-      service: 'InjuryGuard AI Safety & Triage Engine',
+      service: 'Mendly Safety & Triage Engine',
       version: '2026.1',
       hasGeminiApiKey: Boolean(process.env.GEMINI_API_KEY),
       activeProtocols: protocolDatabase.length
@@ -272,7 +272,7 @@ async function startServer() {
   }
 
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`InjuryGuard AI server running on http://localhost:${PORT}`);
+    console.log(`Mendly server running on http://localhost:${PORT}`);
   });
 }
 

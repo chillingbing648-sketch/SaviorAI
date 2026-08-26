@@ -114,7 +114,7 @@ export default function App() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `injuryguard_health_records_${new Date().toISOString().slice(0, 10)}.json`;
+    a.download = `mendly_health_records_${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -277,7 +277,7 @@ export default function App() {
       {/* Footer Disclaimer */}
       <footer className="border-t border-neutral-200 dark:border-neutral-800 bg-white/60 dark:bg-neutral-900/60 backdrop-blur-xs py-6 text-center text-xs text-neutral-500 dark:text-neutral-400 space-y-1">
         <p className="font-semibold text-neutral-700 dark:text-neutral-300">
-          InjuryGuard provides emergency safety and triage guidance. It is not a medical diagnosis tool.
+          Mendly provides emergency safety and triage guidance. It is not a medical diagnosis tool.
         </p>
         <p>
           Always seek the advice of a physician or call emergency services for acute trauma, severe bleeding, or unconsciousness.
