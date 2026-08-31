@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="560" viewBox="0 0 1600 560" role="img" aria-labelledby="title desc">
+  <title id="title">SaviorAI — Safety Intelligence for the Moments That Matter</title>
+  <desc id="desc">A premium healthcare-tech inspired header with a soft blue, mint and violet gradient, shield motif, medical cross, waveform and safety indicators.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#EAF7FF"/>
+      <stop offset="0.38" stop-color="#EEF4FF"/>
+      <stop offset="0.72" stop-color="#EAFBF4"/>
+      <stop offset="1" stop-color="#F4EEFF"/>
+    </linearGradient>
+    <radialGradient id="glow1"><stop offset="0" stop-color="#7DD3FC" stop-opacity=".34"/><stop offset="1" stop-color="#7DD3FC" stop-opacity="0"/></radialGradient>
+    <radialGradient id="glow2"><stop offset="0" stop-color="#A7F3D0" stop-opacity=".42"/><stop offset="1" stop-color="#A7F3D0" stop-opacity="0"/></radialGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#526581" flood-opacity=".16"/></filter>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#7892AD" stroke-opacity=".08"/></pattern>
+  </defs>
+
+  <rect width="1600" height="560" rx="40" fill="url(#bg)"/>
+  <rect x="20" y="20" width="1560" height="520" rx="34" fill="url(#grid)"/>
+  <circle cx="170" cy="110" r="250" fill="url(#glow1)"/>
+  <circle cx="1450" cy="430" r="290" fill="url(#glow2)"/>
+
+  <g transform="translate(92 118)" filter="url(#shadow)">
+    <rect width="330" height="270" rx="30" fill="#FFFFFF" fill-opacity=".88" stroke="#FFFFFF" stroke-width="2"/>
+    <circle cx="165" cy="116" r="72" fill="#E8F4FF"/>
+    <path d="M165 58 L218 78 V132 C218 174 192 203 165 216 C138 203 112 174 112 132 V78 Z" fill="#FFFFFF" stroke="#4F8DBA" stroke-width="7"/>
+    <path d="M165 86 V155 M130 120 H200" stroke="#45A77A" stroke-width="13" stroke-linecap="round"/>
+    <circle cx="64" cy="44" r="8" fill="#45A77A"/><circle cx="92" cy="44" r="8" fill="#7CB7D9"/><circle cx="120" cy="44" r="8" fill="#B9A8E8"/>
+    <text x="165" y="248" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" letter-spacing="3" fill="#60758B">SAFETY · TRIAGE · CARE</text>
+  </g>
+
+  <g transform="translate(510 86)">
+    <text x="290" y="120" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="86" font-weight="700" fill="#263B52">SaviorAI</text>
+    <text x="290" y="170" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="600" letter-spacing="5" fill="#5F7992">SAFETY INTELLIGENCE FOR THE MOMENTS THAT MATTER</text>
+    <text x="290" y="215" text-anchor="middle" font-family="Arial, sans-serif" font-size="21" fill="#7890A5">AI-assisted injury triage · first-response guidance · escalation</text>
+  </g>
+
+  <g transform="translate(520 306)" filter="url(#shadow)">
+    <rect width="620" height="132" rx="28" fill="#FFFFFF" fill-opacity=".9"/>
+    <g transform="translate(28 29)">
+      <rect width="74" height="74" rx="20" fill="#E8F4FF"/><text x="37" y="51" text-anchor="middle" font-family="Arial" font-size="34" fill="#4F8DBA">✚</text>
+      <rect x="92" width="74" height="74" rx="20" fill="#E8F8F0"/><text x="129" y="51" text-anchor="middle" font-family="Arial" font-size="32" fill="#45A77A">✓</text>
+      <rect x="184" width="74" height="74" rx="20" fill="#F0EBFF"/><text x="221" y="51" text-anchor="middle" font-family="Arial" font-size="31" fill="#8068B8">⌁</text>
+      <rect x="276" width="74" height="74" rx="20" fill="#FFF3E3"/><text x="313" y="51" text-anchor="middle" font-family="Arial" font-size="31" fill="#D28A4C">!</text>
+      <text x="380" y="31" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#425B72">guided assessment</text>
+      <text x="380" y="58" font-family="Arial, sans-serif" font-size="17" fill="#7890A5">deterministic safety gates + AI assistance</text>
+    </g>
+  </g>
+
+  <g transform="translate(1280 92)">
+    <circle cx="105" cy="105" r="105" fill="#FFFFFF" fill-opacity=".58"/>
+    <path d="M55 128 C82 70 102 144 124 91 C144 43 166 91 188 64" fill="none" stroke="#5C9BC3" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="55" cy="128" r="8" fill="#45A77A"/><circle cx="124" cy="91" r="8" fill="#8068B8"/><circle cx="188" cy="64" r="8" fill="#D28A4C"/>
+    <text x="105" y="174" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="700" letter-spacing="2" fill="#60758B">RED-FLAG AWARE</text>
+  </g>
+
+  <g fill="#5C9BC3" opacity=".65"><circle cx="480" cy="474" r="6"/><circle cx="1178" cy="100" r="5"/><circle cx="1430" cy="300" r="7"/></g>
+  <path d="M445 470 q24 -26 48 0 M1160 112 q20 -24 40 0" fill="none" stroke="#8068B8" stroke-width="4" stroke-linecap="round" opacity=".5"/>
+</svg>
