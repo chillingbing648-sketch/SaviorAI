@@ -580,3 +580,15 @@ Repository: https://github.com/chillingbing648-sketch/SaviorAI
 Live frontend: https://chillingbing648-sketch.github.io/SaviorAI/
 
 Built with React, TypeScript, Express and Google Gemini.
+
+---
+
+## 🔄 Rebrand Notice
+
+> **SaviorAI is becoming Mendly.**
+
+The project name has been changed to **Mendly**, and the repository/app are currently being reworked under the new identity. The upcoming updates will cover the **name, branding, UI, documentation and related project references**.
+
+These changes will be rolled out over the **next few days** as the transition is completed.
+
+Until then, some parts of the repository may still reference **SaviorAI** while the rebrand is in progress.
