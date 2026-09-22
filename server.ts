@@ -1,5 +1,4 @@
 import express from 'express';
-import cors from 'cors';
 import path from 'path';
 import { createServer as createViteServer } from 'vite';
 import { executeSafetyTriagePipeline } from './server/safetyPipeline';
@@ -39,8 +38,19 @@ async function startServer() {
   const PORT = Number(process.env.PORT) || 3000;
 
   // JSON Body Parser with ample capacity for image uploads
-  const allowedOrigins = (process.env.CORS_ORIGINS || '').split(',').map((origin) => origin.trim()).filter(Boolean);
-  app.use(cors({ origin: allowedOrigins.length ? allowedOrigins : true, credentials: false }));
+  const allowedOrigins = (process.env.CORS_ORIGINS || '*').split(',').map((origin) => origin.trim()).filter(Boolean);
+  app.use((req, res, next) => {
+    const requestOrigin = req.headers.origin;
+    if (requestOrigin && (allowedOrigins.includes('*') || allowedOrigins.includes(requestOrigin))) {
+      res.header('Access-Control-Allow-Origin', requestOrigin);
+    } else if (allowedOrigins.includes('*')) {
+      res.header('Access-Control-Allow-Origin', '*');
+    }
+    res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    if (req.method === 'OPTIONS') return res.sendStatus(204);
+    next();
+  });
 
   app.use(express.json({ limit: '20mb' }));
   app.use(express.urlencoded({ extended: true, limit: '20mb' }));
