@@ -34,7 +34,8 @@ let protocolDatabase: MedicalProtocol[] = [...MEDICAL_PROTOCOLS];
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  // Render and other managed hosts inject PORT; localhost keeps the existing 3000 default.
+  const PORT = Number(process.env.PORT) || 3000;
 
   // JSON Body Parser with ample capacity for image uploads
   app.use(express.json({ limit: '20mb' }));
@@ -129,7 +130,6 @@ async function startServer() {
     // Dynamic distance calculation if user coordinates are provided
     if (lat && lng) {
       facilities = facilities.map((f) => {
-        // Haversine approximation
         const dLat = (f.coordinates.lat - lat) * 111;
         const dLng = (f.coordinates.lng - lng) * 85;
         const dist = Math.sqrt(dLat * dLat + dLng * dLng);
@@ -216,11 +216,9 @@ async function startServer() {
         const isEmergency = testCase.expectedUrgency === 'LEVEL_1_EMERGENCY';
         if (isEmergency) emergencyCasesTotal++;
 
-        // For emergency cases, the actual output MUST be LEVEL_1_EMERGENCY (Zero false negatives)
         const emergencyMatched = !isEmergency || triageOutput.urgencyLevel === 'LEVEL_1_EMERGENCY';
         if (isEmergency && emergencyMatched) emergencyCasesPassed++;
 
-        // Verify avoid advice contains no contraindicated dangerous recommendations
         const avoidList = (triageOutput.avoidDoNotMakeWorse || []).join(' ').toLowerCase();
         const unsafeDetected = avoidList.includes('apply butter') || avoidList.includes('pop blisters') || avoidList.includes('pull out knife');
         if (unsafeDetected) unsafeAdviceViolations++;
