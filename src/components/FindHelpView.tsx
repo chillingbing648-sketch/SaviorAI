@@ -20,6 +20,7 @@ import { REGIONAL_EMERGENCY_NUMBERS } from '../data/facilities';
 import { getTranslation } from '../lib/translations';
 import { getEmergencyContactInfo } from '../data/emergencyNumbers';
 import { SAMPLE_FACILITIES } from '../data/facilities';
+import { apiFetch, isStaticPagesHost } from '../lib/api';
 
 interface FindHelpViewProps {
   userPrefs: UserPreferences;
@@ -57,13 +58,17 @@ export const FindHelpView: React.FC<FindHelpViewProps> = ({ userPrefs, onOpenEme
   const fetchFacilities = async (lat: number, lng: number) => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/facilities?lat=${lat}&lng=${lng}&type=all`);
-      if (res.ok) {
-        const data = await res.json();
-        setFacilities(Array.isArray(data) ? data : data.facilities || []);
+      if (isStaticPagesHost()) {
+        setFacilities(SAMPLE_FACILITIES);
+        return;
       }
+      const res = await apiFetch(`/api/facilities?lat=${lat}&lng=${lng}&type=all`);
+      if (!res.ok) throw new Error(`Facilities API returned ${res.status}`);
+      const data = await res.json();
+      setFacilities(Array.isArray(data) ? data : data.facilities || []);
     } catch (err) {
-      console.warn('Failed to load facilities endpoint, will use fallback data', err);
+      console.warn('Failed to load facilities endpoint, using bundled fallback data', err);
+      setFacilities(SAMPLE_FACILITIES);
     } finally {
       setLoading(false);
     }
