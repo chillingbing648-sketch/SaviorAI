@@ -32,7 +32,7 @@ import {
   MonitoredInjury
 } from '../types';
 import { REGIONAL_EMERGENCY_NUMBERS } from '../data/facilities';
-import { generateDeterministicTriage, evaluateRedFlags, retrieveMatchingProtocols } from '../../server/safetyPipeline';
+import { generateDeterministicTriage, evaluateRedFlags, retrieveMatchingProtocols } from '../lib/safetyFallback';
 import { Button } from './ui/Button';
 import { Badge } from './ui/Badge';
 import { Card } from './ui/Card';
