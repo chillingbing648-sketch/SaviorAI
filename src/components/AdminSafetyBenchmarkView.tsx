@@ -40,7 +40,7 @@ export const AdminSafetyBenchmarkView: React.FC<AdminSafetyBenchmarkViewProps> =
       const res = await fetch('/api/audit-logs');
       if (res.ok) {
         const data = await res.json();
-        setAuditLogs(data);
+        setAuditLogs(Array.isArray(data) ? data : (data.logs || []));
       }
     } catch (err) {
       console.warn('Failed to fetch audit logs', err);
@@ -293,7 +293,7 @@ export const AdminSafetyBenchmarkView: React.FC<AdminSafetyBenchmarkViewProps> =
                   <span>{new Date(log.timestamp).toLocaleString()}</span>
                 </div>
                 <div className="text-neutral-800 dark:text-neutral-200 text-[11px]">
-                  {log.details.summary || JSON.stringify(log.details)}
+                  {log.details?.summary || log.notes || JSON.stringify(log.details || {})}
                 </div>
               </div>
             ))}
