@@ -1,4 +1,4 @@
-const configuredBase = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
+const configuredBase = ((import.meta as ImportMeta & { env?: { VITE_API_BASE_URL?: string } }).env?.VITE_API_BASE_URL || '').replace(/\/$/, '');
 
 export const API_BASE_URL = configuredBase;
 
