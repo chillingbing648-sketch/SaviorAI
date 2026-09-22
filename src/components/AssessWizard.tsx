@@ -38,6 +38,7 @@ import { Badge } from './ui/Badge';
 import { Card } from './ui/Card';
 import { getTranslation } from '../lib/translations';
 import { getEmergencyContactInfo } from '../data/emergencyNumbers';
+import { apiFetch, isStaticPagesHost } from '../lib/api';
 
 interface AssessWizardProps {
   initialCase?: SafetyBenchmarkTestCase | null;
@@ -275,8 +276,25 @@ export const AssessWizard: React.FC<AssessWizardProps> = ({
     const timer2 = setTimeout(() => setProcessingStage(3), 800);
     const timer3 = setTimeout(() => setProcessingStage(4), 1200);
 
+    const runLocalSafetyEngine = () => {
+      const redFlagResult = evaluateRedFlags(requestPayload);
+      const fallback = generateDeterministicTriage(
+        requestPayload,
+        redFlagResult,
+        retrieveMatchingProtocols(requestPayload)
+      );
+      setAssessmentResult(fallback);
+      onCompleteAssessment(fallback, requestPayload);
+      setTimeout(() => setStep(4), 1500);
+    };
+
+    if (isStaticPagesHost()) {
+      runLocalSafetyEngine();
+      return;
+    }
+
     try {
-      const response = await fetch('/api/triage/assess', {
+      const response = await apiFetch('/api/triage/assess', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(requestPayload)
@@ -295,17 +313,7 @@ export const AssessWizard: React.FC<AssessWizardProps> = ({
       }, 1500);
     } catch (err) {
       console.warn('Direct API assessment failed, generating deterministic fallback:', err);
-      const redFlagResult = evaluateRedFlags(requestPayload);
-      const fallback = generateDeterministicTriage(
-        requestPayload,
-        redFlagResult,
-        retrieveMatchingProtocols(requestPayload)
-      );
-      setAssessmentResult(fallback);
-      onCompleteAssessment(fallback, requestPayload);
-      setTimeout(() => {
-        setStep(4);
-      }, 1500);
+      runLocalSafetyEngine();
     }
 
     return () => {
