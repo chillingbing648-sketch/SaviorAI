@@ -19,6 +19,7 @@ import { HealthcareFacility, UserPreferences } from '../types';
 import { REGIONAL_EMERGENCY_NUMBERS } from '../data/facilities';
 import { getTranslation } from '../lib/translations';
 import { getEmergencyContactInfo } from '../data/emergencyNumbers';
+import { SAMPLE_FACILITIES } from '../data/facilities';
 
 interface FindHelpViewProps {
   userPrefs: UserPreferences;
@@ -56,7 +57,7 @@ export const FindHelpView: React.FC<FindHelpViewProps> = ({ userPrefs, onOpenEme
   const fetchFacilities = async (lat: number, lng: number) => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/facilities/nearby?lat=${lat}&lng=${lng}&region=${userPrefs.region}`);
+      const res = await fetch(`/api/facilities?lat=${lat}&lng=${lng}&type=all`);
       if (res.ok) {
         const data = await res.json();
         setFacilities(Array.isArray(data) ? data : data.facilities || []);
