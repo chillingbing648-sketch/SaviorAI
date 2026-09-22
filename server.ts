@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import path from 'path';
 import { createServer as createViteServer } from 'vite';
 import { executeSafetyTriagePipeline } from './server/safetyPipeline';
@@ -38,6 +39,9 @@ async function startServer() {
   const PORT = Number(process.env.PORT) || 3000;
 
   // JSON Body Parser with ample capacity for image uploads
+  const allowedOrigins = (process.env.CORS_ORIGINS || '').split(',').map((origin) => origin.trim()).filter(Boolean);
+  app.use(cors({ origin: allowedOrigins.length ? allowedOrigins : true, credentials: false }));
+
   app.use(express.json({ limit: '20mb' }));
   app.use(express.urlencoded({ extended: true, limit: '20mb' }));
 
@@ -128,7 +132,7 @@ async function startServer() {
     }
 
     // Dynamic distance calculation if user coordinates are provided
-    if (lat && lng) {
+    if (lat !== null && lng !== null && Number.isFinite(lat) && Number.isFinite(lng)) {
       facilities = facilities.map((f) => {
         const dLat = (f.coordinates.lat - lat) * 111;
         const dLng = (f.coordinates.lng - lng) * 85;
