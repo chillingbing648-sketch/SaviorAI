@@ -48,9 +48,9 @@ export const Button: React.FC<ButtonProps> = ({
     emergency:
       'bg-[#DC2626] hover:bg-[#B91C1C] active:bg-[#991B1B] text-white shadow-sm shadow-red-900/20 font-bold dark:bg-[#FF4D4D] dark:hover:bg-[#E63C3C]',
     'emergency-light':
-      'bg-white hover:bg-red-50 active:bg-red-100 text-red-700 hover:text-red-800 dark:bg-white dark:text-red-700 dark:hover:bg-red-50 font-black shadow-md border border-red-200/80',
+      'bg-white hover:bg-red-50 active:bg-red-100 !text-[#b91c1c] hover:!text-[#991b1b] dark:bg-white dark:!text-[#b91c1c] dark:hover:!text-[#991b1b] font-black shadow-md border border-red-200/80',
     'emergency-outline':
-      'border-2 border-red-300 hover:border-red-500 bg-white hover:bg-red-50 text-red-700 hover:text-red-800 dark:border-red-800 dark:bg-[#180a0c] dark:hover:bg-red-950/60 dark:text-red-300 font-bold shadow-xs',
+      'border-2 border-red-300 hover:border-red-500 bg-white hover:bg-red-50 !text-[#b91c1c] hover:!text-[#991b1b] dark:border-red-800 dark:bg-[#180a0c] dark:hover:bg-red-950/60 dark:!text-red-300 font-bold shadow-xs',
     outline:
       'border border-[#c8d7d1] hover:border-[#0d7a5f] bg-white hover:bg-[#f4f8f6] text-[#081a14] dark:border-[#1e463a] dark:bg-[#0c221b] dark:hover:bg-[#122e25] dark:hover:border-[#00BE88] dark:text-[#f5fbf8] shadow-xs',
     ghost:
@@ -72,10 +72,10 @@ export const Button: React.FC<ButtonProps> = ({
       {isLoading ? (
         <Loader2 className="w-4 h-4 animate-spin text-current shrink-0" />
       ) : (
-        leftIcon && <span className="inline-flex shrink-0">{leftIcon}</span>
+        leftIcon && <span className="inline-flex shrink-0 text-current">{leftIcon}</span>
       )}
-      {children && <span>{children}</span>}
-      {!isLoading && rightIcon && <span className="inline-flex shrink-0">{rightIcon}</span>}
+      {children && <span className="text-current">{children}</span>}
+      {!isLoading && rightIcon && <span className="inline-flex shrink-0 text-current">{rightIcon}</span>}
     </motion.button>
   );
 };

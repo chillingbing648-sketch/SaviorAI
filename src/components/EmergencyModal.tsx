@@ -170,7 +170,7 @@ export const EmergencyModal: React.FC<EmergencyModalProps> = ({
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2 text-neutral-300 text-xs font-semibold uppercase tracking-wider">
                 <MapPin className="w-4 h-4 text-emerald-400" />
-                <span>Tell the 911 Dispatcher Your Coordinates:</span>
+                <span>Tell the Emergency Dispatcher Your Coordinates ({emergencyCountry === 'India' || userPrefs.region === 'IN' ? '112 / 108' : '911'}):</span>
               </div>
               <button
                 onClick={handleCopyLocation}

@@ -684,8 +684,8 @@ export const AssessWizard: React.FC<AssessWizardProps> = ({
                     size="md"
                     variant="emergency-light"
                     onClick={onOpenEmergency}
-                    leftIcon={<PhoneCall className="w-4 h-4 text-red-700" />}
-                    className="font-black shadow-md cursor-pointer"
+                    leftIcon={<PhoneCall className="w-4 h-4 text-[#b91c1c]" />}
+                    className="font-black shadow-md cursor-pointer !text-[#b91c1c] dark:!text-[#b91c1c]"
                   >
                     Open Emergency Mode (Call {regionInfo.generalEmergency})
                   </Button>
@@ -1239,8 +1239,8 @@ export const AssessWizard: React.FC<AssessWizardProps> = ({
                   size="lg"
                   variant="emergency-light"
                   onClick={onOpenEmergency}
-                  leftIcon={<PhoneCall className="w-5 h-5 text-red-700 shrink-0" />}
-                  className="whitespace-nowrap self-start sm:self-center font-black shadow-md cursor-pointer"
+                  leftIcon={<PhoneCall className="w-5 h-5 text-[#b91c1c] shrink-0" />}
+                  className="whitespace-nowrap self-start sm:self-center font-black shadow-md cursor-pointer !text-[#b91c1c] dark:!text-[#b91c1c]"
                 >
                   CALL {regionInfo.generalEmergency} NOW
                 </Button>
