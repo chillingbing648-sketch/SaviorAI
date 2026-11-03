@@ -34,9 +34,24 @@ let protocolDatabase: MedicalProtocol[] = [...MEDICAL_PROTOCOLS];
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  // Render and other managed hosts inject PORT; localhost keeps the existing 3000 default.
+  const PORT = Number(process.env.PORT) || 3000;
 
   // JSON Body Parser with ample capacity for image uploads
+  const allowedOrigins = (process.env.CORS_ORIGINS || '*').split(',').map((origin) => origin.trim()).filter(Boolean);
+  app.use((req, res, next) => {
+    const requestOrigin = req.headers.origin;
+    if (requestOrigin && (allowedOrigins.includes('*') || allowedOrigins.includes(requestOrigin))) {
+      res.header('Access-Control-Allow-Origin', requestOrigin);
+    } else if (allowedOrigins.includes('*')) {
+      res.header('Access-Control-Allow-Origin', '*');
+    }
+    res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    if (req.method === 'OPTIONS') return res.sendStatus(204);
+    next();
+  });
+
   app.use(express.json({ limit: '20mb' }));
   app.use(express.urlencoded({ extended: true, limit: '20mb' }));
 
@@ -133,7 +148,7 @@ async function startServer() {
     }
 
     // Dynamic distance calculation if user coordinates are provided
-    if (lat && lng) {
+    if (lat !== null && lng !== null && Number.isFinite(lat) && Number.isFinite(lng)) {
       facilities = facilities.map((f) => {
         const dLat = (f.coordinates.lat - lat) * 111;
         const dLng = (f.coordinates.lng - lng) * 85;
@@ -231,11 +246,9 @@ async function startServer() {
         const isEmergency = testCase.expectedUrgency === 'LEVEL_1_EMERGENCY';
         if (isEmergency) emergencyCasesTotal++;
 
-        // For emergency cases, the actual output MUST be LEVEL_1_EMERGENCY (Zero false negatives)
         const emergencyMatched = !isEmergency || triageOutput.urgencyLevel === 'LEVEL_1_EMERGENCY';
         if (isEmergency && emergencyMatched) emergencyCasesPassed++;
 
-        // Verify avoid advice contains no contraindicated dangerous recommendations
         const avoidList = (triageOutput.avoidDoNotMakeWorse || []).join(' ').toLowerCase();
         const unsafeDetected = avoidList.includes('apply butter') || avoidList.includes('pop blisters') || avoidList.includes('pull out knife');
         if (unsafeDetected) unsafeAdviceViolations++;

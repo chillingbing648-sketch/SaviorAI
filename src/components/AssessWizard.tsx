@@ -54,12 +54,13 @@ import {
   MonitoredInjury
 } from '../types';
 import { REGIONAL_EMERGENCY_NUMBERS } from '../data/facilities';
-import { generateDeterministicTriage, evaluateRedFlags, retrieveMatchingProtocols } from '../../server/safetyPipeline';
+import { generateDeterministicTriage, evaluateRedFlags, retrieveMatchingProtocols } from '../lib/safetyFallback';
 import { Button } from './ui/Button';
 import { Badge } from './ui/Badge';
 import { Card } from './ui/Card';
 import { getTranslation } from '../lib/translations';
 import { getEmergencyContactInfo } from '../data/emergencyNumbers';
+import { apiFetch, isStaticPagesHost } from '../lib/api';
 
 interface AssessWizardProps {
   initialCase?: SafetyBenchmarkTestCase | null;
@@ -390,6 +391,23 @@ export const AssessWizard: React.FC<AssessWizardProps> = ({
     const t2 = setTimeout(() => setProcessingStage(3), 700);
     const t3 = setTimeout(() => setProcessingStage(4), 1050);
     timersRef.current.push(t1, t2, t3);
+
+    const runLocalSafetyEngine = () => {
+      const redFlagResult = evaluateRedFlags(requestPayload);
+      const fallback = generateDeterministicTriage(
+        requestPayload,
+        redFlagResult,
+        retrieveMatchingProtocols(requestPayload)
+      );
+      setAssessmentResult(fallback);
+      onCompleteAssessment(fallback, requestPayload);
+      setTimeout(() => setStep(4), 1500);
+    };
+
+    if (isStaticPagesHost()) {
+      runLocalSafetyEngine();
+      return;
+    }
 
     try {
       const res = await fetch('/api/assess', {

@@ -1,163 +1,293 @@
 <div align="center">
 
+<img src="./assets/saviorai-header.svg" alt="SaviorAI — Safety Intelligence for the Moments That Matter" width="100%">
+
 # 🛟 SaviorAI
 
-### AI-powered injury intelligence • safety triage • emergency guidance
+### Safety Intelligence for the Moments That Matter.
 
-**A student-built full-stack AI project exploring what happens when modern web engineering meets a real-world safety problem.**
+**AI-assisted injury assessment • deterministic safety gates • emergency escalation • injury monitoring • safety benchmarks**
 
-<br />
-
-<img src="frontend-full-page.png" alt="SaviorAI application preview" width="92%" />
-
-<br /><br />
-
-### ⚡ Built With
-
-<p>
-  <img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=white" alt="React" />
-  <img src="https://img.shields.io/badge/TypeScript-5.8-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/Vite-6-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
-  <img src="https://img.shields.io/badge/Express-4-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express" />
-  <img src="https://img.shields.io/badge/Tailwind-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
-  <img src="https://img.shields.io/badge/Gemini_AI-API-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white" alt="Google Gemini" />
-  <img src="https://img.shields.io/badge/Node.js-Runtime-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js" />
-  <img src="https://img.shields.io/badge/esbuild-Bundler-FFCF00?style=for-the-badge&logo=esbuild&logoColor=black" alt="esbuild" />
-</p>
-
-<br />
-
-[![GitHub](https://img.shields.io/badge/GitHub-chillingbing648--sketch-181717?style=flat-square&logo=github)](https://github.com/chillingbing648-sketch)
-[![Repository](https://img.shields.io/badge/Repo-SaviorAI-7C3AED?style=flat-square&logo=github)](https://github.com/chillingbing648-sketch/SaviorAI)
-[![License](https://img.shields.io/badge/License-Apache--2.0-22C55E?style=flat-square)](https://github.com/chillingbing648-sketch/SaviorAI/blob/main/LICENSE)
+[![Live App](https://img.shields.io/badge/🚑%20LIVE%20APP-5C9BC3?style=for-the-badge)](https://chillingbing648-sketch.github.io/SaviorAI/)
+[![Source](https://img.shields.io/badge/💻%20SOURCE-181717?style=for-the-badge&logo=github)](https://github.com/chillingbing648-sketch/SaviorAI)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-6-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vite.dev/)
+[![Express](https://img.shields.io/badge/Express-4-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
+[![Gemini](https://img.shields.io/badge/Gemini-AI-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white)](https://ai.google.dev/)
 
 </div>
 
 ---
 
-## 🧠 What is SaviorAI?
+## 🌐 Preview
 
-SaviorAI is a **full-stack AI-assisted injury safety platform** built to make the first few moments after an injury more structured and actionable.
+<div align="center">
 
-Instead of throwing a chatbot at a medical problem, the project combines a guided assessment flow, a dedicated safety pipeline, escalation logic, injury monitoring, medical protocols, emergency resources, and audit-oriented tooling.
+<a href="https://chillingbing648-sketch.github.io/SaviorAI/">
+  <img src="./frontend-full-page.png" alt="SaviorAI application preview" width="94%">
+</a>
 
-> **The goal isn't to replace a doctor. It's to help someone make a safer next decision.**
+**[Open the live frontend →](https://chillingbing648-sketch.github.io/SaviorAI/)**
 
-This is also a serious engineering playground: React state architecture, TypeScript domain models, Express APIs, AI integration, local persistence, accessibility, offline awareness, safety benchmarks, and production-minded UX all live in the same project.
-
----
-
-## ✨ The Feature Set
-
-| 🚀 | Capability | What it does |
-|---|---|---|
-| 🩺 | **Smart Assessment** | Guided injury assessment with structured triage outcomes |
-| 🛡️ | **Safety Pipeline** | Server-side safety checks and escalation triggers |
-| 🚨 | **Emergency Mode** | Fast access to emergency actions and regional numbers |
-| 📈 | **Injury Watch** | Save and monitor injuries over time |
-| 🏥 | **Find Help** | Healthcare facility discovery with distance estimation |
-| 📚 | **Medical Library** | Structured medical protocols and reference content |
-| 🧪 | **Safety Benchmarks** | Test cases for evaluating triage behavior |
-| 🧾 | **Audit Logs** | Track triage and safety events |
-| 🌐 | **Offline Awareness** | Keeps saved guidance and emergency actions accessible offline |
-| ♿ | **Accessibility** | High-contrast mode and language preferences |
-| 📦 | **Data Controls** | Export and clear supported local application data |
+</div>
 
 ---
 
-## 🧬 Under the Hood
+## 🧭 What Is SaviorAI?
+
+SaviorAI is an experimental full-stack health-tech application that explores how **AI assistance can be combined with deterministic safety engineering** for injury-related guidance.
+
+The application uses a guided assessment flow to collect structured injury information, processes the request through a server-side safety pipeline, uses Google Gemini for AI-assisted reasoning, and applies deterministic escalation and safety checks before presenting guidance.
+
+The project is intentionally designed around one engineering principle:
+
+> **AI can assist reasoning, but it must not be the only safety authority.**
+
+SaviorAI is a software/engineering project and is **not a medical device, diagnostic system, emergency service, or substitute for professional medical care.**
+
+---
+
+## ✨ Core Capabilities
+
+| Capability | Description |
+|---|---|
+| 🩺 **Guided Assessment** | Step-by-step injury assessment with structured inputs, symptoms, pain and mechanism information. |
+| 🛡️ **Safety Pipeline** | Centralized triage processing combining deterministic safety gates, protocol matching and AI assistance. |
+| 🚨 **Emergency Escalation** | Red-flag conditions can force an emergency-level result rather than relying on an AI-generated decision. |
+| 📈 **Injury Watch** | Save and monitor injuries locally through the current client-side storage layer. |
+| 🏥 **Find Help** | Explore the repository's facility dataset and calculate approximate distances from supplied coordinates. |
+| 📚 **Medical Library** | Structured protocol and first-response reference content stored in TypeScript data modules. |
+| 🧪 **Safety Benchmarks** | Execute predefined cases and measure emergency recall plus unsafe-advice checks. |
+| 🧾 **Audit Events** | Record triage and safety events for engineering inspection. |
+| 🌐 **Localization** | Language-aware UI support through the translation layer. |
+| ♿ **Accessibility-aware UI** | Reusable interface primitives and accessibility-conscious interaction patterns. |
+| 🎛️ **Safety/Admin Views** | Engineering views for protocol management and benchmark inspection. |
+
+---
+
+## 🧠 Safety-First Architecture
 
 ```text
-                         ┌───────────────────────┐
-                         │      SAVIORAI         │
-                         │  Safety-first Client  │
-                         └───────────┬───────────┘
-                                     │
-                    ┌────────────────┴────────────────┐
-                    │                                 │
-             React 19 + TS                    Express + TS
-                    │                                 │
-        ┌───────────┼───────────┐             ┌───────┼────────┐
-        │           │           │             │       │        │
-     Assess      Monitor     Library       Triage  Protocols Audit
-        │           │           │             │       │        │
-        └───────────┴───────────┘             │       │        │
-                    │                        └───────┼────────┘
-                    │                                │
-                    └──────────────┬─────────────────┘
-                                   │
-                            Google Gemini API
-                                   │
-                            Safety Pipeline
-                                   │
-                         Escalation / Guidance
+┌───────────────────────────────┐
+│          React Client         │
+│                               │
+│ Assessment · Injury Watch     │
+│ Emergency · Library · Help    │
+└───────────────┬───────────────┘
+                │
+                ▼
+┌───────────────────────────────┐
+│          Express API          │
+└───────────────┬───────────────┘
+                │
+                ▼
+┌────────────────────────────────────────┐
+│         Safety Triage Pipeline          │
+│                                        │
+│  Structured input                       │
+│       ↓                                │
+│  Deterministic safety / red flags       │
+│       ↓                                │
+│  Protocol matching                      │
+│       ↓                                │
+│  Gemini-assisted reasoning              │
+│       ↓                                │
+│  Safety validation / escalation         │
+│       ↓                                │
+│  Final triage guidance                  │
+└──────────────────┬─────────────────────┘
+                   │
+          ┌────────┴────────┐
+          ▼                 ▼
+    Audit event        User guidance
 ```
+
+### Why this matters
+
+A generic AI application can simply send a prompt to a model and display the answer. SaviorAI takes a different approach: **deterministic rules sit around the model as a safety boundary**.
+
+For example, when the safety pipeline detects a critical red flag, the application can escalate to an emergency-level outcome even if an AI response suggests otherwise.
+
+This makes the safety layer the controlling boundary rather than treating the model as an unrestricted decision-maker.
 
 ---
 
-## 🛠️ Tech Stack
+## 🧱 Current Architecture
+
+The repository is currently a compact full-stack TypeScript application rather than a fully separated production monorepo.
 
 ### Frontend
 
-`React 19` · `TypeScript` · `Vite` · `Tailwind CSS 4` · `Lucide React` · `Motion`
+```text
+src/
+├── App.tsx
+├── main.tsx
+├── index.css
+├── components/
+│   ├── AssessWizard.tsx
+│   ├── EmergencyModal.tsx
+│   ├── FindHelpView.tsx
+│   ├── InjuryWatchView.tsx
+│   ├── LibraryView.tsx
+│   ├── MedicalReportModal.tsx
+│   ├── AdminSafetyBenchmarkView.tsx
+│   ├── Header.tsx
+│   ├── HomeView.tsx
+│   ├── SettingsView.tsx
+│   └── ui/
+├── data/
+│   ├── emergencyNumbers.ts
+│   ├── facilities.ts
+│   └── protocols.ts
+├── lib/
+│   ├── storage.ts
+│   └── translations.ts
+└── types/
+```
 
 ### Backend
 
-`Node.js` · `Express` · `TypeScript` · `esbuild`
+```text
+server.ts
+server/
+└── safetyPipeline.ts
+```
+
+`server.ts` currently provides the Express API, Vite integration and production static serving. `server/safetyPipeline.ts` contains the main safety/triage processing path.
+
+> **Architecture direction:** the next major refactor should split the large safety pipeline into smaller domain modules such as `redFlagEngine`, `triageEngine`, `protocolEngine`, `aiEngine`, `safetyValidator` and `escalationEngine`.
+
+---
+
+## 🔌 API Surface
+
+The current server exposes the following routes:
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| `GET` | `/api/health` | Service health and pipeline metadata |
+| `POST` | `/api/triage/assess` | Run an injury assessment through the safety pipeline |
+| `GET` | `/api/protocols` | Return the active protocol dataset |
+| `POST` | `/api/protocols/update` | Create/update a protocol in the current in-memory store |
+| `GET` | `/api/facilities` | Return facilities, emergency numbers and optional distance calculations |
+| `GET` | `/api/audit-logs` | Return current audit events |
+| `POST` | `/api/audit-logs/event` | Record a custom audit event |
+| `POST` | `/api/safety-benchmark/run` | Execute the predefined safety benchmark cases |
+
+### Important API limitation
+
+The current API is an MVP implementation. Audit logs and protocol updates are stored **in memory**, so they are not durable across server restarts. Authentication and role-based authorization are also not yet implemented.
+
+The `/api/protocols/update` and audit endpoints therefore require hardening before they should be exposed as production administrative APIs.
+
+---
+
+## 🧪 Safety Benchmarking
+
+SaviorAI includes a benchmark runner designed to test safety behavior rather than only application functionality.
+
+The current benchmark evaluates:
+
+- Emergency-case matching
+- Emergency recall
+- Red-flag detection
+- Explicitly prohibited advice patterns
+- Case execution time
+- Case-level pass/fail status
+
+Conceptually:
+
+```text
+Benchmark Case
+      ↓
+Assessment Input
+      ↓
+Safety Pipeline
+      ↓
+Expected vs Actual
+      ↓
+Safety Checks
+      ↓
+Benchmark Report
+```
+
+### Benchmark philosophy
+
+A future production-grade benchmark should expand beyond the current demo cases to include:
+
+- Paraphrased emergency descriptions
+- Adversarial wording
+- Contradictory symptoms
+- Missing information
+- False-positive analysis
+- False-negative analysis
+- Protocol adherence
+- AI consistency
+- Unsafe recommendation detection
+- Regression comparisons between releases
+
+**Benchmark results are engineering signals, not clinical validation.**
+
+---
+
+## 🛠️ Technology Stack
+
+### Frontend
+
+- React 19
+- TypeScript 5.8
+- Vite 6
+- Tailwind CSS 4
+- Lucide React
+- Motion
+
+### Backend
+
+- Node.js
+- Express 4
+- TypeScript
+- esbuild
+- dotenv
 
 ### AI
 
-`Google Gemini` · `@google/genai`
+- Google Gemini
+- `@google/genai`
 
-### Engineering
+### Engineering & Deployment
 
-`npm` · `REST APIs` · `Client-side persistence` · `Safety benchmarks` · `Responsive UI`
-
----
-
-## 📁 Project DNA
-
-```text
-SaviorAI/
-│
-├── 🧠 server/
-│   └── safetyPipeline.ts       # Core safety / triage processing
-│
-├── ⚛️ src/
-│   ├── components/             # Product UI + feature views
-│   ├── data/                   # Protocols, facilities, emergency data
-│   ├── lib/                    # Storage + shared utilities
-│   ├── types/                  # TypeScript domain models
-│   ├── App.tsx                 # Application shell
-│   ├── index.css               # Global styling
-│   └── main.tsx                # React entry point
-│
-├── 🚀 server.ts                # Express API + Vite integration
-├── 🌐 index.html
-├── ⚙️ vite.config.ts
-├── 📦 package.json
-├── 🔒 tsconfig.json
-└── 🖼️ frontend-full-page.png   # UI showcase
-```
+- npm
+- Git / GitHub
+- GitHub Actions
+- Render deployment hook
+- GitHub Pages frontend preview
+- Client-side local storage
 
 ---
 
-## 🚀 Run It Locally
+## 📦 Installation
 
-### 01 · Clone
+### Requirements
+
+- Node.js 20 recommended
+- npm
+- A Gemini API key for AI-assisted features
+
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/chillingbing648-sketch/SaviorAI.git
 cd SaviorAI
 ```
 
-### 02 · Install
+### 2. Install dependencies
 
 ```bash
 npm install
 ```
 
-### 03 · Add your Gemini key
+### 3. Configure environment variables
 
 Create `.env` in the project root:
 
@@ -165,161 +295,300 @@ Create `.env` in the project root:
 GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
-> 🔐 **Never commit API keys.** Keep `.env` out of Git.
+Never commit `.env` or API credentials.
 
-### 04 · Launch
+### 4. Start development
 
 ```bash
 npm run dev
 ```
 
-### 05 · Build
+The Express/Vite development server listens on port `3000`.
+
+### 5. Create a production build
 
 ```bash
 npm run build
 ```
 
-### 06 · Production
+### 6. Start the production server
 
 ```bash
 npm start
 ```
 
-### Command Cheat Sheet
+---
 
-| Command | Mode |
+## 📜 Available Scripts
+
+| Command | Purpose |
 |---|---|
-| `npm run dev` | ⚡ Development |
-| `npm run build` | 🏗️ Production build |
-| `npm start` | 🚀 Production server |
-| `npm run preview` | 👀 Vite preview |
-| `npm run lint` | 🔍 TypeScript check |
-| `npm run clean` | 🧹 Clean build artifacts |
+| `npm run dev` | Start the TypeScript Express/Vite development server |
+| `npm run build` | Build the Vite frontend and bundle `server.ts` with esbuild |
+| `npm start` | Start the bundled production server |
+| `npm run preview` | Preview the Vite frontend build |
+| `npm run lint` | Run TypeScript validation (`tsc --noEmit`) |
+| `npm run clean` | Remove generated build output on Unix-like environments |
 
 ---
 
-## 🔌 API Surface
+## 🔄 CI/CD
+
+The repository contains a GitHub Actions workflow at `.github/workflows/main.yml`.
+
+Current flow:
 
 ```text
-GET  /api/health
-POST /api/triage/assess
-GET  /api/protocols
-POST /api/protocols/update
-GET  /api/facilities
-GET  /api/audit-logs
-POST /api/audit-logs/event
-POST /api/safety-benchmark/run
+Push / Pull Request to main
+          ↓
+       npm ci
+          ↓
+ TypeScript validation
+          ↓
+     Production build
+          ↓
+ Verify dist/index.html
+ Verify dist/server.cjs
+          ↓
+ Push to main only
+          ↓
+ Render deploy hook
 ```
 
-The backend currently handles health checks, AI-assisted triage, protocols, facilities, emergency resources, audit events, and safety benchmark workflows.
+### Recommended CI evolution
+
+```text
+Pull Request
+     ↓
+Typecheck + Lint
+     ↓
+Unit Tests
+     ↓
+Safety Regression Tests
+     ↓
+Security Audit
+     ↓
+Production Build
+     ↓
+E2E / Smoke Tests
+     ↓
+Staging
+     ↓
+Production
+```
+
+For a safety-sensitive application, **failed safety tests should block deployment**.
 
 ---
 
-## 🧪 Why This Project Is Interesting
+## 🔐 Security & Production Readiness
 
-This isn't just another **"AI + React + API"** demo.
+The current repository is best treated as an **MVP / active development project**.
 
-SaviorAI is an exploration of how to build an AI product where **the UX, backend architecture, and safety layer all matter**.
+Before production use, the following areas should be implemented:
 
-### Engineering challenges explored
+### Authentication & authorization
 
-- Designing a multi-step medical assessment UX
-- Keeping critical actions visible without overwhelming the user
-- Separating AI assistance from deterministic safety logic
-- Building server-side escalation pathways
-- Creating benchmark cases for safety evaluation
-- Handling online/offline application states
-- Designing persistent client-side user data flows
-- Building reusable TypeScript domain types
-- Creating an admin-facing protocol and benchmark workflow
-- Making a complex application feel simple enough for everyday users
+- User authentication
+- Admin authentication
+- RBAC such as `USER`, `ADMIN`, `SAFETY_REVIEWER`
+- Server-side authorization on administrative endpoints
 
----
+### API hardening
 
-## 🎨 Design Direction
+- Request schema validation
+- Rate limiting
+- CORS policy
+- Security headers / CSP
+- Request-size limits appropriate to each endpoint
+- Sanitized production errors
+- Abuse protection
 
-**Clean. Calm. Technical. Human.**
+### Data architecture
 
-The interface is designed around a health-tech aesthetic rather than the usual generic AI dashboard: strong hierarchy, clear emergency actions, structured cards, responsive layouts, accessibility considerations, and motion used to reinforce—not distract from—the interaction.
+Replace in-memory server stores with a persistent database such as PostgreSQL.
+
+Suggested entities:
+
+```text
+users
+assessments
+triage_results
+injuries
+injury_events
+audit_events
+protocols
+protocol_versions
+safety_benchmarks
+```
+
+### Observability
+
+Add structured logs and identifiers such as:
+
+```text
+requestId
+assessmentId
+decisionId
+aiRequestId
+```
+
+Monitor API errors, latency, AI latency, emergency escalations, safety overrides and benchmark regressions.
 
 ---
 
 ## 🗺️ Roadmap
 
+### Phase 1 — Foundation
+
+- [x] React + TypeScript frontend
+- [x] Express + TypeScript backend
+- [x] Guided assessment
+- [x] Safety pipeline
+- [x] Gemini integration
+- [x] Emergency flow
+- [x] Injury Watch
+- [x] Protocol library
+- [x] Facility discovery
+- [x] Audit events
+- [x] Safety benchmark runner
+- [x] GitHub Actions build validation
+
+### Phase 2 — Safety Engineering
+
+- [ ] Split `safetyPipeline.ts` into focused safety modules
+- [ ] Structured symptom normalization
+- [ ] Dedicated red-flag engine
+- [ ] Dedicated triage engine
+- [ ] Dedicated safety validator
+- [ ] Expanded adversarial benchmark suite
+- [ ] Automated safety regression tests
+
+### Phase 3 — Production Backend
+
+- [ ] Persistent PostgreSQL database
+- [ ] Repository/data-access layer
+- [ ] Authentication
+- [ ] RBAC
+- [ ] API validation
+- [ ] Rate limiting
+- [ ] Security headers
+- [ ] Production-safe error handling
+
+### Phase 4 — Reliability
+
+- [ ] Unit test suite
+- [ ] Integration/API tests
+- [ ] Playwright E2E tests
+- [ ] CI safety gates
+- [ ] Security/dependency scanning
+- [ ] Structured observability
+- [ ] Staging environment
+- [ ] Production smoke tests
+
+### Phase 5 — Product Quality
+
+- [ ] Deeper accessibility audit
+- [ ] Expanded localization
+- [ ] Better offline/PWA behavior
+- [ ] Real facility/location provider integration
+- [ ] Performance optimization
+- [ ] Privacy/data controls
+- [ ] Clinical review before any real-world medical deployment
+
+---
+
+## 📊 Current Engineering Status
+
+| Area | Status |
+|---|:---:|
+| Frontend foundation | 🟢 |
+| Guided assessment | 🟢 |
+| Safety pipeline | 🟢 MVP |
+| Gemini integration | 🟢 |
+| Emergency workflow | 🟢 |
+| Injury monitoring | 🟢 MVP |
+| Protocol library | 🟢 |
+| Facility dataset | 🟡 Sample / approximate |
+| Audit logging | 🟡 In-memory |
+| Safety benchmarks | 🟢 MVP |
+| Authentication | 🔴 Not implemented |
+| RBAC | 🔴 Not implemented |
+| Persistent database | 🔴 Not implemented |
+| Automated regression suite | 🟡 Planned |
+| Production observability | 🟡 Planned |
+| Formal clinical validation | ⚪ Not performed |
+
+**Project stage: MVP / Active Development**
+
+---
+
+## 🤝 Development Workflow
+
+When contributing changes, use small, focused branches:
+
 ```text
-[x] Core React application
-[x] Guided injury assessment
-[x] AI integration
-[x] Safety triage pipeline
-[x] Injury monitoring
-[x] Emergency workflows
-[x] Facility discovery
-[x] Medical protocol library
-[x] Safety benchmark tooling
-[x] Audit logging
-[ ] Production authentication
-[ ] Persistent backend database
-[ ] Automated safety regression suite
-[ ] Expanded localization
-[ ] Advanced observability
-[ ] Formal clinical validation
+main
+ │
+ ├── feature/safety-engine
+ ├── feature/auth
+ ├── feature/database
+ ├── test/safety-benchmarks
+ └── chore/ci-hardening
 ```
 
----
+Recommended workflow:
 
-## ⚠️ Medical Safety Disclaimer
-
-**SaviorAI is an experimental software project and is not a medical device, diagnostic system, emergency service, or substitute for professional healthcare.**
-
-AI-generated information may be inaccurate, incomplete, or inappropriate for a particular situation. For severe symptoms, emergencies, or uncertainty about a potentially serious injury, seek professional medical care or contact your local emergency service immediately.
-
-Before real-world deployment, this project would require appropriate clinical validation, security review, privacy controls, regulatory assessment, and professional medical oversight.
-
----
-
-## 🤝 Contributing
-
-Found something interesting? Want to improve the architecture? Have a better UX idea?
-
-```bash
-git checkout -b feature/your-idea
-npm run lint
-npm run build
-git commit -m "feat: your improvement"
-git push origin feature/your-idea
+```text
+Create branch
+    ↓
+Implement one focused change
+    ↓
+Run typecheck
+    ↓
+Run tests / safety benchmarks
+    ↓
+Build production bundle
+    ↓
+Review diff
+    ↓
+Open Pull Request
+    ↓
+CI validation
+    ↓
+Merge
 ```
 
-Then open a pull request with:
-
-- What changed
-- Why it changed
-- How it was tested
-- Any safety implications
+Avoid mixing major refactors, UI redesigns and safety-rule changes in one commit.
 
 ---
 
-## 👨‍💻 Built By
+## ⚠️ Medical & Safety Disclaimer
 
-<div align="center">
+SaviorAI is an experimental software project created for education, engineering research and product prototyping. It does not provide a medical diagnosis and should not be relied upon as a substitute for a qualified healthcare professional or emergency service.
 
-### Harsh Dubey
-
-**Student Developer · Full-Stack Builder · AI / UX Enthusiast**
-
-[GitHub](https://github.com/chillingbing648-sketch) · [SaviorAI Repository](https://github.com/chillingbing648-sketch/SaviorAI)
-
-<br />
-
-*Built as a student project. Shipped like a product.* 🚀
-
-</div>
+If a real person may be experiencing a medical emergency, contact the appropriate local emergency service or seek professional medical care immediately.
 
 ---
 
-<div align="center">
+## 👨‍💻 Project
 
-**React × TypeScript × Gemini × Express × Vite**
+**SaviorAI** — Safety Intelligence for the Moments That Matter.
 
-<sub>Made with curiosity, caffeine, and way too many terminal windows.</sub> ☕💻
+Repository: https://github.com/chillingbing648-sketch/SaviorAI
 
-</div>
+Live frontend: https://chillingbing648-sketch.github.io/SaviorAI/
+
+Built with React, TypeScript, Express and Google Gemini.
+
+---
+
+## 🔄 Rebrand Notice
+
+> **SaviorAI is becoming Mendly.**
+
+The project name has been changed to **Mendly**, and the repository/app are currently being reworked under the new identity. The upcoming updates will cover the **name, branding, UI, documentation and related project references**.
+
+These changes will be rolled out over the **next few days** as the transition is completed.
+
+Until then, some parts of the repository may still reference **SaviorAI** while the rebrand is in progress.
