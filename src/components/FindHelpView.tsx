@@ -50,13 +50,13 @@ export const FindHelpView: React.FC<FindHelpViewProps> = ({ userPrefs, onOpenEme
 
   // Selected Country for Directory
   const [selectedCountryCode, setSelectedCountryCode] = useState<string>(
-    userPrefs.region || 'US'
+    userPrefs.region || 'IN'
   );
 
   const regionInfo =
     REGIONAL_EMERGENCY_NUMBERS[selectedCountryCode] ||
     getEmergencyContactInfo(selectedCountryCode) ||
-    REGIONAL_EMERGENCY_NUMBERS.US;
+    REGIONAL_EMERGENCY_NUMBERS.IN || REGIONAL_EMERGENCY_NUMBERS.US;
 
   // Attempt automatic detection on mount
   useEffect(() => {
@@ -254,6 +254,51 @@ export const FindHelpView: React.FC<FindHelpViewProps> = ({ userPrefs, onOpenEme
             <span>One-Click Real-Time Facility Search & Directions</span>
           </h2>
           <span className="text-xs text-[#4e665f] dark:text-[#8eada3]">Live Satellite & Transit Maps</span>
+        </div>
+
+        {/* Indian Medical Infrastructure Quick-Access Strip */}
+        <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-50 via-white to-amber-50 dark:from-[#0c221b] dark:via-[#091a14] dark:to-[#171207] border border-[#b8e2d4] dark:border-[#1e4e40] space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-black text-[#081a14] dark:text-[#f5fbf8] flex items-center space-x-1.5">
+              <span>🇮🇳</span>
+              <span>Direct Emergency Facility Search (India)</span>
+            </span>
+            <span className="text-[10px] font-bold text-[#0d7a5f] dark:text-[#00BE88]">GPS / City Targeted</span>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+            <a
+              href={buildSearchUrl('Emergency Hospital 108 Trauma Center')}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2.5 rounded-xl bg-white dark:bg-[#122e25] border border-red-200 dark:border-red-900/60 hover:border-red-500 font-bold text-red-700 dark:text-red-300 text-center transition-colors shadow-2xs"
+            >
+              🚑 108 Trauma Centers
+            </a>
+            <a
+              href={buildSearchUrl('Government Civil Hospital Medical College AIIMS')}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2.5 rounded-xl bg-white dark:bg-[#122e25] border border-sky-200 dark:border-sky-900/60 hover:border-sky-500 font-bold text-sky-800 dark:text-sky-300 text-center transition-colors shadow-2xs"
+            >
+              🏥 Govt Civil & AIIMS
+            </a>
+            <a
+              href={buildSearchUrl('Apollo Fortis Max Manipal Multispeciality Hospital')}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2.5 rounded-xl bg-white dark:bg-[#122e25] border border-emerald-200 dark:border-emerald-900/60 hover:border-[#0d7a5f] font-bold text-[#0d7a5f] dark:text-[#00BE88] text-center transition-colors shadow-2xs"
+            >
+              🏥 Private Multispeciality
+            </a>
+            <a
+              href={buildSearchUrl('24 hour chemist pharmacy Jan Aushadhi')}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2.5 rounded-xl bg-white dark:bg-[#122e25] border border-amber-200 dark:border-amber-900/60 hover:border-amber-500 font-bold text-amber-800 dark:text-amber-300 text-center transition-colors shadow-2xs"
+            >
+              💊 24x7 Jan Aushadhi
+            </a>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

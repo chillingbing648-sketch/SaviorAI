@@ -15,7 +15,7 @@ const LEGACY_KEY_AUDIT = 'injuryguard_local_audit';
 
 export const DEFAULT_PREFERENCES: UserPreferences = {
   language: 'en',
-  region: 'US',
+  region: 'IN',
   theme: 'light',
   offlineMode: false,
   emergencyContacts: [
@@ -23,7 +23,7 @@ export const DEFAULT_PREFERENCES: UserPreferences = {
       id: 'ec-1',
       name: 'Primary Emergency Contact',
       relationship: 'Family / Guardian',
-      phone: '+1 (555) 019-2831'
+      phone: '+91 98765 43210'
     }
   ],
   highContrast: false
@@ -58,7 +58,13 @@ export function loadUserPreferences(): UserPreferences {
       localStorage.getItem(STORAGE_KEY_PREFS) ||
       localStorage.getItem(LEGACY_KEY_PREFS);
     if (!data) return DEFAULT_PREFERENCES;
-    return { ...DEFAULT_PREFERENCES, ...JSON.parse(data) };
+    const parsed = JSON.parse(data);
+    // If region was not explicitly saved or was US, default to IN
+    return {
+      ...DEFAULT_PREFERENCES,
+      ...parsed,
+      region: parsed.region && parsed.region !== 'US' ? parsed.region : 'IN'
+    };
   } catch (err) {
     return DEFAULT_PREFERENCES;
   }
@@ -99,8 +105,8 @@ export function saveCachedProtocols(protocols: MedicalProtocol[]): void {
 export function exportAllUserData(): string {
   const payload = {
     exportDate: new Date().toISOString(),
-    service: 'Mendly Health Records Export',
-    version: '2026.1',
+    service: 'Mendly Health Records Export (India Edition)',
+    version: '2026.1-IN',
     preferences: loadUserPreferences(),
     monitoredInjuries: loadMonitoredInjuries()
   };

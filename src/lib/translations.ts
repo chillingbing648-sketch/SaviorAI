@@ -19,7 +19,7 @@ export const UI_TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> 
   en: {
     appName: 'Mendly',
     appTagline: 'First-Response Injury Safety & Medical Triage Platform',
-    emergencyButton: 'Emergency Help (1-Tap)',
+    emergencyButton: 'Emergency 112 (1-Tap)',
     assessInjury: 'Assess an Injury',
     navHome: 'Home',
     navAssess: 'Assess',
@@ -84,39 +84,39 @@ export const UI_TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> 
     ,sprainsFractures: 'Esguinces y fracturas'
     ,headConcussion: 'Cabeza y conmoción'
   },
-  hi: {
+    hi: {
     appName: 'Mendly',
-    appTagline: 'प्राथमिक चिकित्सा चोट सुरक्षा एवं मेडिकल ट्राइएज प्लेटफॉर्म',
-    emergencyButton: 'आपातकालीन सहायता (1-टैप)',
-    assessInjury: 'चोट का आकलन करें',
+    appTagline: 'आपातकालीन चोट सुरक्षा एवं क्लीनिकल ट्राइएज प्लेटफॉर्म',
+    emergencyButton: 'आपातकाल 112 (1-टैप)',
+    assessInjury: 'चोट का तुरंत आकलन करें',
     navHome: 'होम',
     navAssess: 'आकलन',
     navWatch: 'चोट निगरानी',
-    navFindHelp: 'सहायता खोजें',
+    navFindHelp: 'अस्पताल खोजें',
     navLibrary: 'सुरक्षा लाइब्रेरी',
     navAdmin: 'क्लीनिकल एडमिन',
     navSettings: 'सेटिंग्स',
-    emergencyWarning: 'यदि कोई व्यक्ति बेहोश है, भारी रक्तस्राव हो रहा है, या सांस लेने में कठिनाई है, तो तुरंत आपातकालीन सेवाओं को कॉल करें।',
-    safetyFirst: 'सुरक्षा > सटीकता > स्पष्टता > गति',
+    emergencyWarning: 'यदि कोई व्यक्ति बेहोश है, भारी रक्तस्राव हो रहा है, या सांस लेने में गंभीर कठिनाई है, तो तुरंत 112 या 108 पर कॉल करें।',
+    safetyFirst: 'सुरक्षा > सटीकता > स्पष्टता > त्वरित सहायता',
     demoCases: 'डेमो क्लीनिकल केस',
     runBenchmark: 'सुरक्षा बेंचमार्क चलाएं',
-    homePrompt: 'क्या आप अभी किसी चोट से जूझ रहे हैं?',
-    homeDescription: 'कुछ आसान सवालों के जवाब देकर जानें कि किस पर ध्यान देना चाहिए और तुरंत कौन से सुरक्षित प्राथमिक उपचार किए जा सकते हैं। यह ट्राइएज मार्गदर्शन है, चिकित्सीय निदान नहीं।',
-    firstAidProtocols: 'साक्ष्य-आधारित प्राथमिक उपचार प्रोटोकॉल',
-    exploreLibrary: 'पूरी लाइब्रेरी देखें',
-    safetyNotice: 'चिकित्सीय सुरक्षा और आपातकालीन चेतावनी',
-    settingsTitle: 'ऐप प्राथमिकताएं और गोपनीयता',
-    safetyCheck: 'आपातकालीन सुरक्षा जांच',
-    continueAction: 'जारी रखें',
-    backAction: 'वापस',
-    callEmergency: 'अभी आपातकालीन सेवाओं को कॉल करें'
-    ,morning: 'सुप्रभात'
-    ,afternoon: 'नमस्कार'
-    ,evening: 'शुभ संध्या'
-    ,cutsBleeding: 'कट और रक्तस्राव'
-    ,burnsScalds: 'जलना और झुलसना'
-    ,sprainsFractures: 'मोच और फ्रैक्चर'
-    ,headConcussion: 'सिर और चोट'
+    homePrompt: 'क्या आपको या किसी अन्य को अभी चोट लगी है?',
+    homeDescription: 'तुरंत प्राथमिक उपचार और सुरक्षा दिशानिर्देशों के लिए कुछ सरल प्रश्नों के उत्तर दें। यह ट्राइएज मार्गदर्शन है, कोई अंतिम डॉक्टरी निदान नहीं।',
+    firstAidProtocols: 'साक्ष्य-आधारित प्राथमिक उपचार प्रोटोकॉल (AIIMS / ICMR / WHO)',
+    exploreLibrary: 'सम्पूर्ण सुरक्षा लाइब्रेरी देखें',
+    safetyNotice: 'चिकित्सा सुरक्षा एवं आपातकालीन चेतावनी',
+    settingsTitle: 'एप्लिकेशन प्राथमिकताएं एवं गोपनीयता',
+    safetyCheck: 'आपातकालीन सुरक्षा जांच (रेड फ्लैग)',
+    continueAction: 'आगे बढ़ें',
+    backAction: 'पीछे जाएं',
+    callEmergency: 'तुरंत आपातकालीन नंबर (112) पर कॉल करें',
+    morning: 'नमस्ते, शुभ प्रभात',
+    afternoon: 'नमस्ते, शुभ दोपहर',
+    evening: 'नमस्ते, शुभ संध्या',
+    cutsBleeding: 'घाव एवं रक्तस्राव',
+    burnsScalds: 'जलना एवं फफोले',
+    sprainsFractures: 'मोच एवं हड्डी टूटना',
+    headConcussion: 'सिर की चोट एवं बेहोशी'
   },
   fr: {
     appName: 'Mendly',

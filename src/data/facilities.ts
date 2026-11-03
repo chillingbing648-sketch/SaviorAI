@@ -9,9 +9,38 @@ export interface RegionalEmergencyNumbers {
   fire: string;
   poisonControl: string;
   specialNote?: string;
+  womenHelpline?: string;
+  seniorHelpline?: string;
+  disasterHelpline?: string;
 }
 
 export const REGIONAL_EMERGENCY_NUMBERS: Record<string, RegionalEmergencyNumbers> = {
+  IN: {
+    countryCode: 'IN',
+    countryName: 'India',
+    generalEmergency: '112',
+    ambulance: '108 / 102',
+    police: '100 / 112',
+    fire: '101',
+    poisonControl: '1800-116-117 (AIIMS New Delhi)',
+    specialNote: '112 is the Unified National Emergency Response Support System (ERSS). 108 is State Emergency Medical Ambulance Service. Good Samaritans are legally protected under Supreme Court guidelines.',
+    womenHelpline: '1091 / 181',
+    seniorHelpline: '14567',
+    disasterHelpline: '1078 (NDMA)'
+  },
+  India: {
+    countryCode: 'IN',
+    countryName: 'India',
+    generalEmergency: '112',
+    ambulance: '108 / 102',
+    police: '100 / 112',
+    fire: '101',
+    poisonControl: '1800-116-117 (AIIMS New Delhi)',
+    specialNote: '112 is the Unified National Emergency Response Support System (ERSS). 108 is State Emergency Medical Ambulance Service. Good Samaritans are legally protected under Supreme Court guidelines.',
+    womenHelpline: '1091 / 181',
+    seniorHelpline: '14567',
+    disasterHelpline: '1078 (NDMA)'
+  },
   US: {
     countryCode: 'US',
     countryName: 'United States',
@@ -41,16 +70,6 @@ export const REGIONAL_EMERGENCY_NUMBERS: Record<string, RegionalEmergencyNumbers
     fire: '112',
     poisonControl: '112',
     specialNote: 'Standard European emergency number functioning in all EU member states.'
-  },
-  India: {
-    countryCode: 'India',
-    countryName: 'India',
-    generalEmergency: '112',
-    ambulance: '108 / 102',
-    police: '100 / 112',
-    fire: '101',
-    poisonControl: '1800-116-117',
-    specialNote: '112 is the unified national emergency number; 108 is state ambulance service.'
   },
   Australia: {
     countryCode: 'Australia',

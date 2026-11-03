@@ -185,7 +185,19 @@ export const Header: React.FC<HeaderProps> = ({
             </motion.button>
 
             {/* Language Switcher */}
-            <div className="relative hidden sm:block">
+            <motion.button
+              whileTap={{ scale: 0.94 }}
+              type="button"
+              onClick={() => onUpdatePrefs({ language: userPrefs.language === 'hi' ? 'en' : 'hi' })}
+              className="px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl border border-[#d1ded9] dark:border-[#1b4136] bg-[#f4f7f5] hover:bg-[#eaf0ed] dark:bg-[#0d221b] dark:hover:bg-[#143229] text-xs font-bold cursor-pointer text-[#081a14] dark:text-[#f5fbf8] shadow-2xs flex items-center space-x-1.5 transition-colors"
+              title="Toggle English / हिन्दी"
+              id="header-lang-toggle-btn"
+            >
+              <span>🇮🇳</span>
+              <span>{userPrefs.language === 'hi' ? 'English' : 'हिन्दी'}</span>
+            </motion.button>
+
+            <div className="relative hidden md:block">
               <select
                 value={userPrefs.language}
                 onChange={(e) => onUpdatePrefs({ language: e.target.value })}
@@ -229,7 +241,10 @@ export const Header: React.FC<HeaderProps> = ({
               aria-label="Emergency Help"
             >
               <ShieldAlert className="w-4 h-4 text-white animate-pulse-subtle shrink-0" />
-              <span className="hidden sm:inline tracking-wide">{getTranslation(userPrefs.language, 'emergencyButton')}</span>
+              <span className="hidden sm:inline tracking-wide font-black">
+                {userPrefs.language === 'hi' ? 'आपातकाल 112' : '112 Emergency'}
+              </span>
+              <span className="sm:hidden font-black font-mono">112</span>
             </motion.button>
 
           </div>

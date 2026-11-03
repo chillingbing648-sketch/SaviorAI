@@ -1,6 +1,5 @@
 import React from 'react';
-import {
-  ShieldAlert,
+import { PhoneCall, ShieldAlert,
   Activity,
   AlertTriangle,
   Clock,
@@ -56,6 +55,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
   const regionInfo =
     REGIONAL_EMERGENCY_NUMBERS[userPrefs.region] ||
     getEmergencyContactInfo(userPrefs.region) ||
+    REGIONAL_EMERGENCY_NUMBERS.IN ||
+    REGIONAL_EMERGENCY_NUMBERS.India ||
     REGIONAL_EMERGENCY_NUMBERS.US;
   const activeInjuries = monitoredInjuries.filter((i) => i.status === 'active');
 

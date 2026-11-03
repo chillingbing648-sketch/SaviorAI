@@ -354,7 +354,7 @@ export default function App() {
             </div>
             <div className="flex items-center space-x-2 shrink-0 self-stretch sm:self-auto justify-end">
               <span className="text-[11px] font-bold px-3 py-1.5 rounded-xl bg-amber-600 text-white shadow-xs">
-                EMERGENCY: 911 / 112 / 999 / 108
+                🇮🇳 NATIONAL EMERGENCY (INDIA): 112 • AMBULANCE: 108 / 102
               </span>
             </div>
           </div>
@@ -380,7 +380,7 @@ export default function App() {
                 <span>Protocol Grounding & Safety Gates</span>
               </div>
               <p className="text-[11px] leading-relaxed">
-                Triage rules enforce deterministic red-flag safety gates derived from internationally recognized clinical protocols (ATLS 10th Ed., American Heart Association, Red Cross, WHO, and NICE guidelines). Harm-prevention contraindications strictly prohibit dangerous interventions prior to physical physician review.
+                Triage rules enforce deterministic red-flag safety gates derived from clinical protocols (AIIMS Trauma Centre, ICMR Emergency Guidelines, ATLS 10th Ed., and WHO standards). Directives enforce Supreme Court of India Good Samaritan legal protections. Harm-prevention contraindications strictly prohibit dangerous interventions prior to physical physician review.
               </p>
             </div>
 
@@ -406,7 +406,7 @@ export default function App() {
               </span>
             </div>
             <div className="flex flex-wrap items-center gap-3">
-              <span>Standard: ATLS / AHA / ERC Guidelines</span>
+              <span>Standard: AIIMS / ICMR / ATLS Guidelines (India Edition)</span>
               <span>•</span>
               <span>Local Storage Sandbox</span>
               <span>•</span>

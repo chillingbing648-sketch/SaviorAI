@@ -92,7 +92,7 @@ export interface MedicalProtocol {
   id: string;
   title: string;
   category: 'trauma' | 'burns' | 'wounds' | 'orthopedic' | 'head_neck' | 'environmental' | 'general';
-  source: 'WHO' | 'American Red Cross' | 'Mayo Clinic' | 'NHS' | 'AHA' | 'IFRC';
+  source: 'WHO' | 'American Red Cross' | 'Mayo Clinic' | 'NHS' | 'AHA' | 'IFRC' | 'AIIMS' | 'ICMR' | 'NDMA';
   version: string;
   lastReviewed: string;
   reviewStatus: 'Clinical Approved' | 'Standard Reference' | 'Validated' | 'Under Review';

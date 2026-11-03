@@ -173,6 +173,124 @@ export const MEDICAL_PROTOCOLS: MedicalProtocol[] = [
       'Spreading redness, heat, red streaks, fever, or pus developing within hours/days'
     ],
     region: 'Global'
+  },
+  {
+    id: 'proto-snakebite-in',
+    title: 'National Snakebite Envenomation Protocol (AIIMS & ICMR)',
+    category: 'trauma',
+    source: 'AIIMS',
+    version: '2025-AIIMS-ICMR-SNAKE',
+    lastReviewed: '2025-10-01',
+    reviewStatus: 'Clinical Approved',
+    evidenceLevel: 'Level A (Clinical Trials)',
+    summary: 'Evidence-based acute management for venomous snakebites (Russell\'s Viper, Saw-scaled Viper, Common Krait, Indian Cobra) across Indian states.',
+    keyActions: [
+      'Keep the patient strictly calm, lying down, and physically immobilized (muscle movement accelerates venom distribution via lymphatic circulation).',
+      'Immediately remove rings, anklets, bracelets, watches, or tight clothing from the bitten limb before acute edema develops.',
+      'Immobilize the bitten limb using a rigid splint or broad sling, keeping it at heart level (not higher, not dangling).',
+      'Immediately transport the victim to the nearest Primary Health Centre (PHC), District Hospital, or Medical College equipped with Polyvalent Anti-Snake Venom (ASV).',
+      'Dial 108 (State Ambulance) or 112 (National Emergency) for emergency paramedic transfer.'
+    ],
+    contraindications: [
+      'DO NOT apply a tight arterial tourniquet or tight string/cloth — this causes local tissue ischemia, gangrene, and sudden lethal systemic envenomation upon release.',
+      'DO NOT cut, excise, or slash the bite puncture wounds with razor blades.',
+      'DO NOT attempt oral suction or suction pump devices (ineffective and introduces catastrophic oral bacterial infection).',
+      'DO NOT apply herbal pastes, lime (chuna), cow dung, black snake stones, or ice packs to the bite.',
+      'DO NOT give alcohol, stimulants, or sedative analgesics.'
+    ],
+    escalationThresholds: [
+      'Bilateral ptosis (drooping eyelids), blurred vision, or slurred speech (early neurotoxic signs of Krait/Cobra)',
+      'Bleeding from gums, persistent oozing from fang marks, hematuria (hemotoxic signs of Viper)',
+      'Rapidly ascending swelling crossing past the nearest joint',
+      'Severe abdominal pain, vomiting, hypotension, or dark brown urine'
+    ],
+    region: 'India'
+  },
+  {
+    id: 'proto-rabies-in',
+    title: 'National Rabies Control Programme (NRCP) Stray Animal & Dog Bite Protocol',
+    category: 'wounds',
+    source: 'ICMR',
+    version: '2025-NRCP-ICMR',
+    lastReviewed: '2025-11-10',
+    reviewStatus: 'Clinical Approved',
+    evidenceLevel: 'Level A (Clinical Trials)',
+    summary: 'Standard post-exposure prophylaxis (PEP) protocol for stray dog, monkey, and feral animal bites across India.',
+    keyActions: [
+      'IMMEDIATELY wash the wound vigorously under running tap water with soap or detergent for a minimum of 15 continuous minutes (removes >90% of viral load).',
+      'Apply povidone-iodine (Betadine) or 70% surgical spirit antiseptic thoroughly to the entire wound surface.',
+      'Report immediately to the nearest Government Hospital, Anti-Rabies Clinic, or Civil Dispensary for Anti-Rabies Vaccine (ARV Day 0, 3, 7, 28).',
+      'For Category III exposures (single or multiple transdermal bites, scratches, or contact of saliva with broken skin), Rabies Immunoglobulin (RIG) must be infiltrated directly into and around the wound on Day 0.'
+    ],
+    contraindications: [
+      'DO NOT apply irritants like red chili powder, turmeric, mustard oil, lime, tobacco, or cow dung.',
+      'DO NOT suture or stitch the bite wound immediately (suturing inoculates rabies virus deeper into sensory nerves). If unavoidable for arterial hemostasis, suture only after RIG infiltration.',
+      'DO NOT dress or occlude the wound tightly with airtight bandages.'
+    ],
+    escalationThresholds: [
+      'Deep transdermal puncture or tearing lacerations from unprovoked stray dog or monkey',
+      'Bites located near high-nerve areas: head, neck, face, hands, or fingertips',
+      'Animal was rabid, frothing at mouth, disoriented, or died within 10 days of bite'
+    ],
+    region: 'India'
+  },
+  {
+    id: 'proto-heat-in',
+    title: 'Acute Heatstroke & Severe Dehydration Protocol (NDMA Guidelines)',
+    category: 'environmental',
+    source: 'NDMA',
+    version: '2025-NDMA-HEAT',
+    lastReviewed: '2025-05-15',
+    reviewStatus: 'Clinical Approved',
+    evidenceLevel: 'Level B (Consensus Guidelines)',
+    summary: 'Emergency first response for severe heat exhaustion and classical/exertional heatstroke in Indian tropical and arid climates.',
+    keyActions: [
+      'Immediately move the person out of direct sun into a cool, well-ventilated, shaded or air-conditioned area.',
+      'Loosen or remove outer heavy clothing.',
+      'Initiate aggressive evaporative cooling: spray cool water over skin and fan vigorously, or place cool wet towels over neck, armpits, and groin.',
+      'If the person is conscious and oriented, administer cool fluids containing electrolytes: Oral Rehydration Solution (ORS), tender coconut water, or nimbu paani with a pinch of salt.',
+      'Call 108 / 112 immediately if body temperature is >104°F (40°C), or if confusion, delirium, or loss of consciousness occurs.'
+    ],
+    contraindications: [
+      'DO NOT give oral liquids if the person is semi-conscious, vomiting, or confused (aspiration hazard).',
+      'DO NOT administer paracetamol or aspirin for heatstroke (they do not reset the hypothalamic setpoint in heatstroke and can worsen hepatic/renal injury).',
+      'DO NOT plunge an unconscious patient into ice-cold water without medical airway monitoring.'
+    ],
+    escalationThresholds: [
+      'Altered mental state: confusion, agitation, slurred speech, hallucinations, or seizure',
+      'Hot, flushed, dry skin with absence of sweating despite high ambient heat',
+      'Rapid, thready pulse with shallow breathing and vomiting'
+    ],
+    region: 'India'
+  },
+  {
+    id: 'proto-rta-in',
+    title: 'Two-Wheeler Road Trauma & Good Samaritan Protection Protocol',
+    category: 'trauma',
+    source: 'AIIMS',
+    version: '2025-MORTH-AIIMS-RTA',
+    lastReviewed: '2025-09-01',
+    reviewStatus: 'Clinical Approved',
+    evidenceLevel: 'Level A (Clinical Trials)',
+    summary: 'Trauma survey, helmet removal caveats, and Good Samaritan legal protections under the Supreme Court of India & Ministry of Road Transport (MoRTH).',
+    keyActions: [
+      'Good Samaritan Protection: Under Supreme Court guidelines, anyone assisting a road accident victim is protected from police questioning, civil/criminal liability, or hospital detention.',
+      'Check Airway, Breathing, and Circulation (ABC) without twisting or moving the victim\'s neck or spine.',
+      'Cervical Spine Protection: DO NOT remove the rider\'s helmet at the roadside unless airway is obstructed and two trained responders are available for in-line cervical stabilization.',
+      'Call National Emergency 112 or Ambulance 108 immediately and state exact highway / landmark coordinates.',
+      'Control external bleeding with continuous direct firm pressure using clean cloth or emergency dressing.'
+    ],
+    contraindications: [
+      'DO NOT jerk, haul, or pull an unconscious or injured rider into an upright seated position.',
+      'DO NOT pour water into the mouth of a drowsy or vomiting accident victim.',
+      'DO NOT twist the neck to remove a tight full-face helmet alone.'
+    ],
+    escalationThresholds: [
+      'Loss of consciousness or amnesia following high-speed impact or collision',
+      'Midline spinal pain, tingling in extremities, or inability to move arms or legs',
+      'Severe blunt chest or abdominal pain with cold pale clammy skin'
+    ],
+    region: 'India'
   }
 ];
 

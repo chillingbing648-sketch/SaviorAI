@@ -105,7 +105,9 @@ export const EmergencyModal: React.FC<EmergencyModalProps> = ({
           {/* Main Call Action */}
           <div className="bg-gradient-to-br from-red-950/80 to-neutral-900 border border-red-500/50 rounded-xl p-5 text-center space-y-3">
             <p className="text-sm uppercase tracking-wider text-red-300 font-semibold">Immediate Action</p>
-            <h3 className="text-2xl font-bold text-white">Call emergency services now</h3>
+            <h3 className="text-2xl font-bold text-white">
+              {emergencyCountry === 'India' || userPrefs.region === 'IN' ? 'Call 112 (National Emergency)' : 'Call emergency services now'}
+            </h3>
             <p className="text-sm text-neutral-300">
               For your location ({emergencyCountry}), call dispatch immediately:
             </p>
