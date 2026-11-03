@@ -19,7 +19,10 @@ import {
   CheckCircle2,
   RefreshCw,
   PhoneCall,
-  Globe
+  Globe,
+  Ambulance,
+  Building2,
+  Pill
 } from 'lucide-react';
 import { HealthcareFacility, UserPreferences } from '../types';
 import { REGIONAL_EMERGENCY_NUMBERS } from '../data/facilities';
@@ -265,38 +268,42 @@ export const FindHelpView: React.FC<FindHelpViewProps> = ({ userPrefs, onOpenEme
             </span>
             <span className="text-[10px] font-bold text-[#0d7a5f] dark:text-[#00BE88]">GPS / City Targeted</span>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs">
             <a
               href={buildSearchUrl('Emergency Hospital 108 Trauma Center')}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2.5 rounded-xl bg-white dark:bg-[#122e25] border border-red-200 dark:border-red-900/60 hover:border-red-500 font-bold text-red-700 dark:text-red-300 text-center transition-colors shadow-2xs"
+              className="p-2.5 rounded-xl bg-white dark:bg-[#122e25] border border-red-200 dark:border-red-900/60 hover:border-red-500 font-bold text-red-700 dark:text-red-300 flex items-center justify-center space-x-1.5 transition-all shadow-2xs hover:shadow-xs group cursor-pointer"
             >
-              🚑 108 Trauma Centers
+              <Ambulance className="w-4 h-4 text-red-600 shrink-0 group-hover:scale-110 transition-transform" />
+              <span>108 Trauma Centers</span>
             </a>
             <a
               href={buildSearchUrl('Government Civil Hospital Medical College AIIMS')}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2.5 rounded-xl bg-white dark:bg-[#122e25] border border-sky-200 dark:border-sky-900/60 hover:border-sky-500 font-bold text-sky-800 dark:text-sky-300 text-center transition-colors shadow-2xs"
+              className="p-2.5 rounded-xl bg-white dark:bg-[#122e25] border border-sky-200 dark:border-sky-900/60 hover:border-sky-500 font-bold text-sky-800 dark:text-sky-300 flex items-center justify-center space-x-1.5 transition-all shadow-2xs hover:shadow-xs group cursor-pointer"
             >
-              🏥 Govt Civil & AIIMS
+              <Building2 className="w-4 h-4 text-sky-600 shrink-0 group-hover:scale-110 transition-transform" />
+              <span>Govt Civil & AIIMS</span>
             </a>
             <a
               href={buildSearchUrl('Apollo Fortis Max Manipal Multispeciality Hospital')}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2.5 rounded-xl bg-white dark:bg-[#122e25] border border-emerald-200 dark:border-emerald-900/60 hover:border-[#0d7a5f] font-bold text-[#0d7a5f] dark:text-[#00BE88] text-center transition-colors shadow-2xs"
+              className="p-2.5 rounded-xl bg-white dark:bg-[#122e25] border border-emerald-200 dark:border-emerald-900/60 hover:border-[#0d7a5f] font-bold text-[#0d7a5f] dark:text-[#00BE88] flex items-center justify-center space-x-1.5 transition-all shadow-2xs hover:shadow-xs group cursor-pointer"
             >
-              🏥 Private Multispeciality
+              <Building2 className="w-4 h-4 text-emerald-600 shrink-0 group-hover:scale-110 transition-transform" />
+              <span>Multispeciality Care</span>
             </a>
             <a
               href={buildSearchUrl('24 hour chemist pharmacy Jan Aushadhi')}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2.5 rounded-xl bg-white dark:bg-[#122e25] border border-amber-200 dark:border-amber-900/60 hover:border-amber-500 font-bold text-amber-800 dark:text-amber-300 text-center transition-colors shadow-2xs"
+              className="p-2.5 rounded-xl bg-white dark:bg-[#122e25] border border-amber-200 dark:border-amber-900/60 hover:border-amber-500 font-bold text-amber-800 dark:text-amber-300 flex items-center justify-center space-x-1.5 transition-all shadow-2xs hover:shadow-xs group cursor-pointer"
             >
-              💊 24x7 Jan Aushadhi
+              <Pill className="w-4 h-4 text-amber-600 shrink-0 group-hover:scale-110 transition-transform" />
+              <span>24x7 Jan Aushadhi</span>
             </a>
           </div>
         </div>

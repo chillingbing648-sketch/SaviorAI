@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { PhoneCall, ShieldAlert, AlertTriangle, MapPin, FileText, X, Check, Share2, Compass } from 'lucide-react';
+import { PhoneCall, AlertTriangle, MapPin, FileText, X, Check, Share2, Compass } from 'lucide-react';
+import { MendlyLogo } from './ui/MendlyLogo';
 import { REGIONAL_EMERGENCY_NUMBERS } from '../data/facilities';
 import { UserPreferences } from '../types';
 import { getTranslation } from '../lib/translations';
@@ -83,11 +84,14 @@ export const EmergencyModal: React.FC<EmergencyModalProps> = ({
         {/* Top Emergency Banner */}
         <div className="bg-red-600 px-6 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center animate-pulse">
-              <ShieldAlert className="w-6 h-6 text-white" />
-            </div>
+            <MendlyLogo size="sm" />
             <div>
-              <h2 id="emergency-modal-title" className="text-xl font-bold tracking-tight">{getTranslation(userPrefs.language, 'emergencyButton')}</h2>
+              <div className="flex items-center space-x-2">
+                <h2 id="emergency-modal-title" className="text-xl font-bold tracking-tight">{getTranslation(userPrefs.language, 'emergencyButton')}</h2>
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-white/20 text-white border border-white/30">
+                  Level 1 Protocol
+                </span>
+              </div>
               <p className="text-xs text-red-100 font-medium">Call local emergency services now if someone may be in danger.</p>
             </div>
           </div>

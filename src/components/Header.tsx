@@ -17,6 +17,7 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { UserPreferences } from '../types';
 import { SUPPORTED_LANGUAGES, getTranslation } from '../lib/translations';
+import { MendlyLogo } from './ui/MendlyLogo';
 
 interface HeaderProps {
   currentTab: 'home' | 'assess' | 'watch' | 'medications' | 'find_help' | 'library' | 'admin' | 'settings';
@@ -82,7 +83,7 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="w-full px-4 sm:px-6 lg:px-8 border-b border-[#e6eee9] dark:border-[#132f26]">
         <div className="flex items-center justify-between h-14 sm:h-16">
           
-          {/* Left: Brand Identity */}
+          {/* Left: Brand Identity with Proprietary Logo */}
           <div
             className="flex items-center space-x-3 cursor-pointer group select-none shrink-0"
             onClick={() => onSelectTab('home')}
@@ -92,24 +93,10 @@ export const Header: React.FC<HeaderProps> = ({
               if (e.key === 'Enter' || e.key === ' ') onSelectTab('home');
             }}
           >
-            <motion.div
-              whileHover={{ rotate: [0, -6, 6, 0], scale: 1.05 }}
-              transition={{ duration: 0.3 }}
-              className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#0d7a5f] dark:bg-[#00BE88] flex items-center justify-center shadow-xs text-white dark:text-[#041611]"
-            >
-              <Shield className="w-5 h-5" strokeWidth={2.5} />
-            </motion.div>
-            <div className="flex items-center space-x-2">
-              <span className="font-extrabold text-lg sm:text-xl tracking-tight text-[#081a14] dark:text-[#f5fbf8]">
-                Mendly
-              </span>
-              <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wider bg-[#ecf7f3] dark:bg-[#122e25] text-[#0d7a5f] dark:text-[#00BE88] border border-[#b8e2d4] dark:border-[#1d4d3e] uppercase">
-                CLINICAL SAFETY
-              </span>
-              <span className="hidden sm:inline-flex items-center text-[11px] text-[#6c837c] dark:text-[#8eada3] font-medium border-l border-[#d1ded9] dark:border-[#1b4136] pl-2">
-                India First-Response & Triage
-              </span>
-            </div>
+            <MendlyLogo size="md" isClickable showWordmark showBadge />
+            <span className="hidden sm:inline-flex items-center text-[11px] text-[#6c837c] dark:text-[#8eada3] font-medium border-l border-[#d1ded9] dark:border-[#1b4136] pl-2.5">
+              India First-Response & Triage
+            </span>
           </div>
 
           {/* Right: Quick Action Controls */}

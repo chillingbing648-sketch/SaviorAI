@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ShieldAlert, Scale, PhoneCall, Lock, AlertTriangle, CheckCircle2 } from 'lucide-react';
 import { Header } from './components/Header';
+import { MendlyLogo } from './components/ui/MendlyLogo';
 import { HomeView } from './components/HomeView';
 import { AssessWizard } from './components/AssessWizard';
 import { InjuryWatchView } from './components/InjuryWatchView';
@@ -413,7 +414,7 @@ export default function App() {
           {/* Bottom Copyright and Protocol Compliance Strip */}
           <div className="pt-4 border-t border-[#d1ded9] dark:border-[#1b4136] flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-[#4e665f] dark:text-[#8eada3]">
             <div className="flex items-center space-x-2">
-              <ShieldAlert className="w-4 h-4 text-[#0d7a5f] dark:text-[#00BE88] shrink-0" />
+              <MendlyLogo size="xs" />
               <span>
                 <strong>Mendly Health-Tech Systems</strong> — Clinical Safety-First Architecture & Protocol Gate
               </span>

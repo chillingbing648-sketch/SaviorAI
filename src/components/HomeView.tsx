@@ -21,6 +21,7 @@ import { MonitoredInjury, SafetyBenchmarkTestCase, UserPreferences } from '../ty
 import { REGIONAL_EMERGENCY_NUMBERS } from '../data/facilities';
 import { getTranslation } from '../lib/translations';
 import { Button } from './ui/Button';
+import { MendlyLogo } from './ui/MendlyLogo';
 import { Badge } from './ui/Badge';
 import { Card } from './ui/Card';
 import { SectionHeader } from './ui/SectionHeader';
@@ -88,6 +89,10 @@ export const HomeView: React.FC<HomeViewProps> = ({
       {/* Hero Welcome & Primary Action Card */}
       <motion.div variants={itemVariants}>
         <div className="relative overflow-hidden rounded-3xl bg-[#ecf7f3] dark:bg-[#0f2a21] border border-[#b8e2d4] dark:border-[#1d4d3e] p-6 sm:p-10 shadow-xs">
+          {/* Subtle Watermark Logo in Hero Background */}
+          <div className="absolute right-4 -bottom-6 opacity-10 dark:opacity-15 pointer-events-none select-none hidden sm:block">
+            <MendlyLogo size="xl" />
+          </div>
           <div className="relative z-10 max-w-3xl space-y-4">
             <div className="inline-flex items-center space-x-2 text-[#0d7a5f] dark:text-[#00BE88] text-xs font-bold uppercase tracking-wider bg-white/70 dark:bg-[#081a14]/60 px-3 py-1 rounded-full border border-[#b8e2d4] dark:border-[#1d4d3e]">
               <ShieldCheck className="w-4 h-4" />

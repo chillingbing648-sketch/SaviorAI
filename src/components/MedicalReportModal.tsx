@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { TriageAnalysisResponse, MonitoredInjury, UserPreferences } from '../types';
 import { getTranslation } from '../lib/translations';
+import { MendlyLogo } from './ui/MendlyLogo';
 
 interface MedicalReportModalProps {
   isOpen: boolean;
@@ -144,10 +145,11 @@ CLINICAL RECOVERY LOG ENTRIES: ${monitoredInjury?.entries.length || 1} checkpoin
           {/* Header Title in document */}
           <div className="border-b-2 border-neutral-900 dark:border-neutral-700 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500">
-                MENDLY MEDICAL SYSTEMS • CLINICAL SUMMARY
-              </span>
-              <h1 className="text-xl sm:text-2xl font-black mt-0.5">
+              <MendlyLogo size="sm" showWordmark showBadge />
+              <p className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 mt-1.5">
+                MENDLY MEDICAL SYSTEMS • CLINICAL SBAR HANDOFF
+              </p>
+              <h1 className="text-xl sm:text-2xl font-black mt-1">
                 First-Response Injury & Triage Handoff Note
               </h1>
             </div>
