@@ -36,11 +36,11 @@ export const MendlyLogo: React.FC<MendlyLogoProps> = ({
       className="shrink-0 drop-shadow-sm select-none"
     >
       <defs>
-        {/* Shield Gradient */}
+        {/* Shield Gradient (Radiant Medical Emerald) */}
         <linearGradient id={`mendlyShield-${dim}`} x1="20" y1="12" x2="108" y2="120" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#0d7a5f" />
-          <stop offset="60%" stopColor="#08523f" />
-          <stop offset="100%" stopColor="#04261e" />
+          <stop offset="0%" stopColor="#00E5A3" />
+          <stop offset="45%" stopColor="#00BE88" />
+          <stop offset="100%" stopColor="#086e54" />
         </linearGradient>
 
         {/* Cross Gradient */}
@@ -49,11 +49,11 @@ export const MendlyLogo: React.FC<MendlyLogoProps> = ({
           <stop offset="100%" stopColor="#f0fdf4" />
         </linearGradient>
 
-        {/* Pulse Heartbeat Gradient */}
+        {/* Pulse Heartbeat Gradient (Warm Saffron Gold Vitality) */}
         <linearGradient id={`mendlyPulse-${dim}`} x1="42" y1="56" x2="86" y2="56" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#0d7a5f" />
-          <stop offset="50%" stopColor="#d97706" />
-          <stop offset="100%" stopColor="#00BE88" />
+          <stop offset="0%" stopColor="#d97706" />
+          <stop offset="50%" stopColor="#f59e0b" />
+          <stop offset="100%" stopColor="#fbbf24" />
         </linearGradient>
 
         {/* Ambient Glow */}
@@ -62,10 +62,13 @@ export const MendlyLogo: React.FC<MendlyLogoProps> = ({
         </filter>
       </defs>
 
-      {/* Main Protective Shield */}
+      {/* Main Protective Shield with High-Contrast White Rim */}
       <path
         d="M 24 24 C 24 17.37 29.37 12 36 12 L 92 12 C 98.63 12 104 17.37 104 24 L 104 66 C 104 94 70 113.5 64 116 C 58 113.5 24 94 24 66 Z"
         fill={`url(#mendlyShield-${dim})`}
+        stroke="#ffffff"
+        strokeWidth="2.5"
+        strokeOpacity="0.85"
         filter={`url(#mendlyGlow-${dim})`}
       />
 
