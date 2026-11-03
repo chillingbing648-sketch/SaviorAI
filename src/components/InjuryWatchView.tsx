@@ -4,25 +4,27 @@ import {
   AlertTriangle,
   Clock,
   Plus,
-  ArrowUpRight,
   ShieldAlert,
   CheckCircle2,
   TrendingUp,
   TrendingDown,
+  Minus,
   FileText,
   Trash2,
   ChevronRight,
   Activity,
   Calendar,
   AlertCircle,
-  X
+  X,
+  Thermometer,
+  Eye,
+  Check
 } from 'lucide-react';
 import { MonitoredInjury, InjuryWatchEntry, UserPreferences } from '../types';
 import { Button } from './ui/Button';
 import { Badge } from './ui/Badge';
 import { Card } from './ui/Card';
 import { Modal } from './ui/Modal';
-import { SectionHeader } from './ui/SectionHeader';
 import { getTranslation } from '../lib/translations';
 
 interface InjuryWatchViewProps {
@@ -50,19 +52,20 @@ export const InjuryWatchView: React.FC<InjuryWatchViewProps> = ({
     selectedInjuryId || (injuries.length > 0 ? injuries[0].id : null)
   );
   const [isLoggingModalOpen, setIsLoggingModalOpen] = useState<boolean>(false);
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
 
-  // New log entry form state
-  const [painScore, setPainScore] = useState<number>(4);
+  // New log entry form state (neutral defaults)
+  const [painScore, setPainScore] = useState<number>(3);
   const [bleedingStatus, setBleedingStatus] = useState<'none' | 'minimal' | 'moderate' | 'uncontrolled'>('none');
   const [swellingStatus, setSwellingStatus] = useState<'improving' | 'stable' | 'worsening'>('stable');
   const [mobilityStatus, setMobilityStatus] = useState<'normal' | 'limited' | 'unable_to_move'>('limited');
-  const [sensationStatus, setSensationStatus] = useState<'normal' | 'numb' | 'tingling' | 'lost'>('normal');
+  const [sensationStatus, setSensationStatus] = useState<'normal' | 'tingling' | 'numb' | 'lost'>('normal');
   const [temperatureFever, setTemperatureFever] = useState<boolean>(false);
   const [logNotes, setLogNotes] = useState<string>('');
 
   const currentInjury = injuries.find((i) => i.id === activeId) || injuries[0];
 
-  // Dynamic Deterioration Check
+  // Dynamic Deterioration Detection Logic
   const handleSaveLogEntry = () => {
     if (!currentInjury) return;
 
@@ -71,7 +74,7 @@ export const InjuryWatchView: React.FC<InjuryWatchViewProps> = ({
     let deteriorationDetected = false;
     let deteriorationReason = '';
 
-    // Deterioration Rules
+    // Deterioration Rules based on clinical watch flags
     if (previousEntry) {
       if (painScore >= previousEntry.painScore + 2) {
         deteriorationDetected = true;
@@ -79,7 +82,7 @@ export const InjuryWatchView: React.FC<InjuryWatchViewProps> = ({
       }
       if (bleedingStatus === 'uncontrolled' || bleedingStatus === 'moderate') {
         deteriorationDetected = true;
-        deteriorationReason = 'Bleeding has resumed or escalated.';
+        deteriorationReason = 'Bleeding has resumed or escalated to moderate/uncontrolled level.';
       }
       if (swellingStatus === 'worsening') {
         deteriorationDetected = true;
@@ -87,15 +90,15 @@ export const InjuryWatchView: React.FC<InjuryWatchViewProps> = ({
       }
       if (sensationStatus === 'numb' || sensationStatus === 'lost') {
         deteriorationDetected = true;
-        deteriorationReason = 'Neurovascular sensation compromise (numbness/loss of feeling).';
+        deteriorationReason = 'Neurovascular sensation compromise (numbness or loss of distal feeling).';
       }
       if (mobilityStatus === 'unable_to_move' && previousEntry.mobilityStatus !== 'unable_to_move') {
         deteriorationDetected = true;
-        deteriorationReason = 'Sudden inability to move joint or bear weight.';
+        deteriorationReason = 'Sudden loss of mobility or inability to bear weight.';
       }
       if (temperatureFever) {
         deteriorationDetected = true;
-        deteriorationReason = 'Fever or localized heat indicates possible spreading infection.';
+        deteriorationReason = 'Fever or localized spreading warmth indicates possible secondary infection.';
       }
     }
 
@@ -125,7 +128,7 @@ export const InjuryWatchView: React.FC<InjuryWatchViewProps> = ({
     setLogNotes('');
   };
 
-  // Immediate "I am getting worse" one-tap trigger
+  // Immediate "I am getting worse" acute escalation trigger
   const handleImmediateWorseningTrigger = () => {
     if (!currentInjury) return;
 
@@ -138,9 +141,9 @@ export const InjuryWatchView: React.FC<InjuryWatchViewProps> = ({
       mobilityStatus: 'unable_to_move',
       sensationStatus: 'numb',
       temperatureFever: true,
-      notes: 'USER ONE-TAP ESCALATION: Patient flagged acute worsening of symptoms.',
+      notes: 'PATIENT-REPORTED ESCALATION: Patient flagged acute worsening of symptoms.',
       deteriorationDetected: true,
-      deteriorationReason: 'Emergency One-Tap Trigger: Acute worsening reported by patient.'
+      deteriorationReason: 'Emergency One-Tap Trigger: Acute symptom worsening reported by patient.'
     };
 
     const updatedInjury: MonitoredInjury = {
@@ -157,31 +160,47 @@ export const InjuryWatchView: React.FC<InjuryWatchViewProps> = ({
   if (injuries.length === 0) {
     return (
       <div className="max-w-xl mx-auto py-16 text-center space-y-6 animate-fadeIn">
-        <div className="w-16 h-16 rounded-3xl bg-[#ecf7f3] dark:bg-emerald-950/60 text-[#0d7a5f] dark:text-emerald-400 flex items-center justify-center mx-auto shadow-xs">
+        <div className="w-16 h-16 rounded-3xl bg-[#ecf7f3] dark:bg-[#12352B] text-[#0d7a5f] dark:text-[#00BE88] flex items-center justify-center mx-auto shadow-xs border border-[#b8e2d4] dark:border-[#1F4A42]">
           <HeartPulse className="w-8 h-8" />
         </div>
         <div className="space-y-2">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white">{getTranslation(userPrefs.language, 'navWatch')}</h2>
-          <p className="text-slate-500 dark:text-slate-400 text-sm max-w-md mx-auto leading-relaxed">
-            Injury Watch allows you to track recovery over time, log symptom changes, and automatically detect complications or worsening conditions.
+          <h2 className="text-2xl font-bold text-[#081a14] dark:text-[#f5fbf8]">
+            {getTranslation(userPrefs.language, 'navWatch')}
+          </h2>
+          <p className="text-[#4e665f] dark:text-[#8eada3] text-sm max-w-md mx-auto leading-relaxed">
+            Injury Watch tracks recovery progress over hours and days. Log periodic check-ins to monitor pain trends, wound healing, and detect warning signs before complications emerge.
           </p>
         </div>
-        <Button
-          size="lg"
-          variant="primary"
-          onClick={onStartNewAssessment}
-          leftIcon={<Plus className="w-4 h-4" />}
-          id="watch-start-first-assessment-btn"
-        >
-          {getTranslation(userPrefs.language, 'assessInjury')}
-        </Button>
+        <div className="pt-2">
+          <Button
+            size="lg"
+            variant="primary"
+            onClick={onStartNewAssessment}
+            leftIcon={<Plus className="w-4 h-4" />}
+            id="watch-start-first-assessment-btn"
+          >
+            {getTranslation(userPrefs.language, 'assessInjury')}
+          </Button>
+        </div>
+        <div className="p-4 rounded-2xl bg-[#f4f7f5] dark:bg-[#0d221b]/40 border border-slate-200/80 dark:border-[#1F4A42] text-xs text-[#4e665f] dark:text-[#8eada3] max-w-md mx-auto text-left space-y-1">
+          <div className="flex items-center space-x-1.5 font-semibold text-[#223730] dark:text-[#d1e4dd]">
+            <Activity className="w-3.5 h-3.5 text-[#0d7a5f] dark:text-[#00BE88]" />
+            <span>How Watch Protects You:</span>
+          </div>
+          <p>
+            When you complete an assessment, you can add it to Injury Watch. Check-ins are compared against baseline symptoms to automatically flag pain spikes, spreading redness, or neurovascular changes.
+          </p>
+        </div>
       </div>
     );
   }
 
   const latestEntry = currentInjury?.entries[currentInjury.entries.length - 1];
   const initialEntry = currentInjury?.entries[0];
-  const hasDeteriorated = currentInjury?.entries.some((e) => e.deteriorationDetected);
+  const hasDeteriorated = currentInjury?.entries.some((e) => e.deteriorationDetected) || currentInjury?.status === 'escalated';
+
+  // Calculate pain trend
+  const painDelta = latestEntry && initialEntry ? latestEntry.painScore - initialEntry.painScore : 0;
 
   return (
     <div className="max-w-6xl mx-auto pb-16 space-y-8 animate-fadeIn">
@@ -190,12 +209,12 @@ export const InjuryWatchView: React.FC<InjuryWatchViewProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center space-x-2">
-            <HeartPulse className="w-6 h-6 text-[#0d7a5f] dark:text-emerald-400" />
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+            <HeartPulse className="w-6 h-6 text-[#0d7a5f] dark:text-[#00BE88]" />
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-[#081a14] dark:text-[#f5fbf8] tracking-tight">
               {getTranslation(userPrefs.language, 'navWatch')}
             </h1>
           </div>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-[#4e665f] dark:text-[#8eada3] mt-1">
             Dynamic recovery monitoring, longitudinal symptom comparison, and automated escalation detection
           </p>
         </div>
@@ -227,7 +246,7 @@ export const InjuryWatchView: React.FC<InjuryWatchViewProps> = ({
         
         {/* Left Column: List of Injuries */}
         <div className="space-y-3">
-          <h2 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          <h2 className="text-xs font-bold uppercase tracking-wider text-[#4e665f] dark:text-[#8eada3]">
             Monitored Injuries ({injuries.length})
           </h2>
 
@@ -242,16 +261,16 @@ export const InjuryWatchView: React.FC<InjuryWatchViewProps> = ({
                   onClick={() => setActiveId(inj.id)}
                   className={`p-4 rounded-2xl border transition-all cursor-pointer ${
                     isSelected
-                      ? 'bg-white dark:bg-[#15201a] border-[#0d7a5f] dark:border-emerald-500 shadow-sm ring-1 ring-[#0d7a5f]/20'
-                      : 'bg-slate-50/70 dark:bg-[#121915] border-slate-200/80 dark:border-[#1e2c25] hover:border-slate-300'
+                      ? 'bg-white dark:bg-[#12352B] border-[#0d7a5f] dark:border-[#00BE88] shadow-xs ring-1 ring-[#0d7a5f]/30'
+                      : 'bg-[#f4f7f5] dark:bg-[#091a14] border-[#d1ded9] dark:border-[#1b4136] hover:border-slate-300 dark:hover:border-[#2D5A50]'
                   }`}
                 >
                   <div className="flex items-start justify-between gap-1.5">
                     <div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                        {inj.originalInput.bodyPart}
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#4e665f] dark:text-[#8eada3]">
+                        {inj.originalInput.bodyPart || 'Unspecified'}
                       </span>
-                      <h3 className="font-bold text-sm text-slate-900 dark:text-white mt-0.5">
+                      <h3 className="font-bold text-sm text-[#081a14] dark:text-[#f5fbf8] mt-0.5">
                         {inj.title}
                       </h3>
                     </div>
@@ -264,8 +283,8 @@ export const InjuryWatchView: React.FC<InjuryWatchViewProps> = ({
                     </Badge>
                   </div>
 
-                  <div className="mt-3 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-[#1e2c25] pt-2">
-                    <span>{inj.entries.length} check-ins</span>
+                  <div className="mt-3 flex items-center justify-between text-[11px] text-[#4e665f] dark:text-[#8eada3] border-t border-[#d1ded9] dark:border-[#1b4136] pt-2">
+                    <span>{inj.entries.length} check-in{inj.entries.length !== 1 ? 's' : ''}</span>
                     <span>Started {new Date(inj.createdAt).toLocaleDateString()}</span>
                   </div>
                 </div>
@@ -280,16 +299,16 @@ export const InjuryWatchView: React.FC<InjuryWatchViewProps> = ({
             
             {/* Deterioration Alert Banner (If triggered) */}
             {hasDeteriorated && (
-              <div className="bg-red-600 text-white rounded-2xl p-5 shadow-lg border border-red-500 space-y-3 animate-fadeIn">
+              <div className="bg-red-600 text-white rounded-2xl p-5 shadow-sm border border-red-500 space-y-3 animate-fadeIn">
                 <div className="flex items-center space-x-2">
-                  <AlertTriangle className="w-5 h-5" />
+                  <AlertTriangle className="w-5 h-5 text-white" />
                   <h3 className="font-extrabold text-sm uppercase tracking-wide">
-                    WORSENING DETECTED — MEDICAL EVALUATION RECOMMENDED
+                    Worsening Signs Detected — Medical Evaluation Advised
                   </h3>
                 </div>
                 <p className="text-xs text-red-100 leading-relaxed">
-                  Our longitudinal comparison detected worsening symptoms (such as pain surges, sensory deficits, or expanding swelling). 
-                  Do not ignore worsening signs. Please arrange urgent medical evaluation.
+                  Longitudinal comparison identified symptom deterioration (pain surges, distal sensory changes, or expanding swelling).
+                  Do not ignore worsening signs. Please arrange in-person medical evaluation immediately.
                 </p>
                 <div className="pt-1 flex flex-wrap gap-2">
                   <Button
@@ -314,16 +333,24 @@ export const InjuryWatchView: React.FC<InjuryWatchViewProps> = ({
 
             {/* Injury Summary Header Card */}
             <Card variant="default" className="space-y-4">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-[#1e2c25]">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#d1ded9] dark:border-[#1b4136]">
                 <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                    Active Injury Profile
-                  </span>
-                  <h2 className="text-xl font-bold text-slate-900 dark:text-white mt-0.5">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#4e665f] dark:text-[#8eada3]">
+                      Active Injury Profile
+                    </span>
+                    <Badge
+                      variant={currentInjury.status === 'resolved' ? 'neutral' : currentInjury.status === 'escalated' ? 'emergency' : 'first_aid'}
+                      size="sm"
+                    >
+                      {currentInjury.status.toUpperCase()}
+                    </Badge>
+                  </div>
+                  <h2 className="text-xl font-bold text-[#081a14] dark:text-[#f5fbf8] mt-0.5">
                     {currentInjury.title}
                   </h2>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                    Mechanism: {currentInjury.originalInput.mechanism} • Time: {currentInjury.originalInput.timeframe}
+                  <p className="text-xs text-[#4e665f] dark:text-[#8eada3] mt-0.5">
+                    Mechanism: {currentInjury.originalInput.mechanism || 'Direct trauma'} • Onset: {currentInjury.originalInput.timeframe || 'Recent'}
                   </p>
                 </div>
 
@@ -342,8 +369,8 @@ export const InjuryWatchView: React.FC<InjuryWatchViewProps> = ({
                     size="sm"
                     variant="outline"
                     onClick={() => onOpenReport(currentInjury)}
-                    leftIcon={<FileText className="w-3.5 h-3.5 text-sky-500" />}
-                    title="Export Doctor Report"
+                    leftIcon={<FileText className="w-3.5 h-3.5 text-[#0d7a5f] dark:text-[#00BE88]" />}
+                    title="Export Clinical Handoff Report"
                   >
                     Handoff Report
                   </Button>
@@ -352,65 +379,92 @@ export const InjuryWatchView: React.FC<InjuryWatchViewProps> = ({
 
               {/* Status Comparison Matrix */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <div className="bg-slate-50 dark:bg-slate-800/40 p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs space-y-1">
-                  <span className="text-slate-500 dark:text-slate-400 text-[10px] uppercase font-bold">Pain Score</span>
-                  <p className="font-extrabold text-base text-slate-900 dark:text-white">
-                    {latestEntry?.painScore || currentInjury.originalInput.painLevel} / 10
+                <div className="bg-[#f4f7f5] dark:bg-[#091a14] p-3.5 rounded-xl border border-[#d1ded9] dark:border-[#1b4136] text-xs space-y-1">
+                  <span className="text-[#4e665f] dark:text-[#8eada3] text-[10px] uppercase font-bold flex items-center justify-between">
+                    <span>Pain Score</span>
+                    {painDelta > 0 ? (
+                      <span className="text-red-600 dark:text-red-400 font-bold flex items-center">
+                        <TrendingUp className="w-3 h-3 mr-0.5" /> +{painDelta}
+                      </span>
+                    ) : painDelta < 0 ? (
+                      <span className="text-[#0d7a5f] dark:text-[#00BE88] font-bold flex items-center">
+                        <TrendingDown className="w-3 h-3 mr-0.5" /> {painDelta}
+                      </span>
+                    ) : (
+                      <span className="text-slate-400 font-bold flex items-center">
+                        <Minus className="w-3 h-3 mr-0.5" /> 0
+                      </span>
+                    )}
+                  </span>
+                  <p className="font-extrabold text-base text-[#081a14] dark:text-[#f5fbf8]">
+                    {latestEntry?.painScore ?? currentInjury.originalInput.painLevel} / 10
                   </p>
-                  <span className="text-[10px] text-slate-500">
-                    Baseline: {initialEntry?.painScore || currentInjury.originalInput.painLevel}/10
+                  <span className="text-[10px] text-[#4e665f] dark:text-[#8eada3]">
+                    Baseline: {initialEntry?.painScore ?? currentInjury.originalInput.painLevel}/10
                   </span>
                 </div>
 
-                <div className="bg-slate-50 dark:bg-slate-800/40 p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs space-y-1">
-                  <span className="text-slate-500 dark:text-slate-400 text-[10px] uppercase font-bold">Bleeding</span>
-                  <p className="font-extrabold text-sm text-slate-900 dark:text-white capitalize">
+                <div className="bg-[#f4f7f5] dark:bg-[#091a14] p-3.5 rounded-xl border border-[#d1ded9] dark:border-[#1b4136] text-xs space-y-1">
+                  <span className="text-[#4e665f] dark:text-[#8eada3] text-[10px] uppercase font-bold">Bleeding</span>
+                  <p className={`font-extrabold text-sm capitalize ${
+                    latestEntry?.bleedingStatus === 'uncontrolled' || latestEntry?.bleedingStatus === 'moderate'
+                      ? 'text-red-600 dark:text-red-400'
+                      : 'text-[#081a14] dark:text-[#f5fbf8]'
+                  }`}>
                     {latestEntry?.bleedingStatus || 'None'}
                   </p>
-                  <span className="text-[10px] text-slate-500">Status check</span>
+                  <span className="text-[10px] text-[#4e665f] dark:text-[#8eada3]">Hemostasis status</span>
                 </div>
 
-                <div className="bg-slate-50 dark:bg-slate-800/40 p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs space-y-1">
-                  <span className="text-slate-500 dark:text-slate-400 text-[10px] uppercase font-bold">Swelling</span>
-                  <p className="font-extrabold text-sm text-slate-900 dark:text-white capitalize">
+                <div className="bg-[#f4f7f5] dark:bg-[#091a14] p-3.5 rounded-xl border border-[#d1ded9] dark:border-[#1b4136] text-xs space-y-1">
+                  <span className="text-[#4e665f] dark:text-[#8eada3] text-[10px] uppercase font-bold">Swelling</span>
+                  <p className={`font-extrabold text-sm capitalize ${
+                    latestEntry?.swellingStatus === 'worsening'
+                      ? 'text-amber-600 dark:text-amber-400'
+                      : 'text-[#081a14] dark:text-[#f5fbf8]'
+                  }`}>
                     {latestEntry?.swellingStatus || 'Stable'}
                   </p>
-                  <span className="text-[10px] text-slate-500">Tissue margins</span>
+                  <span className="text-[10px] text-[#4e665f] dark:text-[#8eada3]">Tissue margins</span>
                 </div>
 
-                <div className="bg-slate-50 dark:bg-slate-800/40 p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs space-y-1">
-                  <span className="text-slate-500 dark:text-slate-400 text-[10px] uppercase font-bold">Mobility</span>
-                  <p className="font-extrabold text-sm text-slate-900 dark:text-white capitalize">
-                    {(latestEntry?.mobilityStatus || 'Limited').replace('_', ' ')}
+                <div className="bg-[#f4f7f5] dark:bg-[#091a14] p-3.5 rounded-xl border border-[#d1ded9] dark:border-[#1b4136] text-xs space-y-1">
+                  <span className="text-[#4e665f] dark:text-[#8eada3] text-[10px] uppercase font-bold">Sensation</span>
+                  <p className={`font-extrabold text-sm capitalize ${
+                    latestEntry?.sensationStatus === 'numb' || latestEntry?.sensationStatus === 'lost'
+                      ? 'text-red-600 dark:text-red-400'
+                      : 'text-[#081a14] dark:text-[#f5fbf8]'
+                  }`}>
+                    {latestEntry?.sensationStatus || 'Normal'}
                   </p>
-                  <span className="text-[10px] text-slate-500">Joint function</span>
+                  <span className="text-[10px] text-[#4e665f] dark:text-[#8eada3]">Distal nerve check</span>
                 </div>
               </div>
             </Card>
 
             {/* Timeline of Check-in Entries */}
             <Card variant="default" className="space-y-4">
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center space-x-2">
-                <Clock className="w-4 h-4 text-slate-500" />
+              <h3 className="text-sm font-bold text-[#081a14] dark:text-[#f5fbf8] uppercase tracking-wider flex items-center space-x-2">
+                <Clock className="w-4 h-4 text-[#4e665f] dark:text-[#8eada3]" />
                 <span>Recovery & Monitoring Timeline ({currentInjury.entries.length} Logged)</span>
               </h3>
 
-              <div className="space-y-3 relative before:absolute before:left-3.5 before:top-3 before:bottom-3 before:w-0.5 before:bg-slate-200 dark:before:bg-slate-700">
+              <div className="space-y-3 relative before:absolute before:left-3.5 before:top-3 before:bottom-3 before:w-0.5 before:bg-slate-200 dark:before:bg-[#1F4A42]">
                 {currentInjury.entries.map((entry, idx) => (
                   <div key={entry.id || idx} className="relative pl-8 space-y-1">
                     {/* Timeline bullet */}
                     <div
-                      className={`absolute left-2 top-2.5 w-3.5 h-3.5 rounded-full border-2 border-white dark:border-slate-900 ${
-                        entry.deteriorationDetected ? 'bg-red-600 ring-2 ring-red-400' : 'bg-emerald-500'
+                      className={`absolute left-2 top-2.5 w-3.5 h-3.5 rounded-full border-2 border-white dark:border-[#0E241E] ${
+                        entry.deteriorationDetected ? 'bg-red-600 ring-2 ring-red-400' : 'bg-[#0d7a5f] dark:bg-[#00BE88]'
                       }`}
-                    ></div>
+                    />
 
-                    <div className="bg-slate-50 dark:bg-slate-800/40 p-4 rounded-xl border border-slate-200 dark:border-slate-700 text-xs space-y-2">
+                    <div className="bg-[#f4f7f5] dark:bg-[#091a14] p-4 rounded-xl border border-[#d1ded9] dark:border-[#1b4136] text-xs space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="font-bold text-slate-900 dark:text-white">
+                        <span className="font-bold text-[#081a14] dark:text-[#f5fbf8]">
                           {idx === 0 ? 'Initial Triage Baseline' : `Check-In #${idx + 1}`}
                         </span>
-                        <span className="text-[11px] text-slate-500 dark:text-slate-400">
+                        <span className="text-[11px] text-[#4e665f] dark:text-[#8eada3]">
                           {new Date(entry.timestamp).toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })}
                         </span>
                       </div>
@@ -419,13 +473,13 @@ export const InjuryWatchView: React.FC<InjuryWatchViewProps> = ({
                         <Badge variant="neutral" size="sm">
                           Pain: {entry.painScore}/10
                         </Badge>
-                        <Badge variant="neutral" size="sm">
+                        <Badge variant={entry.bleedingStatus === 'uncontrolled' || entry.bleedingStatus === 'moderate' ? 'emergency' : 'neutral'} size="sm">
                           Bleeding: {entry.bleedingStatus}
                         </Badge>
-                        <Badge variant="neutral" size="sm">
+                        <Badge variant={entry.swellingStatus === 'worsening' ? 'urgent' : 'neutral'} size="sm">
                           Swelling: {entry.swellingStatus}
                         </Badge>
-                        <Badge variant="neutral" size="sm">
+                        <Badge variant={entry.sensationStatus === 'numb' || entry.sensationStatus === 'lost' ? 'emergency' : 'neutral'} size="sm">
                           Sensation: {entry.sensationStatus}
                         </Badge>
                         {entry.temperatureFever && (
@@ -436,14 +490,15 @@ export const InjuryWatchView: React.FC<InjuryWatchViewProps> = ({
                       </div>
 
                       {entry.notes && (
-                        <p className="text-slate-600 dark:text-slate-300 text-[11px] italic">
+                        <p className="text-[#223730] dark:text-[#d1e4dd] text-[11px] italic bg-white/60 dark:bg-[#12352B]/40 p-2 rounded-lg border border-[#d1ded9] dark:border-[#1b4136]/50">
                           "{entry.notes}"
                         </p>
                       )}
 
                       {entry.deteriorationDetected && entry.deteriorationReason && (
-                        <div className="p-2.5 rounded-xl bg-red-50 dark:bg-red-950/60 border border-red-300 dark:border-red-800 text-red-700 dark:text-red-300 text-[11px] font-semibold">
-                          ⚠️ Escalation Trigger: {entry.deteriorationReason}
+                        <div className="p-2.5 rounded-xl bg-red-50 dark:bg-red-950/60 border border-red-300 dark:border-red-800 text-red-700 dark:text-red-300 text-[11px] font-semibold flex items-start space-x-1.5">
+                          <AlertTriangle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
+                          <span>Escalation Trigger: {entry.deteriorationReason}</span>
                         </div>
                       )}
                     </div>
@@ -453,24 +508,45 @@ export const InjuryWatchView: React.FC<InjuryWatchViewProps> = ({
             </Card>
 
             {/* Bottom Actions */}
-            <div className="flex justify-between items-center text-xs text-slate-500">
+            <div className="flex flex-wrap justify-between items-center gap-3 text-xs text-[#4e665f] dark:text-[#8eada3] pt-2">
               <button
                 onClick={() => {
                   const newStatus = currentInjury.status === 'resolved' ? 'active' : 'resolved';
                   onUpdateInjury({ ...currentInjury, status: newStatus });
                 }}
-                className="hover:text-slate-900 dark:hover:text-white font-semibold underline cursor-pointer"
+                className="hover:text-slate-900 dark:hover:text-[#F4F8F6] font-semibold underline cursor-pointer"
               >
-                {currentInjury.status === 'resolved' ? 'Re-activate Injury Monitoring' : 'Mark Injury as Fully Resolved'}
+                {currentInjury.status === 'resolved' ? 'Re-open Injury Monitoring' : 'Mark Injury as Fully Resolved'}
               </button>
 
-              <button
-                onClick={() => onDeleteInjury(currentInjury.id)}
-                className="text-red-500 hover:text-red-600 flex items-center space-x-1 cursor-pointer"
-              >
-                <Trash2 className="w-3.5 h-3.5" />
-                <span>Remove from Watch</span>
-              </button>
+              {confirmDeleteId === currentInjury.id ? (
+                <div className="flex items-center space-x-2">
+                  <span className="text-xs text-red-600 dark:text-red-400 font-semibold">Delete injury record?</span>
+                  <button
+                    onClick={() => {
+                      onDeleteInjury(currentInjury.id);
+                      setConfirmDeleteId(null);
+                    }}
+                    className="px-2.5 py-1 bg-red-600 text-white rounded-lg text-xs font-bold hover:bg-red-700 cursor-pointer"
+                  >
+                    Confirm Delete
+                  </button>
+                  <button
+                    onClick={() => setConfirmDeleteId(null)}
+                    className="px-2 py-1 text-slate-500 hover:text-slate-700 dark:text-[#829B93] text-xs cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => setConfirmDeleteId(currentInjury.id)}
+                  className="text-red-600 dark:text-red-400 hover:text-red-700 flex items-center space-x-1 cursor-pointer"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                  <span>Remove Record</span>
+                </button>
+              )}
             </div>
 
           </div>
@@ -483,7 +559,7 @@ export const InjuryWatchView: React.FC<InjuryWatchViewProps> = ({
         onClose={() => setIsLoggingModalOpen(false)}
         title="Log Recovery Check-In"
         subtitle="Record changes in pain, swelling, and nerve sensations"
-        headerIcon={<HeartPulse className="w-5 h-5 text-[#0d7a5f] dark:text-emerald-400" />}
+        headerIcon={<HeartPulse className="w-5 h-5 text-[#0d7a5f] dark:text-[#00BE88]" />}
         footer={
           <>
             <Button
@@ -498,7 +574,7 @@ export const InjuryWatchView: React.FC<InjuryWatchViewProps> = ({
               variant="primary"
               onClick={handleSaveLogEntry}
             >
-              Save Log Entry
+              Save Check-In
             </Button>
           </>
         }
@@ -506,33 +582,40 @@ export const InjuryWatchView: React.FC<InjuryWatchViewProps> = ({
         <div className="space-y-5">
           {/* Pain Score */}
           <div className="space-y-2">
-            <div className="flex justify-between text-xs font-bold text-slate-700 dark:text-slate-300">
+            <div className="flex justify-between text-xs font-bold text-[#223730] dark:text-[#d1e4dd]">
               <span>Current Pain Level:</span>
-              <span className="text-[#0d7a5f] dark:text-emerald-400">{painScore} / 10</span>
+              <span className="text-[#0d7a5f] dark:text-[#00BE88] font-bold text-sm">{painScore} / 10</span>
             </div>
             <input
               type="range"
-              min="1"
+              min="0"
               max="10"
               value={painScore}
               onChange={(e) => setPainScore(parseInt(e.target.value))}
-              className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg accent-[#0d7a5f]"
+              className="w-full h-2 bg-[#d1ded9] dark:bg-[#1b4136] rounded-lg accent-[#0d7a5f] dark:accent-[#00BE88] cursor-pointer"
             />
+            <div className="flex justify-between text-[10px] text-slate-400">
+              <span>0 (None)</span>
+              <span>5 (Moderate)</span>
+              <span>10 (Severe)</span>
+            </div>
           </div>
 
           {/* Swelling status */}
           <div className="space-y-1.5 text-xs">
-            <label className="font-bold text-slate-700 dark:text-slate-300">Swelling compared to earlier:</label>
+            <label className="font-bold text-[#223730] dark:text-[#d1e4dd]">Swelling compared to earlier:</label>
             <div className="grid grid-cols-3 gap-2 pt-1">
               {(['improving', 'stable', 'worsening'] as const).map((s) => (
                 <button
                   key={s}
                   type="button"
                   onClick={() => setSwellingStatus(s)}
-                  className={`py-2 rounded-xl border capitalize font-semibold cursor-pointer transition-all ${
+                  className={`py-2 rounded-xl border capitalize font-semibold cursor-pointer transition-all text-xs ${
                     swellingStatus === s
-                      ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 border-transparent shadow-xs'
-                      : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-slate-300'
+                      ? s === 'worsening'
+                        ? 'bg-amber-600 text-white border-amber-600 shadow-xs'
+                        : 'bg-[#0d7a5f] text-white dark:bg-[#00BE88] dark:text-[#061814] border-transparent shadow-xs'
+                      : 'bg-[#f4f7f5] dark:bg-[#0d221b] border-[#d1ded9] dark:border-[#1b4136] text-[#223730] dark:text-[#d1e4dd] hover:border-slate-300'
                   }`}
                 >
                   {s}
@@ -543,17 +626,19 @@ export const InjuryWatchView: React.FC<InjuryWatchViewProps> = ({
 
           {/* Bleeding status */}
           <div className="space-y-1.5 text-xs">
-            <label className="font-bold text-slate-700 dark:text-slate-300">Bleeding status:</label>
+            <label className="font-bold text-[#223730] dark:text-[#d1e4dd]">Bleeding status:</label>
             <div className="grid grid-cols-4 gap-2 pt-1">
               {(['none', 'minimal', 'moderate', 'uncontrolled'] as const).map((b) => (
                 <button
                   key={b}
                   type="button"
                   onClick={() => setBleedingStatus(b)}
-                  className={`py-2 rounded-xl border capitalize font-semibold cursor-pointer transition-all ${
+                  className={`py-2 rounded-xl border capitalize font-semibold cursor-pointer transition-all text-[11px] ${
                     bleedingStatus === b
-                      ? 'bg-red-600 text-white border-red-600 shadow-xs'
-                      : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-slate-300'
+                      ? b === 'uncontrolled' || b === 'moderate'
+                        ? 'bg-red-600 text-white border-red-600 shadow-xs'
+                        : 'bg-[#0d7a5f] text-white dark:bg-[#00BE88] dark:text-[#061814] border-transparent shadow-xs'
+                      : 'bg-[#f4f7f5] dark:bg-[#0d221b] border-[#d1ded9] dark:border-[#1b4136] text-[#223730] dark:text-[#d1e4dd] hover:border-slate-300'
                   }`}
                 >
                   {b}
@@ -564,17 +649,19 @@ export const InjuryWatchView: React.FC<InjuryWatchViewProps> = ({
 
           {/* Sensation / Numbness */}
           <div className="space-y-1.5 text-xs">
-            <label className="font-bold text-slate-700 dark:text-slate-300">Sensation / Nerve feeling in extremities:</label>
+            <label className="font-bold text-[#223730] dark:text-[#d1e4dd]">Sensation / Nerve feeling in extremities:</label>
             <div className="grid grid-cols-4 gap-2 pt-1">
               {(['normal', 'tingling', 'numb', 'lost'] as const).map((sens) => (
                 <button
                   key={sens}
                   type="button"
                   onClick={() => setSensationStatus(sens)}
-                  className={`py-2 rounded-xl border capitalize font-semibold cursor-pointer transition-all ${
+                  className={`py-2 rounded-xl border capitalize font-semibold cursor-pointer transition-all text-[11px] ${
                     sensationStatus === sens
-                      ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 border-transparent shadow-xs'
-                      : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-slate-300'
+                      ? sens === 'numb' || sens === 'lost'
+                        ? 'bg-red-600 text-white border-red-600 shadow-xs'
+                        : 'bg-[#0d7a5f] text-white dark:bg-[#00BE88] dark:text-[#061814] border-transparent shadow-xs'
+                      : 'bg-[#f4f7f5] dark:bg-[#0d221b] border-[#d1ded9] dark:border-[#1b4136] text-[#223730] dark:text-[#d1e4dd] hover:border-slate-300'
                   }`}
                 >
                   {sens}
@@ -583,26 +670,26 @@ export const InjuryWatchView: React.FC<InjuryWatchViewProps> = ({
             </div>
           </div>
 
-          {/* Fever checkbox */}
-          <label className="flex items-center space-x-2.5 text-xs text-slate-700 dark:text-slate-300 cursor-pointer select-none">
+          {/* Fever / heat checkbox */}
+          <label className="flex items-center space-x-2.5 text-xs text-[#223730] dark:text-[#d1e4dd] cursor-pointer select-none p-3 rounded-xl bg-[#f4f7f5] dark:bg-[#0d221b] border border-[#d1ded9] dark:border-[#1b4136]">
             <input
               type="checkbox"
               checked={temperatureFever}
               onChange={(e) => setTemperatureFever(e.target.checked)}
-              className="w-4 h-4 rounded text-red-600 focus:ring-red-500 border-slate-300"
+              className="w-4 h-4 rounded text-red-600 focus:ring-red-500 border-slate-300 cursor-pointer"
             />
-            <span>I have developed a fever, chills, or spreading skin heat/redness</span>
+            <span className="font-medium">I have developed a fever, chills, or spreading skin heat / redness</span>
           </label>
 
           {/* Check-in notes */}
           <div className="space-y-1.5 text-xs">
-            <label className="font-bold text-slate-700 dark:text-slate-300">Notes / Observed changes:</label>
+            <label className="font-bold text-[#223730] dark:text-[#d1e4dd]">Notes / Observed changes:</label>
             <textarea
               rows={2}
               value={logNotes}
               onChange={(e) => setLogNotes(e.target.value)}
-              placeholder="e.g. Took ibuprofen, kept leg elevated, able to wiggle toes slightly..."
-              className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl p-3 focus:outline-hidden"
+              placeholder="e.g. Applied cold compress for 15 mins, elevated on pillow, can wiggle fingers..."
+              className="w-full bg-[#f4f7f5] dark:bg-[#0d221b] border border-[#d1ded9] dark:border-[#1b4136] text-[#081a14] dark:text-[#f5fbf8] rounded-xl p-3 focus:outline-hidden text-xs placeholder-slate-400 dark:placeholder-slate-500"
             />
           </div>
         </div>

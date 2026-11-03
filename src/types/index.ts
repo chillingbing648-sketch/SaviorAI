@@ -58,6 +58,8 @@ export interface TriageAnalysisResponse {
   escalationTriggers: string[];
   medicalReportMarkdown: string;
   isEmergencyOverride?: boolean;
+  isAIAssisted?: boolean;
+  aiModelUsed?: string;
 }
 
 export interface InjuryWatchEntry {
@@ -162,6 +164,8 @@ export interface SafetyBenchmarkResult {
   redFlagTriggered: boolean;
   enforcedContraindicationsCount: number;
   passed: boolean;
+  executionTimeMs?: number;
+  failureReason?: string;
 }
 
 export interface SafetyBenchmarkReport {
@@ -179,6 +183,7 @@ export interface SafetyBenchmarkReport {
 export interface UserPreferences {
   language: string;
   region: string;
+  theme?: 'light' | 'dark' | 'system';
   offlineMode?: boolean;
   offlineModeEnabled?: boolean;
   emergencyContacts?: EmergencyContact[];

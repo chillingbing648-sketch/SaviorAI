@@ -72,7 +72,7 @@ export function getEmergencyNumberForCountry(countryCode?: string, fallback = '1
   return getEmergencyDirectoryEntry(countryCode)?.bestNumber || fallback;
 }
 
-export function getEmergencyContactInfo(code?: string) {
+export function getEmergencyContactInfo(code?: string): { countryName: string; generalEmergency: string; ambulance: string; police: string; fire: string; poisonControl: string; specialNote?: string; } | null {
   const entry = getEmergencyDirectoryEntry(code);
   if (entry) {
     return {

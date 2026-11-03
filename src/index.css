@@ -1,57 +1,63 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-	/* Primary Clinical Brand (Calm Emerald / Teal) */
+	/* Primary Clinical Brand (Professional Emerald / Deep Teal) */
 	--ig-primary: #0d7a5f;
 	--ig-primary-hover: #0a634d;
 	--ig-primary-active: #084e3c;
 	--ig-primary-soft: #ecf7f3;
 	--ig-primary-border: #b8e2d4;
 
-	/* Neutral Foundation */
-	--ig-ink: #0f172a;
-	--ig-ink-secondary: #334155;
-	--ig-muted: #64748b;
-	--ig-subtle: #94a3b8;
-	--ig-paper: #f8faf9;
+	/* High-Contrast Foundation - Light Mode */
+	--ig-paper: #f4f7f5;
 	--ig-surface: #ffffff;
-	--ig-surface-raised: #f1f5f3;
-	--ig-line: #e2e8e5;
-	--ig-line-subtle: #f0f3f1;
+	--ig-surface-raised: #ffffff;
+	--ig-surface-muted: #eaf0ed;
+	--ig-line: #d1ded9;
+	--ig-line-subtle: #e6eee9;
+	--ig-line-strong: #b2c9c1;
+
+	/* High-Contrast Clinical Typography */
+	--ig-ink: #081a14;
+	--ig-ink-secondary: #223730;
+	--ig-muted: #4e665f;
+	--ig-subtle: #6c837c;
 
 	/* Semantic Urgency: Level 1 Emergency (Red reserved strictly for critical) */
-	--ig-emergency: #dc2626;
-	--ig-emergency-hover: #b91c1c;
-	--ig-emergency-soft: #fef2f2;
-	--ig-emergency-border: #fecaca;
-	--ig-emergency-text: #991b1b;
+	--ig-emergency: #DC2626;
+	--ig-emergency-hover: #B91C1C;
+	--ig-emergency-soft: #FEF2F2;
+	--ig-emergency-border: #FCA5A5;
+	--ig-emergency-text: #991B1B;
 
 	/* Semantic Urgency: Level 2 Urgent (Amber/Orange) */
-	--ig-urgent: #ea580c;
-	--ig-urgent-soft: #fff7ed;
-	--ig-urgent-border: #fed7aa;
-	--ig-urgent-text: #9a3412;
+	--ig-urgent: #D97706;
+	--ig-urgent-hover: #B45309;
+	--ig-urgent-soft: #FFFBEB;
+	--ig-urgent-border: #FCD34D;
+	--ig-urgent-text: #92400E;
 
-	/* Semantic Urgency: Level 3 Medical Review (Yellow/Amber) */
-	--ig-review: #d97706;
-	--ig-review-soft: #fefce8;
-	--ig-review-border: #fef08a;
-	--ig-review-text: #854d0e;
+	/* Semantic Urgency: Level 3 Medical Review (Warm Gold) */
+	--ig-review: #CA8A04;
+	--ig-review-soft: #FEFCE8;
+	--ig-review-border: #FDE047;
+	--ig-review-text: #854D0E;
 
 	/* Semantic Urgency: Level 4 Basic First Aid (Teal/Emerald) */
 	--ig-first-aid: #0d7a5f;
-	--ig-first-aid-soft: #f0fdf4;
-	--ig-first-aid-border: #bbf7d0;
-	--ig-first-aid-text: #166534;
+	--ig-first-aid-soft: #ecf7f3;
+	--ig-first-aid-border: #b8e2d4;
+	--ig-first-aid-text: #065f46;
 
-	/* Info & Reference (Blue) */
+	/* Info & Reference (Sky Blue) */
 	--ig-info: #0284c7;
-	--ig-info-soft: #f0f9ff;
-	--ig-info-border: #bae6fd;
+	--ig-info-soft: #F0F9FF;
+	--ig-info-border: #BAE6FD;
 	--ig-info-text: #075985;
 
-	/* Tokens */
+	/* Radii & Depths */
 	--ig-radius-sm: 8px;
 	--ig-radius-md: 12px;
 	--ig-radius-lg: 16px;
@@ -59,59 +65,81 @@
 	--ig-radius-2xl: 24px;
 	--ig-radius-full: 9999px;
 
-	--ig-shadow-xs: 0 1px 2px 0 rgba(15, 23, 42, 0.03);
-	--ig-shadow-sm: 0 2px 6px -1px rgba(15, 23, 42, 0.05), 0 1px 3px -1px rgba(15, 23, 42, 0.03);
-	--ig-shadow-md: 0 8px 20px -3px rgba(15, 23, 42, 0.06), 0 3px 6px -2px rgba(15, 23, 42, 0.04);
-	--ig-shadow-lg: 0 16px 36px -4px rgba(15, 23, 42, 0.08), 0 6px 12px -3px rgba(15, 23, 42, 0.04);
-	--ig-shadow-xl: 0 24px 48px -6px rgba(15, 23, 42, 0.12), 0 10px 16px -4px rgba(15, 23, 42, 0.06);
+	--ig-shadow-xs: 0 1px 2px 0 rgba(10, 26, 20, 0.04);
+	--ig-shadow-sm: 0 2px 8px -2px rgba(10, 26, 20, 0.06), 0 1px 3px -1px rgba(10, 26, 20, 0.04);
+	--ig-shadow-md: 0 10px 24px -4px rgba(10, 26, 20, 0.08), 0 4px 8px -2px rgba(10, 26, 20, 0.04);
+	--ig-shadow-lg: 0 20px 40px -6px rgba(10, 26, 20, 0.1), 0 8px 16px -4px rgba(10, 26, 20, 0.05);
+	--ig-shadow-xl: 0 28px 56px -8px rgba(10, 26, 20, 0.14), 0 12px 24px -6px rgba(10, 26, 20, 0.06);
+
+	/* Framer/GSAP animation springs */
+	--ig-spring-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+	--ig-spring-smooth: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .dark {
-	--ig-primary: #10b981;
-	--ig-primary-hover: #059669;
-	--ig-primary-active: #047857;
-	--ig-primary-soft: rgba(16, 185, 129, 0.12);
-	--ig-primary-border: rgba(16, 185, 129, 0.25);
+	/* Deep Luminous Medical Teal */
+	--ig-primary: #00BE88;
+	--ig-primary-hover: #00A878;
+	--ig-primary-active: #008F6B;
+	--ig-primary-soft: rgba(0, 190, 136, 0.14);
+	--ig-primary-border: rgba(0, 190, 136, 0.3);
 
-	--ig-ink: #f8fafc;
-	--ig-ink-secondary: #cbd5e1;
-	--ig-muted: #94a3b8;
-	--ig-subtle: #64748b;
-	--ig-paper: #0b100d;
-	--ig-surface: #121915;
-	--ig-surface-raised: #17211c;
-	--ig-line: #1e2c25;
-	--ig-line-subtle: #17221c;
+	/* High-Contrast Dark Mode Foundation */
+	--ig-paper: #06130f;
+	--ig-surface: #0d221b;
+	--ig-surface-raised: #122c23;
+	--ig-surface-muted: #091a14;
+	--ig-line: #1b4136;
+	--ig-line-subtle: #132f26;
+	--ig-line-strong: #2c6352;
 
-	--ig-emergency: #ef4444;
-	--ig-emergency-hover: #dc2626;
-	--ig-emergency-soft: rgba(239, 68, 68, 0.15);
-	--ig-emergency-border: rgba(239, 68, 68, 0.3);
-	--ig-emergency-text: #fca5a5;
+	/* High-Contrast Dark Mode Typography */
+	--ig-ink: #f5fbf8;
+	--ig-ink-secondary: #d1e4dd;
+	--ig-muted: #8eada3;
+	--ig-subtle: #67877e;
 
-	--ig-urgent: #f97316;
-	--ig-urgent-soft: rgba(249, 115, 22, 0.15);
-	--ig-urgent-border: rgba(249, 115, 22, 0.3);
-	--ig-urgent-text: #fdba74;
+	/* Semantic Urgency: Dark Mode */
+	--ig-emergency: #FF4D4D;
+	--ig-emergency-hover: #E63C3C;
+	--ig-emergency-soft: rgba(255, 77, 77, 0.18);
+	--ig-emergency-border: rgba(255, 77, 77, 0.45);
+	--ig-emergency-text: #FF9B9B;
 
-	--ig-review: #f59e0b;
-	--ig-review-soft: rgba(245, 158, 11, 0.15);
-	--ig-review-border: rgba(245, 158, 11, 0.3);
-	--ig-review-text: #fcd34d;
+	/* Semantic Urgency: Level 2 Urgent */
+	--ig-urgent: #F5A623;
+	--ig-urgent-hover: #E09415;
+	--ig-urgent-soft: rgba(245, 166, 35, 0.18);
+	--ig-urgent-border: rgba(245, 166, 35, 0.45);
+	--ig-urgent-text: #FFC67E;
 
-	--ig-first-aid: #10b981;
-	--ig-first-aid-soft: rgba(16, 185, 129, 0.15);
-	--ig-first-aid-border: rgba(16, 185, 129, 0.3);
-	--ig-first-aid-text: #86efac;
+	/* Semantic Urgency: Level 3 Medical Review */
+	--ig-review: #F5C842;
+	--ig-review-soft: rgba(245, 200, 66, 0.18);
+	--ig-review-border: rgba(245, 200, 66, 0.45);
+	--ig-review-text: #FFE28C;
 
-	--ig-info: #38bdf8;
-	--ig-info-soft: rgba(56, 189, 248, 0.15);
-	--ig-info-border: rgba(56, 189, 248, 0.3);
-	--ig-info-text: #7dd3fc;
+	/* Semantic Urgency: Level 4 Basic First Aid */
+	--ig-first-aid: #00BE88;
+	--ig-first-aid-soft: rgba(0, 190, 136, 0.15);
+	--ig-first-aid-border: rgba(0, 190, 136, 0.35);
+	--ig-first-aid-text: #73EDB7;
+
+	/* Info & Reference */
+	--ig-info: #5CC9F0;
+	--ig-info-soft: rgba(92, 201, 240, 0.18);
+	--ig-info-border: rgba(92, 201, 240, 0.4);
+	--ig-info-text: #A1E2F9;
+
+	--ig-shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
+	--ig-shadow-sm: 0 2px 8px -2px rgba(0, 0, 0, 0.4), 0 1px 3px -1px rgba(0, 0, 0, 0.25);
+	--ig-shadow-md: 0 10px 24px -4px rgba(0, 0, 0, 0.5), 0 4px 8px -2px rgba(0, 0, 0, 0.35);
+	--ig-shadow-lg: 0 20px 40px -6px rgba(0, 0, 0, 0.65), 0 8px 16px -4px rgba(0, 0, 0, 0.45);
+	--ig-shadow-xl: 0 28px 56px -8px rgba(0, 0, 0, 0.75), 0 12px 24px -6px rgba(0, 0, 0, 0.55);
 }
 
 html {
-	background: var(--ig-paper);
+	background-color: var(--ig-paper);
 	scroll-behavior: smooth;
 	color-scheme: light dark;
 }
@@ -119,18 +147,19 @@ html {
 body {
 	margin: 0;
 	color: var(--ig-ink);
-	background: var(--ig-paper);
+	background-color: var(--ig-paper);
 	font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 	font-size: 15px;
-	line-height: 1.55;
+	line-height: 1.6;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	transition: background-color 220ms ease, color 220ms ease;
 }
 
 h1, h2, h3, h4, h5, h6 {
 	font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 	font-weight: 700;
-	letter-spacing: -0.02em;
+	letter-spacing: -0.025em;
 	color: var(--ig-ink);
 }
 
@@ -140,7 +169,7 @@ button, a, input, textarea, select {
 }
 
 button, a {
-	transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, box-shadow 150ms ease, transform 120ms ease;
+	transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, box-shadow 150ms ease, transform 120ms var(--ig-spring-smooth);
 }
 
 button:active:not(:disabled), a:active:not([aria-disabled="true"]) {
@@ -171,15 +200,26 @@ button:active:not(:disabled), a:active:not([aria-disabled="true"]) {
 	background: rgba(100, 116, 139, 0.4);
 }
 
-/* Keyframes & Animations */
+/* Smooth keyframes */
 @keyframes ig-fade-in {
 	from {
 		opacity: 0;
-		transform: translateY(6px);
+		transform: translateY(8px);
 	}
 	to {
 		opacity: 1;
 		transform: translateY(0);
+	}
+}
+
+@keyframes ig-scale-in {
+	from {
+		opacity: 0;
+		transform: scale(0.96);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
 	}
 }
 
@@ -188,12 +228,16 @@ button:active:not(:disabled), a:active:not([aria-disabled="true"]) {
 		opacity: 1;
 	}
 	50% {
-		opacity: 0.75;
+		opacity: 0.7;
 	}
 }
 
 .animate-fadeIn {
-	animation: ig-fade-in 300ms cubic-bezier(0.16, 1, 0.3, 1) both;
+	animation: ig-fade-in 300ms var(--ig-spring-smooth) both;
+}
+
+.animate-scaleIn {
+	animation: ig-scale-in 240ms var(--ig-spring-smooth) both;
 }
 
 .animate-pulse-subtle {

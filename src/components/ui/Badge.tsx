@@ -53,21 +53,21 @@ export const Badge: React.FC<BadgeProps> = ({
 
   const variantClasses = {
     emergency:
-      'bg-red-100 text-red-800 border-red-200 dark:bg-red-950/60 dark:text-red-300 dark:border-red-800/80',
+      'bg-red-50 text-red-700 border-red-300 font-bold dark:bg-red-950/60 dark:text-red-200 dark:border-red-700',
     urgent:
-      'bg-orange-100 text-orange-800 border-orange-200 dark:bg-orange-950/60 dark:text-orange-300 dark:border-orange-800/80',
+      'bg-amber-50 text-amber-800 border-amber-300 font-bold dark:bg-amber-950/60 dark:text-amber-200 dark:border-amber-700',
     review:
-      'bg-amber-100 text-amber-800 border-amber-200 dark:bg-amber-950/60 dark:text-amber-300 dark:border-amber-800/80',
+      'bg-yellow-50 text-yellow-800 border-yellow-300 font-bold dark:bg-yellow-950/60 dark:text-yellow-200 dark:border-yellow-700',
     first_aid:
-      'bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-300 dark:border-emerald-800/80',
+      'bg-emerald-50 text-[#0d7a5f] border-emerald-300 font-bold dark:bg-[#0c2b21] dark:text-[#00BE88] dark:border-[#1d5242]',
     neutral:
-      'bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800/80 dark:text-slate-300 dark:border-slate-700',
+      'bg-[#f0f4f2] text-[#223730] border-[#d1ded9] font-medium dark:bg-[#132d24] dark:text-[#d1e4dd] dark:border-[#22483b]',
     info:
-      'bg-sky-100 text-sky-800 border-sky-200 dark:bg-sky-950/60 dark:text-sky-300 dark:border-sky-800/80',
+      'bg-sky-50 text-sky-800 border-sky-300 font-semibold dark:bg-sky-950/60 dark:text-sky-200 dark:border-sky-700',
     success:
-      'bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-300 dark:border-emerald-800/80',
+      'bg-emerald-50 text-[#0d7a5f] border-emerald-300 font-bold dark:bg-[#0c2b21] dark:text-[#00BE88] dark:border-[#1d5242]',
     triage:
-      'bg-slate-900 text-white border-transparent dark:bg-slate-100 dark:text-slate-900'
+      'bg-[#081a14] text-white border-transparent dark:bg-[#f5fbf8] dark:text-[#06130f] font-bold'
   };
 
   const sizeClasses = {

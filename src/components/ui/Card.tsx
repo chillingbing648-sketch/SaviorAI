@@ -1,7 +1,9 @@
 import React from 'react';
+import { motion, HTMLMotionProps } from 'motion/react';
 
-export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: 'default' | 'raised' | 'interactive' | 'alert' | 'highlight';
+export interface CardProps extends Omit<HTMLMotionProps<'div'>, 'children'> {
+  children?: React.ReactNode;
+  variant?: 'default' | 'raised' | 'interactive' | 'alert' | 'highlight' | 'muted';
   padding?: 'none' | 'sm' | 'md' | 'lg';
 }
 
@@ -21,23 +23,33 @@ export const Card: React.FC<CardProps> = ({
 
   const variantClasses = {
     default:
-      'bg-white dark:bg-[#121915] border border-slate-200/90 dark:border-[#1e2c25] shadow-xs rounded-2xl',
+      'bg-white dark:bg-[#0d221b] border border-[#d1ded9] dark:border-[#1b4136] shadow-xs dark:shadow-sm rounded-2xl transition-colors duration-200',
     raised:
-      'bg-white dark:bg-[#17211c] border border-slate-200/80 dark:border-[#22332a] shadow-sm rounded-2xl',
+      'bg-white dark:bg-[#122c23] border border-[#c8d8d2] dark:border-[#225244] shadow-sm dark:shadow-md rounded-2xl transition-colors duration-200',
     interactive:
-      'bg-white dark:bg-[#121915] border border-slate-200/90 dark:border-[#1e2c25] shadow-xs hover:shadow-md hover:border-[#0d7a5f]/40 dark:hover:border-emerald-500/40 rounded-2xl cursor-pointer transition-all duration-150',
+      'bg-white dark:bg-[#0d221b] border border-[#d1ded9] dark:border-[#1b4136] shadow-xs hover:shadow-md hover:border-[#0d7a5f] dark:hover:border-[#00BE88] rounded-2xl cursor-pointer transition-all duration-200',
     alert:
-      'bg-red-50/70 dark:bg-red-950/30 border border-red-200 dark:border-red-900/60 rounded-2xl text-red-900 dark:text-red-200',
+      'bg-red-50/90 dark:bg-red-950/40 border border-red-200 dark:border-red-900/70 rounded-2xl text-red-950 dark:text-red-100 transition-colors duration-200',
     highlight:
-      'bg-[#ecf7f3] dark:bg-emerald-950/30 border border-[#b8e2d4] dark:border-emerald-900/60 rounded-2xl text-slate-900 dark:text-slate-100'
+      'bg-[#ecf7f3] dark:bg-[#102a21] border border-[#b8e2d4] dark:border-[#1d4d3e] rounded-2xl text-[#081a14] dark:text-[#f5fbf8] transition-colors duration-200',
+    muted:
+      'bg-[#f4f7f5] dark:bg-[#091a14] border border-[#d8e3df] dark:border-[#16362c] rounded-2xl text-[#223730] dark:text-[#d1e4dd] transition-colors duration-200'
   };
 
+  const motionProps = variant === 'interactive'
+    ? {
+        whileHover: { y: -2, transition: { duration: 0.15, ease: 'easeOut' as const } },
+        whileTap: { scale: 0.99 }
+      }
+    : {};
+
   return (
-    <div
+    <motion.div
       className={`${variantClasses[variant]} ${paddingClasses[padding]} ${className}`}
+      {...motionProps}
       {...props}
     >
       {children}
-    </div>
+    </motion.div>
   );
 };

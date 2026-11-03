@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import {
   FileText,
   Printer,
@@ -31,6 +31,26 @@ export const MedicalReportModal: React.FC<MedicalReportModalProps> = ({
 }) => {
   const [copied, setCopied] = useState(false);
   const printRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -212,7 +232,7 @@ CLINICAL RECOVERY LOG ENTRIES: ${monitoredInjury?.entries.length || 1} checkpoin
               [R] RECOMMENDATION & FIRST-AID ACTIONS LOG
             </h3>
             <div className="space-y-1.5">
-              <p className="text-[11px] font-bold text-emerald-700 dark:text-emerald-400">Immediate Safe Actions Administered:</p>
+              <p className="text-[11px] font-bold text-emerald-700 dark:text-[#00BE88]">Immediate Safe Actions Administered:</p>
               <ul className="list-disc pl-5 text-xs text-neutral-700 dark:text-neutral-300 space-y-0.5">
                 {assessment?.doThisNow.map((action, idx) => (
                   <li key={idx}>{action}</li>

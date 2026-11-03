@@ -70,15 +70,15 @@ export const Modal: React.FC<ModalProps> = ({
       {/* Backdrop */}
       <div
         onClick={onClose}
-        className="fixed inset-0 bg-slate-950/60 dark:bg-black/80 backdrop-blur-xs transition-opacity"
+        className="fixed inset-0 bg-slate-950/70 dark:bg-black/85 backdrop-blur-xs transition-opacity"
       />
 
       {/* Modal Container */}
       <div
-        className={`relative w-full ${maxWidthClasses[maxWidth]} bg-white dark:bg-[#121915] rounded-3xl shadow-2xl border ${
+        className={`relative w-full ${maxWidthClasses[maxWidth]} bg-white dark:bg-[#0E241E] rounded-3xl shadow-2xl border ${
           isEmergency
-            ? 'border-red-500/80 shadow-red-950/20'
-            : 'border-slate-200 dark:border-[#1e2c25]'
+            ? 'border-red-500 shadow-red-950/30'
+            : 'border-slate-200 dark:border-[#1F4A42]'
         } overflow-hidden my-auto flex flex-col max-h-[90vh] z-10`}
       >
         {/* Header */}
@@ -87,7 +87,7 @@ export const Modal: React.FC<ModalProps> = ({
             className={`px-6 py-4 sm:px-8 sm:py-5 flex items-center justify-between border-b ${
               isEmergency
                 ? 'bg-red-600 text-white border-red-500'
-                : 'bg-slate-50/70 dark:bg-[#17211c]/60 border-slate-200/80 dark:border-[#1e2c25]'
+                : 'bg-slate-50/80 dark:bg-[#12352B]/80 border-slate-200/80 dark:border-[#1F4A42]'
             }`}
           >
             <div className="flex items-center gap-3 min-w-0">
@@ -96,7 +96,7 @@ export const Modal: React.FC<ModalProps> = ({
                 {typeof title === 'string' ? (
                   <h3
                     className={`text-base sm:text-lg font-bold tracking-tight truncate ${
-                      isEmergency ? 'text-white' : 'text-slate-900 dark:text-white'
+                      isEmergency ? 'text-white' : 'text-slate-900 dark:text-[#F4F8F6]'
                     }`}
                   >
                     {title}
@@ -107,7 +107,7 @@ export const Modal: React.FC<ModalProps> = ({
                 {subtitle && (
                   <p
                     className={`text-xs truncate ${
-                      isEmergency ? 'text-red-100' : 'text-slate-500 dark:text-slate-400'
+                      isEmergency ? 'text-red-100' : 'text-slate-500 dark:text-[#829B93]'
                     }`}
                   >
                     {subtitle}
@@ -121,10 +121,10 @@ export const Modal: React.FC<ModalProps> = ({
               <button
                 onClick={onClose}
                 aria-label="Close dialog"
-                className={`p-1.5 rounded-xl transition-colors ${
+                className={`p-1.5 rounded-xl transition-colors cursor-pointer ${
                   isEmergency
                     ? 'hover:bg-red-700 text-white'
-                    : 'text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
+                    : 'text-slate-400 hover:text-slate-700 dark:text-[#829B93] dark:hover:text-[#F4F8F6] hover:bg-slate-100 dark:hover:bg-[#1F4A42]'
                 }`}
               >
                 <X className="w-5 h-5" />
@@ -134,11 +134,11 @@ export const Modal: React.FC<ModalProps> = ({
         )}
 
         {/* Content Body */}
-        <div className="p-6 sm:p-8 overflow-y-auto space-y-6">{children}</div>
+        <div className="p-6 sm:p-8 overflow-y-auto space-y-6 text-slate-800 dark:text-[#E0EBE6]">{children}</div>
 
         {/* Footer */}
         {footer && (
-          <div className="px-6 py-4 sm:px-8 border-t border-slate-200/80 dark:border-[#1e2c25] bg-slate-50/50 dark:bg-[#17211c]/40 flex items-center justify-end gap-3 shrink-0">
+          <div className="px-6 py-4 sm:px-8 border-t border-slate-200/80 dark:border-[#1F4A42] bg-slate-50/70 dark:bg-[#12352B]/60 flex items-center justify-end gap-3 shrink-0">
             {footer}
           </div>
         )}
