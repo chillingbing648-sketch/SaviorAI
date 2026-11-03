@@ -14,24 +14,23 @@ import {
   Info,
   ShieldCheck,
   CheckCircle2,
-  Sparkles,
-  ExternalLink,
-  Filter,
   Building2,
-  X
+  HeartPulse,
+  Filter,
+  X,
+  Stethoscope
 } from 'lucide-react';
 import {
   MEDICATIONS_DATABASE,
-  MEDICATION_CATEGORIES,
+  MEDICATION_SECTIONS,
   MedicationItem,
   MedicationCategory,
-  PrescriptionStatus
+  MedicationCategorySection
 } from '../data/medications';
 import { MedicationVisual } from './ui/MedicationVisual';
 import { MedicationDetailModal } from './MedicationDetailModal';
 import { Card } from './ui/Card';
 import { Button } from './ui/Button';
-import { Badge } from './ui/Badge';
 import { UserPreferences } from '../types';
 
 interface MedicationsViewProps {
@@ -66,12 +65,12 @@ export const MedicationsView: React.FC<MedicationsViewProps> = ({
         return false;
       }
 
-      // Search query match
+      // Search query match (Matches name, generic, brands like Dolo, Burnol, Betadine, Boroline, Volini, etc.)
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase().trim();
         const matchName = med.name.toLowerCase().includes(q);
         const matchGeneric = med.genericName.toLowerCase().includes(q);
-        const matchCategory = med.categoryLabel.toLowerCase().includes(q);
+        const matchCategory = med.categoryLabel.toLowerCase().includes(q) || med.categoryHindi.includes(q);
         const matchUsedFor = med.usedFor.toLowerCase().includes(q);
         const matchBrands = med.brandNames.some((b) => b.toLowerCase().includes(q));
         return matchName || matchGeneric || matchCategory || matchUsedFor || matchBrands;
@@ -81,25 +80,38 @@ export const MedicationsView: React.FC<MedicationsViewProps> = ({
     });
   }, [searchQuery, selectedCategory, statusFilter]);
 
-  const getCategoryIcon = (iconName: string) => {
+  // Group filtered meds by section for organized display
+  const groupedSections = useMemo(() => {
+    return MEDICATION_SECTIONS.map((sec) => {
+      const items = filteredMeds.filter((m) => m.category === sec.id);
+      return {
+        ...sec,
+        items
+      };
+    }).filter((sec) => sec.items.length > 0);
+  }, [filteredMeds]);
+
+  const getCategoryIcon = (iconName: string, className = 'w-4 h-4') => {
     switch (iconName) {
       case 'Flame':
-        return <Flame className="w-3.5 h-3.5" />;
+        return <Flame className={className} />;
       case 'Scissors':
-        return <Scissors className="w-3.5 h-3.5" />;
+        return <Scissors className={className} />;
       case 'Activity':
-        return <Activity className="w-3.5 h-3.5" />;
+        return <Activity className={className} />;
       case 'ShieldAlert':
-        return <ShieldAlert className="w-3.5 h-3.5" />;
+        return <ShieldAlert className={className} />;
       case 'Droplets':
-        return <Droplets className="w-3.5 h-3.5" />;
+        return <Droplets className={className} />;
       case 'Eye':
-        return <Eye className="w-3.5 h-3.5" />;
+        return <Eye className={className} />;
       case 'AlertOctagon':
-        return <AlertOctagon className="w-3.5 h-3.5 text-rose-500" />;
+        return <AlertOctagon className={className} />;
+      case 'HeartPulse':
+        return <HeartPulse className={className} />;
       case 'Pill':
       default:
-        return <Pill className="w-3.5 h-3.5" />;
+        return <Pill className={className} />;
     }
   };
 
@@ -107,56 +119,57 @@ export const MedicationsView: React.FC<MedicationsViewProps> = ({
     <div className="space-y-8 max-w-7xl mx-auto pb-20">
       
       {/* Top Clinical Header */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#ecf7f3] via-white to-[#f4f7f5] dark:from-[#0d221b] dark:via-[#091a14] dark:to-[#06130f] border border-[#b8e2d4] dark:border-[#1d4d3e] p-6 sm:p-10 shadow-xs">
-        <div className="max-w-3xl space-y-3.5">
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#ecf7f3] via-white to-[#f4f7f5] dark:from-[#0d221b] dark:via-[#091a14] dark:to-[#06130f] border border-[#b8e2d4] dark:border-[#1d4d3e] p-6 sm:p-8 shadow-xs">
+        <div className="max-w-3xl space-y-3">
           <div className="inline-flex items-center space-x-2 text-[#0d7a5f] dark:text-[#00BE88] text-xs font-bold uppercase tracking-wider bg-white/80 dark:bg-[#081a14]/80 px-3 py-1 rounded-full border border-[#b8e2d4] dark:border-[#1d4d3e] shadow-2xs">
-            <Pill className="w-4 h-4" />
-            <span>Emergency First-Aid Formulary & Pharmacy Guide</span>
+            <Pill className="w-3.5 h-3.5" />
+            <span>India First-Aid & Emergency Pharmacy Formulary</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-[#081a14] dark:text-[#f5fbf8] leading-tight">
-            Evidence-Based First-Aid Medications
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-[#081a14] dark:text-[#f5fbf8] leading-tight">
+            Targeted Medications by Injury & Illness
           </h1>
 
-          <p className="text-[#223730] dark:text-[#d1e4dd] text-sm sm:text-base leading-relaxed">
-            Understand the exact topical antiseptics, burn creams, oral analgesics, and emergency biologicals required for specific acute injuries. Grounded in WHO Essential Medicines and Indian Pharmacopoeia standards.
+          <p className="text-[#223730] dark:text-[#d1e4dd] text-xs sm:text-sm leading-relaxed">
+            Concise, doctor-approved guidance on exact antiseptics, burn salves, pain gels, and emergency vaccines available across India and Jan Aushadhi (PMBJP) pharmacies.
           </p>
 
-          <div className="pt-2 flex flex-wrap items-center gap-2.5 text-xs">
-            <span className="flex items-center space-x-1.5 px-3 py-1 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 font-bold border border-emerald-200 dark:border-emerald-800">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+          <div className="pt-1 flex flex-wrap items-center gap-2 text-[11px]">
+            <span className="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 font-bold border border-emerald-200 dark:border-emerald-800">
+              <CheckCircle2 className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
               <span>Over-The-Counter (OTC) Home Stock</span>
             </span>
-            <span className="flex items-center space-x-1.5 px-3 py-1 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 font-bold border border-amber-200 dark:border-amber-800">
-              <Building2 className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
-              <span>Jan Aushadhi (PMBJP) Generic Pricing</span>
+            <span className="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 font-bold border border-amber-200 dark:border-amber-800">
+              <Building2 className="w-3 h-3 text-amber-600 dark:text-amber-400" />
+              <span>Jan Aushadhi (PMBJP) Generic Prices (₹4–₹25)</span>
             </span>
-            <span className="flex items-center space-x-1.5 px-3 py-1 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-800 dark:text-rose-300 font-bold border border-rose-200 dark:border-rose-800">
-              <AlertOctagon className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
+            <span className="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-800 dark:text-rose-300 font-bold border border-rose-200 dark:border-rose-800">
+              <AlertOctagon className="w-3 h-3 text-rose-600 dark:text-rose-400" />
               <span>Rabies & Venom Emergency Protocols</span>
             </span>
           </div>
         </div>
       </div>
 
-      {/* Search Bar & Filters Section */}
-      <div className="space-y-4">
+      {/* Search Bar & Filter Navigation */}
+      <div className="space-y-3.5">
         
-        {/* Search input + OTC switch */}
+        {/* Search Input & OTC/Rx Switcher */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
           <div className="relative flex-1">
-            <Search className="w-4 h-4 text-[#4e665f] dark:text-[#8eada3] absolute left-3.5 top-3.5 pointer-events-none" />
+            <Search className="w-4 h-4 text-[#4e665f] dark:text-[#8eada3] absolute left-3.5 top-3 pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by medicine, brand (e.g. Betadine, Dolo 650, Volini, Burnol, ORS) or injury..."
-              className="w-full pl-10 pr-10 py-3 rounded-2xl bg-white dark:bg-[#0d221b] border border-[#d1ded9] dark:border-[#1b4136] text-[#081a14] dark:text-[#f5fbf8] placeholder-[#6c837c] dark:placeholder-[#67877e] text-sm font-medium focus:outline-hidden focus:border-[#0d7a5f] dark:focus:border-[#00BE88] transition-colors shadow-2xs"
+              placeholder="Search by medicine, brand (e.g. Burnol, Betadine, Dolo 650, Volini, Boroline, Electral) or injury..."
+              className="w-full pl-10 pr-9 py-2.5 rounded-2xl bg-white dark:bg-[#0d221b] border border-[#d1ded9] dark:border-[#1b4136] text-[#081a14] dark:text-[#f5fbf8] placeholder-[#6c837c] dark:placeholder-[#67877e] text-xs sm:text-sm font-medium focus:outline-hidden focus:border-[#0d7a5f] dark:focus:border-[#00BE88] transition-colors shadow-2xs"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3.5 top-3.5 text-[#4e665f] dark:text-[#8eada3] hover:text-[#081a14] dark:hover:text-white"
+                className="absolute right-3 top-2.5 text-[#4e665f] dark:text-[#8eada3] hover:text-[#081a14] dark:hover:text-white"
+                title="Clear search"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -173,7 +186,7 @@ export const MedicationsView: React.FC<MedicationsViewProps> = ({
                   : 'text-[#4e665f] dark:text-[#8eada3] hover:text-[#081a14]'
               }`}
             >
-              All Types
+              All Medicines
             </button>
             <button
               onClick={() => setStatusFilter('otc')}
@@ -199,21 +212,32 @@ export const MedicationsView: React.FC<MedicationsViewProps> = ({
         </div>
 
         {/* Horizontal Category Scroll */}
-        <div className="flex items-center space-x-2 overflow-x-auto pb-1 scrollbar-none">
-          {MEDICATION_CATEGORIES.map((cat) => {
-            const isSelected = selectedCategory === cat.id;
+        <div className="flex items-center space-x-1.5 overflow-x-auto pb-1 scrollbar-none">
+          <button
+            onClick={() => setSelectedCategory('all')}
+            className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap flex items-center space-x-1.5 transition-all cursor-pointer ${
+              selectedCategory === 'all'
+                ? 'bg-[#0d7a5f] dark:bg-[#00BE88] text-white dark:text-[#041611] shadow-xs'
+                : 'bg-white dark:bg-[#0d221b] text-[#223730] dark:text-[#d1e4dd] border border-[#d1ded9] dark:border-[#1b4136] hover:bg-[#eaf1ee] dark:hover:bg-[#143229]'
+            }`}
+          >
+            <Pill className="w-3.5 h-3.5" />
+            <span>All Categories ({MEDICATIONS_DATABASE.length})</span>
+          </button>
+          {MEDICATION_SECTIONS.map((sec) => {
+            const isSelected = selectedCategory === sec.id;
             return (
               <button
-                key={cat.id}
-                onClick={() => setSelectedCategory(cat.id)}
-                className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap flex items-center space-x-1.5 transition-all cursor-pointer ${
+                key={sec.id}
+                onClick={() => setSelectedCategory(sec.id)}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap flex items-center space-x-1.5 transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-[#0d7a5f] dark:bg-[#00BE88] text-white dark:text-[#041611] shadow-xs scale-[1.02]'
+                    ? 'bg-[#0d7a5f] dark:bg-[#00BE88] text-white dark:text-[#041611] shadow-xs'
                     : 'bg-white dark:bg-[#0d221b] text-[#223730] dark:text-[#d1e4dd] border border-[#d1ded9] dark:border-[#1b4136] hover:bg-[#eaf1ee] dark:hover:bg-[#143229]'
                 }`}
               >
-                <span>{getCategoryIcon(cat.iconName)}</span>
-                <span>{cat.label}</span>
+                <span>{getCategoryIcon(sec.iconName)}</span>
+                <span>{sec.title.split('&')[0]}</span>
               </button>
             );
           })}
@@ -221,21 +245,13 @@ export const MedicationsView: React.FC<MedicationsViewProps> = ({
 
       </div>
 
-      {/* Results Header Count */}
-      <div className="flex items-center justify-between text-xs text-[#4e665f] dark:text-[#8eada3] px-1 font-semibold">
-        <span>Showing {filteredMeds.length} verified medications</span>
-        {searchQuery && (
-          <span>Filtered by &ldquo;{searchQuery}&rdquo;</span>
-        )}
-      </div>
-
-      {/* Medication Cards Grid */}
-      {filteredMeds.length === 0 ? (
+      {/* Main Section-by-Section Content */}
+      {groupedSections.length === 0 ? (
         <Card variant="raised" className="text-center py-12 space-y-3">
           <Pill className="w-10 h-10 text-[#6c837c] dark:text-[#8eada3] mx-auto opacity-50" />
           <h3 className="font-bold text-[#081a14] dark:text-[#f5fbf8]">No medications found</h3>
           <p className="text-xs text-[#4e665f] dark:text-[#8eada3] max-w-sm mx-auto">
-            Try adjusting your search query or switching category filters above.
+            No medications matched &ldquo;{searchQuery}&rdquo;. Try another search term or reset filters.
           </p>
           <Button
             size="sm"
@@ -250,106 +266,127 @@ export const MedicationsView: React.FC<MedicationsViewProps> = ({
           </Button>
         </Card>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {filteredMeds.map((med) => {
-            const isEmergencyClinical = med.prescriptionStatus === 'emergency_clinical';
-            return (
-              <motion.div
-                key={med.id}
-                layout
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.25 }}
-                className="flex flex-col h-full rounded-3xl bg-white dark:bg-[#0d221b] border border-[#d1ded9] dark:border-[#1b4136] hover:border-[#0d7a5f] dark:hover:border-[#00BE88] transition-all hover:shadow-md overflow-hidden group"
-              >
-                {/* SVG Visual Banner */}
-                <div className="p-3 pb-0">
-                  <MedicationVisual form={med.dosageForm} name={med.name} className="h-38 w-full" />
-                </div>
-
-                {/* Card Body */}
-                <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
-                  <div className="space-y-2.5">
-                    
-                    {/* Category & Status Pill */}
-                    <div className="flex flex-wrap items-center justify-between gap-1.5">
-                      <span className={`text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md border ${med.badgeBg}`}>
-                        {med.categoryLabel}
-                      </span>
-                      <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#f4f7f5] dark:bg-[#122e25] text-[#223730] dark:text-[#d1e4dd] border border-[#d1ded9] dark:border-[#1e463a]">
-                        {med.dosageFormLabel}
-                      </span>
-                    </div>
-
-                    {/* Titles */}
-                    <div>
-                      <h3 className="font-black text-lg text-[#081a14] dark:text-[#f5fbf8] group-hover:text-[#0d7a5f] dark:group-hover:text-[#00BE88] transition-colors leading-snug">
-                        {med.name}
-                      </h3>
-                      <p className="text-xs font-semibold text-[#0d7a5f] dark:text-[#00BE88] mt-0.5">
-                        {med.genericName}
-                      </p>
-                    </div>
-
-                    {/* Concise Basic Info: Used For */}
-                    <p className="text-xs text-[#223730] dark:text-[#d1e4dd] leading-relaxed line-clamp-2">
-                      {med.usedFor}
-                    </p>
-
-                    {/* Quick Warning Capsule */}
-                    <div className={`p-2.5 rounded-xl text-[11px] leading-relaxed flex items-start space-x-2 ${
-                      isEmergencyClinical
-                        ? 'bg-red-50 dark:bg-red-950/40 text-red-900 dark:text-red-200 border border-red-200 dark:border-red-900/60 font-medium'
-                        : 'bg-[#f4f7f5] dark:bg-[#091a14] text-[#4e665f] dark:text-[#8eada3] border border-[#d1ded9] dark:border-[#1b4136]'
-                    }`}>
-                      <Info className="w-3.5 h-3.5 shrink-0 mt-0.5 text-current opacity-80" />
-                      <span className="line-clamp-2">
-                        <strong>Caution:</strong> {med.keyWarning}
-                      </span>
-                    </div>
-
-                    {/* Market Brand Tags */}
-                    <div className="flex flex-wrap items-center gap-1 pt-0.5">
-                      {med.brandNames.slice(0, 3).map((brand) => (
-                        <span
-                          key={brand}
-                          className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-[#eaf0ed] dark:bg-[#122e25] text-[#223730] dark:text-[#8eada3]"
-                        >
-                          {brand}
-                        </span>
-                      ))}
-                      {med.brandNames.length > 3 && (
-                        <span className="text-[10px] text-[#6c837c] dark:text-[#8eada3] font-medium">
-                          +{med.brandNames.length - 3} more
-                        </span>
-                      )}
-                    </div>
-
+        <div className="space-y-10">
+          {groupedSections.map((sec) => (
+            <div key={sec.id} className="space-y-4">
+              
+              {/* Section Header */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-2 border-b border-[#d1ded9] dark:border-[#1b4136] gap-1">
+                <div className="flex items-center space-x-2.5">
+                  <div className="w-7 h-7 rounded-lg bg-[#ecf7f3] dark:bg-[#122e25] text-[#0d7a5f] dark:text-[#00BE88] flex items-center justify-center shrink-0">
+                    {getCategoryIcon(sec.iconName, 'w-4 h-4')}
                   </div>
+                  <div>
+                    <h2 className="text-base sm:text-lg font-black text-[#081a14] dark:text-[#f5fbf8] tracking-tight">
+                      {sec.title}
+                    </h2>
+                    <span className="text-[11px] font-semibold text-[#0d7a5f] dark:text-[#00BE88]">
+                      {sec.hindiTitle}
+                    </span>
+                  </div>
+                </div>
+                <span className="text-xs text-[#4e665f] dark:text-[#8eada3] font-medium">
+                  {sec.items.length} {sec.items.length === 1 ? 'Medicine' : 'Medicines'}
+                </span>
+              </div>
 
-                  {/* Know More Button */}
-                  <div className="pt-2 border-t border-[#d1ded9] dark:border-[#1b4136]">
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => setActiveModalMed(med)}
-                      rightIcon={<ArrowRight className="w-3.5 h-3.5" />}
-                      className="w-full justify-between font-bold cursor-pointer"
+              {/* Compact Cards Grid for this Section */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                {sec.items.map((med) => {
+                  const isEmergencyClinical = med.prescriptionStatus === 'emergency_clinical';
+                  return (
+                    <motion.div
+                      key={med.id}
+                      layout
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="flex flex-col h-full rounded-2xl bg-white dark:bg-[#0d221b] border border-[#d1ded9] dark:border-[#1b4136] hover:border-[#0d7a5f] dark:hover:border-[#00BE88] transition-all hover:shadow-md overflow-hidden group"
                     >
-                      <span>Know More & Clinical Guide</span>
-                    </Button>
-                  </div>
+                      {/* Compact SVG Visual Banner */}
+                      <div className="p-2.5 pb-0">
+                        <MedicationVisual form={med.dosageForm} name={med.name} className="h-28 w-full" />
+                      </div>
 
-                </div>
-              </motion.div>
-            );
-          })}
+                      {/* Card Body: Compact, Brief & Scannable */}
+                      <div className="p-3.5 sm:p-4 flex-1 flex flex-col justify-between space-y-3">
+                        <div className="space-y-2">
+                          
+                          {/* Prescription Status Badge */}
+                          <div className="flex items-center justify-between gap-1 text-[10px] font-bold">
+                            <span className="text-[#0d7a5f] dark:text-[#00BE88] bg-[#ecf7f3] dark:bg-[#122e25] px-2 py-0.5 rounded-md border border-[#b8e2d4] dark:border-[#1d4d3e]">
+                              {med.dosageFormLabel.split(' ')[0]}
+                            </span>
+                            <span className={`px-2 py-0.5 rounded-md font-black uppercase tracking-wider ${
+                              isEmergencyClinical
+                                ? 'bg-red-100 dark:bg-red-950/70 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800'
+                                : 'bg-[#f4f7f5] dark:bg-[#15342a] text-[#4e665f] dark:text-[#8eada3] border border-[#d1ded9] dark:border-[#1e463a]'
+                            }`}>
+                              {med.prescriptionStatus === 'otc' ? 'OTC First-Aid' : isEmergencyClinical ? 'Hospital ICU' : 'Doctor Prescribed'}
+                            </span>
+                          </div>
+
+                          {/* Medicine Name & Generic */}
+                          <div>
+                            <h3 className="font-extrabold text-sm sm:text-base text-[#081a14] dark:text-[#f5fbf8] group-hover:text-[#0d7a5f] dark:group-hover:text-[#00BE88] transition-colors leading-snug">
+                              {med.name}
+                            </h3>
+                            <p className="text-[11px] font-semibold text-[#0d7a5f] dark:text-[#00BE88] truncate mt-0.5">
+                              {med.genericName}
+                            </p>
+                          </div>
+
+                          {/* Brief 1-Sentence Purpose */}
+                          <p className="text-xs text-[#223730] dark:text-[#d1e4dd] leading-relaxed line-clamp-2">
+                            {med.usedFor}
+                          </p>
+
+                          {/* Indian Brand Tags */}
+                          <div className="flex flex-wrap items-center gap-1 pt-0.5">
+                            {med.brandNames.slice(0, 2).map((brand) => (
+                              <span
+                                key={brand}
+                                className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-[#eaf0ed] dark:bg-[#122e25] text-[#081a14] dark:text-[#d1e4dd] border border-[#d1ded9] dark:border-[#1e463a]"
+                              >
+                                {brand}
+                              </span>
+                            ))}
+                            {med.brandNames.length > 2 && (
+                              <span className="text-[10px] text-[#6c837c] dark:text-[#8eada3] font-medium">
+                                +{med.brandNames.length - 2} more
+                              </span>
+                            )}
+                          </div>
+
+                        </div>
+
+                        {/* Know More Action Button */}
+                        <div className="pt-2 border-t border-[#d1ded9] dark:border-[#1b4136]">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => setActiveModalMed(med)}
+                            rightIcon={<ArrowRight className="w-3 h-3" />}
+                            className="w-full justify-between text-xs font-bold cursor-pointer py-1.5"
+                          >
+                            <span>Know More</span>
+                          </Button>
+                        </div>
+
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+
+            </div>
+          ))}
         </div>
       )}
 
       {/* Statutory Clinical Advisory & Legal Notice */}
-      <Card variant="raised" className="space-y-3.5 border-t-4 border-t-[#0d7a5f] dark:border-t-[#00BE88]">
-        <div className="flex items-center space-x-2 text-[#081a14] dark:text-[#f5fbf8] font-black text-sm uppercase tracking-wider">
+      <Card variant="raised" className="space-y-3 border-t-4 border-t-[#0d7a5f] dark:border-t-[#00BE88]">
+        <div className="flex items-center space-x-2 text-[#081a14] dark:text-[#f5fbf8] font-black text-xs sm:text-sm uppercase tracking-wider">
           <ShieldCheck className="w-4 h-4 text-[#0d7a5f] dark:text-[#00BE88]" />
           <span>Statutory Pharmacological Safety Notice & Medical Disclaimer</span>
         </div>
