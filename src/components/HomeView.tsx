@@ -1,5 +1,5 @@
 import React from 'react';
-import { PhoneCall, ShieldAlert,
+import { PhoneCall, ShieldAlert, Pill,
   Activity,
   AlertTriangle,
   Clock,
@@ -32,6 +32,7 @@ interface HomeViewProps {
   onOpenWatch: (injuryId?: string) => void;
   onOpenLibrary: (category?: string) => void;
   onOpenFindHelp: () => void;
+  onOpenMedications: () => void;
   monitoredInjuries: MonitoredInjury[];
   userPrefs: UserPreferences;
 }
@@ -42,6 +43,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
   onOpenWatch,
   onOpenLibrary,
   onOpenFindHelp,
+  onOpenMedications,
   monitoredInjuries,
   userPrefs
 }) => {
@@ -316,22 +318,40 @@ export const HomeView: React.FC<HomeViewProps> = ({
         </div>
       </motion.div>
 
-      {/* Shortcuts Grid: Emergency Care Navigation & Clinical Safety */}
-      <motion.div variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {/* Shortcuts Grid: Emergency Care Navigation, Medications & Protocol Library */}
+      <motion.div variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <Card
           variant="interactive"
           onClick={onOpenFindHelp}
-          className="flex items-center space-x-4 group"
+          className="flex items-center space-x-3.5 group"
         >
-          <div className="w-12 h-12 rounded-2xl bg-[#ecf7f3] dark:bg-[#122c23] flex items-center justify-center text-[#0d7a5f] dark:text-[#00BE88] shrink-0 group-hover:scale-105 transition-transform border border-[#b8e2d4] dark:border-[#1e4e40]">
-            <MapPin className="w-6 h-6" />
+          <div className="w-11 h-11 rounded-2xl bg-[#ecf7f3] dark:bg-[#122c23] flex items-center justify-center text-[#0d7a5f] dark:text-[#00BE88] shrink-0 group-hover:scale-105 transition-transform border border-[#b8e2d4] dark:border-[#1e4e40]">
+            <MapPin className="w-5 h-5" />
           </div>
           <div>
             <h3 className="font-bold text-sm text-[#081a14] dark:text-[#f5fbf8] group-hover:text-[#0d7a5f] dark:group-hover:text-[#00BE88] transition-colors">
-              Find Verified Emergency Care
+              Find Verified Care
             </h3>
-            <p className="text-xs text-[#4e665f] dark:text-[#8eada3] mt-0.5">
-              Live mapping navigation for ERs, urgent care clinics, and pediatric emergency centers near you.
+            <p className="text-xs text-[#4e665f] dark:text-[#8eada3] mt-0.5 line-clamp-2">
+              ERs, trauma centers & 24x7 Jan Aushadhi chemists near you.
+            </p>
+          </div>
+        </Card>
+
+        <Card
+          variant="interactive"
+          onClick={onOpenMedications}
+          className="flex items-center space-x-3.5 group"
+        >
+          <div className="w-11 h-11 rounded-2xl bg-amber-50 dark:bg-amber-950/40 flex items-center justify-center text-amber-600 dark:text-amber-400 shrink-0 group-hover:scale-105 transition-transform border border-amber-200 dark:border-amber-800/60">
+            <Pill className="w-5 h-5" />
+          </div>
+          <div>
+            <h3 className="font-bold text-sm text-[#081a14] dark:text-[#f5fbf8] group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+              Medications Guide
+            </h3>
+            <p className="text-xs text-[#4e665f] dark:text-[#8eada3] mt-0.5 line-clamp-2">
+              Visual first-aid formulary, exact dosages & Jan Aushadhi generics.
             </p>
           </div>
         </Card>
@@ -339,17 +359,17 @@ export const HomeView: React.FC<HomeViewProps> = ({
         <Card
           variant="interactive"
           onClick={() => onOpenLibrary()}
-          className="flex items-center space-x-4 group"
+          className="flex items-center space-x-3.5 group"
         >
-          <div className="w-12 h-12 rounded-2xl bg-[#f0f9ff] dark:bg-[#0c2636] flex items-center justify-center text-sky-600 dark:text-sky-400 shrink-0 group-hover:scale-105 transition-transform border border-sky-200 dark:border-sky-800/60">
-            <BookOpen className="w-6 h-6" />
+          <div className="w-11 h-11 rounded-2xl bg-[#f0f9ff] dark:bg-[#0c2636] flex items-center justify-center text-sky-600 dark:text-sky-400 shrink-0 group-hover:scale-105 transition-transform border border-sky-200 dark:border-sky-800/60">
+            <BookOpen className="w-5 h-5" />
           </div>
           <div>
             <h3 className="font-bold text-sm text-[#081a14] dark:text-[#f5fbf8] group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
-              Browse Safety Protocol Library
+              Protocol Library
             </h3>
-            <p className="text-xs text-[#4e665f] dark:text-[#8eada3] mt-0.5">
-              Explore standardized protocols for wounds, burns, trauma, sprains, and foreign body emergencies.
+            <p className="text-xs text-[#4e665f] dark:text-[#8eada3] mt-0.5 line-clamp-2">
+              AIIMS & ICMR evidence-based trauma and resuscitation protocols.
             </p>
           </div>
         </Card>

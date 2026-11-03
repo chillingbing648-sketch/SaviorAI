@@ -12,6 +12,7 @@ import { AssessWizard } from './components/AssessWizard';
 import { InjuryWatchView } from './components/InjuryWatchView';
 import { FindHelpView } from './components/FindHelpView';
 import { LibraryView } from './components/LibraryView';
+import { MedicationsView } from './components/MedicationsView';
 import { AdminSafetyBenchmarkView } from './components/AdminSafetyBenchmarkView';
 import { SettingsView } from './components/SettingsView';
 import { EmergencyModal } from './components/EmergencyModal';
@@ -36,7 +37,7 @@ import {
 export default function App() {
   // Navigation tab state
   const [currentTab, setCurrentTab] = useState<
-    'home' | 'assess' | 'watch' | 'find_help' | 'library' | 'admin' | 'settings'
+    'home' | 'assess' | 'watch' | 'medications' | 'find_help' | 'library' | 'admin' | 'settings'
   >('home');
 
   // App domain state
@@ -239,6 +240,7 @@ export default function App() {
                 onOpenEmergency={() => setIsEmergencyModalOpen(true)}
                 onOpenWatch={handleOpenWatch}
                 onOpenLibrary={handleOpenLibrary}
+                onOpenMedications={() => setCurrentTab('medications')}
                 onOpenFindHelp={() => setCurrentTab('find_help')}
                 monitoredInjuries={monitoredInjuries}
                 userPrefs={userPrefs}
@@ -273,6 +275,17 @@ export default function App() {
                   setCurrentTab('assess');
                 }}
                 userPrefs={userPrefs}
+              />
+            )}
+
+            {currentTab === 'medications' && (
+              <MedicationsView
+                userPrefs={userPrefs}
+                onOpenEmergency={() => setIsEmergencyModalOpen(true)}
+                onStartAssessment={() => {
+                  setPrefillCase(null);
+                  setCurrentTab('assess');
+                }}
               />
             )}
 

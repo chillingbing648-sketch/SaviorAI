@@ -3,6 +3,7 @@ import {
   Shield,
   ShieldAlert,
   Activity,
+  Pill,
   MapPin,
   BookOpen,
   Settings,
@@ -16,8 +17,8 @@ import { UserPreferences } from '../types';
 import { SUPPORTED_LANGUAGES, getTranslation } from '../lib/translations';
 
 interface HeaderProps {
-  currentTab: 'home' | 'assess' | 'watch' | 'find_help' | 'library' | 'admin' | 'settings';
-  onSelectTab: (tab: 'home' | 'assess' | 'watch' | 'find_help' | 'library' | 'admin' | 'settings') => void;
+  currentTab: 'home' | 'assess' | 'watch' | 'medications' | 'find_help' | 'library' | 'admin' | 'settings';
+  onSelectTab: (tab: 'home' | 'assess' | 'watch' | 'medications' | 'find_help' | 'library' | 'admin' | 'settings') => void;
   onOpenEmergency: () => void;
   userPrefs: UserPreferences;
   onUpdatePrefs: (prefs: Partial<UserPreferences>) => void;
@@ -39,7 +40,7 @@ export const Header: React.FC<HeaderProps> = ({
   onToggleTheme
 }) => {
   const navItems: Array<{
-    id: 'home' | 'assess' | 'watch' | 'find_help' | 'library' | 'admin';
+    id: 'home' | 'assess' | 'medications' | 'watch' | 'find_help' | 'library' | 'admin';
     labelKey: string;
     icon?: React.ReactNode;
     badge?: number;
@@ -49,6 +50,11 @@ export const Header: React.FC<HeaderProps> = ({
       id: 'assess',
       labelKey: 'navAssess',
       icon: <Activity className="w-3.5 h-3.5" />
+    },
+    {
+      id: 'medications',
+      labelKey: 'navMeds',
+      icon: <Pill className="w-3.5 h-3.5" />
     },
     {
       id: 'watch',
@@ -146,7 +152,7 @@ export const Header: React.FC<HeaderProps> = ({
             })}
           </nav>
 
-          {/* Right Action Tools: Theme Toggle, Language, Settings, Emergency Trigger */}
+          {/* Right Action Tools: Theme Toggle, Language Dropdown, Settings, Emergency Trigger */}
           <div className="flex items-center space-x-2 sm:space-x-2.5">
             
             {/* THEME TOGGLE BUTTON */}
@@ -184,24 +190,12 @@ export const Header: React.FC<HeaderProps> = ({
               </AnimatePresence>
             </motion.button>
 
-            {/* Language Switcher */}
-            <motion.button
-              whileTap={{ scale: 0.94 }}
-              type="button"
-              onClick={() => onUpdatePrefs({ language: userPrefs.language === 'hi' ? 'en' : 'hi' })}
-              className="px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl border border-[#d1ded9] dark:border-[#1b4136] bg-[#f4f7f5] hover:bg-[#eaf0ed] dark:bg-[#0d221b] dark:hover:bg-[#143229] text-xs font-bold cursor-pointer text-[#081a14] dark:text-[#f5fbf8] shadow-2xs flex items-center space-x-1.5 transition-colors"
-              title="Toggle English / हिन्दी"
-              id="header-lang-toggle-btn"
-            >
-              <span>🇮🇳</span>
-              <span>{userPrefs.language === 'hi' ? 'English' : 'हिन्दी'}</span>
-            </motion.button>
-
-            <div className="relative hidden md:block">
+            {/* Standard Language Dropdown (Includes Hindi, English, Spanish, etc.) */}
+            <div className="relative">
               <select
                 value={userPrefs.language}
                 onChange={(e) => onUpdatePrefs({ language: e.target.value })}
-                className="appearance-none bg-[#f4f7f5] hover:bg-[#eaf0ed] dark:bg-[#0d221b] dark:hover:bg-[#143229] text-[#081a14] dark:text-[#f5fbf8] text-xs font-semibold pl-7 pr-6 py-2 rounded-xl border border-[#d1ded9] dark:border-[#1b4136] cursor-pointer focus:outline-hidden transition-colors shadow-2xs"
+                className="appearance-none bg-[#f4f7f5] hover:bg-[#eaf0ed] dark:bg-[#0d221b] dark:hover:bg-[#143229] text-[#081a14] dark:text-[#f5fbf8] text-xs font-semibold pl-7 pr-6 py-2 sm:py-2.5 rounded-xl border border-[#d1ded9] dark:border-[#1b4136] cursor-pointer focus:outline-hidden transition-colors shadow-2xs max-w-[110px] sm:max-w-none truncate"
                 id="header-language-select"
                 title="Select language"
               >
@@ -211,8 +205,8 @@ export const Header: React.FC<HeaderProps> = ({
                   </option>
                 ))}
               </select>
-              <Globe className="w-3.5 h-3.5 text-[#4e665f] dark:text-[#8eada3] absolute left-2.5 top-2.5 pointer-events-none" />
-              <ChevronDown className="w-3 h-3 text-[#4e665f] dark:text-[#8eada3] absolute right-2 top-3 pointer-events-none" />
+              <Globe className="w-3.5 h-3.5 text-[#4e665f] dark:text-[#8eada3] absolute left-2 top-2.5 sm:top-3 pointer-events-none" />
+              <ChevronDown className="w-3 h-3 text-[#4e665f] dark:text-[#8eada3] absolute right-2 top-3 sm:top-3.5 pointer-events-none" />
             </div>
 
             {/* Settings Quick Icon */}
@@ -264,6 +258,7 @@ export const Header: React.FC<HeaderProps> = ({
                     : 'text-[#4e665f] dark:text-[#8eada3] hover:text-[#081a14] dark:hover:text-[#f5fbf8]'
                 }`}
               >
+                {item.icon && <span className="shrink-0">{item.icon}</span>}
                 <span>{getTranslation(userPrefs.language, item.labelKey)}</span>
                 {Boolean(item.badge && item.badge > 0) && (
                   <span className="ml-1 px-1.5 py-0.2 rounded-full text-[9px] font-bold bg-amber-500 text-white">
